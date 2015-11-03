@@ -13,8 +13,5 @@ export const FILES_TO_INJECT_FOR_DIST = [
   'build.css'
 ];
 
-export const JSPM_PACKAGES_FOR_DIST = [
-  pkg.gulp.externalHelpersPath,
-  'jspm_packages/github/twbs/bootstrap@3.3.5/fonts/**',
-  'jspm_packages/npm/font-awesome@4.4.0/fonts/**'
-];
+export const JSPM_PACKAGES_FOR_DIST = pkg.gulp.fontsPaths
+  .concat(pkg.gulp.externalHelpersPath);
