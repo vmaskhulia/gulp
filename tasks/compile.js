@@ -53,8 +53,7 @@ gulp.task('compileScripts', () =>
     .pipe($.sourcemaps.init())
     .pipe($.babel(babelOptions))
     .pipe($.ngAnnotate())
-    .pipe($.sourcemaps.write('.',
-      { sourceRoot: paths.tmpAppBase }))
+    .pipe($.sourcemaps.write('.', {sourceRoot: paths.tmpAppBase}))
     .pipe(gulp.dest(tmpAppBase))
 );
 
