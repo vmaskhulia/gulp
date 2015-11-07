@@ -10,16 +10,27 @@ const argv = $.util.env;
 const LOG = $.util.log;
 const COLORS = $.util.colors;
 
+gulp.task('modal', done => {
+  runSequence('addModalTemplates', 'inject', done);
+});
+
 gulp.task('common', done => {
-  runSequence('addCommonTemplates', 'injectCommon', done);
+  runSequence('addCommonTemplates', 'inject', done);
 });
 
 gulp.task('maincomponent', done => {
-  runSequence('addMainComponentTemplates', 'injectMainComponents', done);
+  runSequence('addMainComponentTemplates', 'inject', done);
 });
 
 gulp.task('admincomponent', done => {
-  runSequence('addAdminComponentTemplates', 'injectAdminComponents', done);
+  runSequence('addAdminComponentTemplates', 'inject', done);
+});
+
+gulp.task('addModalTemplates', () => {
+  const name = `${getName()}Modal`;
+  const srcPath = paths.generatorTemplates.modal;
+  const destPath = path.join(paths.app.common, 'modals', name);
+  return insertTemplates(name, srcPath, destPath);
 });
 
 gulp.task('addCommonTemplates', () => {

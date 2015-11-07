@@ -11,6 +11,7 @@ const paths = {
   gulpfile: [`${root}gulpfile.js`, `${root}gulp/**/*.js`],
 
   generatorTemplates: {
+    modal: `${root}gulp/generator/modal/**`,
     common: `${root}gulp/generator/common/**`,
     mainComponent: `${root}gulp/generator/main-component/**`,
     adminComponent: `${root}gulp/generator/admin-component/**`
