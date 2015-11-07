@@ -17,8 +17,8 @@ const mainComponentsFolders = [`!${componentsBase}main/*.*`, `${componentsBase}m
 const adminComponentsFolders = [`!${componentsBase}admin/*.*`, `${componentsBase}admin/*`];
 
 const modalFolders = [`!${commonBase}modals/*.*`, `${commonBase}modals/*`];
-const serviceFolders = [`!${commonBase}services/.services.js`, `${commonBase}services/*`];
-const resourceFolders = [`!${commonBase}resources/.resources.js`, `${commonBase}resources/*`];
+const serviceFolders = [`!${commonBase}services/services.js`, `${commonBase}services/*`];
+const resourceFolders = [`!${commonBase}resources/resources.js`, `${commonBase}resources/*`];
 
 gulp.task('inject', () => {
   return es.merge(
