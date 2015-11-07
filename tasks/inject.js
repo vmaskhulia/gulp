@@ -6,7 +6,6 @@ var es = require('event-stream');
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
-const argv = $.util.env;
 const END_TAG = '//endinject';
 
 const commonBase = paths.app.common;
