@@ -50,8 +50,11 @@ gulp.task('compileScripts', () =>
   gulp.src(paths.app.scripts)
     .pipe($.plumber())
     .pipe($.changed(paths.tmp.basePath, {extension: '.js'}))
+    .pipe($.sourcemaps.init())
     .pipe($.babel(babelOptions))
     .pipe($.ngAnnotate())
+    .pipe($.sourcemaps.write('.',
+      { sourceRoot: paths.tmpAppBase }))
     .pipe(gulp.dest(tmpAppBase))
 );
 
