@@ -11,109 +11,166 @@ const END_TAG = '//endinject';
 const commonBase = paths.app.common;
 const componentsBase = paths.app.components;
 
-const commonFolders = [`!${commonBase}*.*`, `${commonBase}*`];
-const mainComponentsFolders = [`!${componentsBase}main/*.*`, `${componentsBase}main/*`];
-const adminComponentsFolders = [`!${componentsBase}admin/*.*`, `${componentsBase}admin/*`];
+const filesToInject = {
+  common: [`!${commonBase}*.*`, `${commonBase}*`],
+  modals: [`!${commonBase}modals/*.*`, `${commonBase}modals/*`],
+  services: [`!${commonBase}services/services.js`, `${commonBase}services/*`],
+  resources: [`!${commonBase}resources/resources.js`, `${commonBase}resources/*`],
 
-const modalFolders = [`!${commonBase}modals/*.*`, `${commonBase}modals/*`];
-const serviceFolders = [`!${commonBase}services/services.js`, `${commonBase}services/*`];
-const resourceFolders = [`!${commonBase}resources/resources.js`, `${commonBase}resources/*`];
+  main: [`!${componentsBase}main/*.*`, `${componentsBase}main/*`],
+  admin: [`!${componentsBase}admin/*.*`, `${componentsBase}admin/*`]
+};
 
 gulp.task('inject', () => {
   return es.merge(
+    injectCommon(),
     injectModals(),
     injectServices(),
     injectResources(),
-    injectCommon(),
     injectMainComponents(),
     injectAdminComponents()
   );
 });
 
+class ImportStrategy {
+  getStartTag() {
+    return '//inject:import';
+  }
+  getTransform(name) {
+    return `import ${name} from './${name}/${name}';`;
+  }
+}
+
+class MainImportStrategy extends ImportStrategy {
+  getStartTag() {
+    return `${super.getStartTag()}.main`;
+  }
+  getTransform(name) {
+    return `import main${name} from './main/${name}/${name}';`;
+  }
+}
+
+class AdminImportStrategy extends ImportStrategy {
+  getStartTag() {
+    return `${super.getStartTag()}.admin`;
+  }
+  getTransform(name) {
+    return `import admin${name} from './admin/${name}/${name}';`;
+  }
+}
+
+class ImportFileStrategy extends ImportStrategy {
+  getTransform(name) {
+    return `import ${name} from './${name}';`;
+  }
+}
+
+class NgModuleStrategy {
+  getStartTag() {
+    return '//inject:ngmodule';
+  }
+  getTransform(name) {
+    return `${name}.name,`;
+  }
+}
+
+class MainNgModuleStrategy extends NgModuleStrategy {
+  getStartTag() {
+    return `${super.getStartTag()}.main`;
+  }
+  getTransform(name) {
+    return `main${super.getTransform(name)}`;
+  }
+}
+
+class AdminNgModuleStrategy extends NgModuleStrategy {
+  getStartTag() {
+    return `${super.getStartTag()}.admin`;
+  }
+  getTransform(name) {
+    return `admin${super.getTransform(name)}`;
+  }
+}
+
+class NgServiceStrategy {
+  getStartTag() {
+    return '//inject:ngservice';
+  }
+  getTransform(name) {
+    return `.service('${name}', ${name})`;
+  }
+}
+
+class NgFactoryStrategy {
+  getStartTag() {
+    return '//inject:ngfactory';
+  }
+  getTransform(name) {
+    return `.factory('${name}', ${name})`;
+  }
+}
+
+
+function injectCommon() {
+  var base = commonBase;
+  var src = `${base}/common.js`;
+  return injectFiles(src, base, filesToInject.common,
+    new ImportStrategy(), new NgModuleStrategy());
+}
+
 function injectModals() {
   var base = `${commonBase}modals`;
-
-  return gulp.src(`${base}/modals.js`)
-    .pipe(inject(modalFolders, '//inject:import', getTransformImportFolders('')))
-    .pipe(inject(modalFolders, '//inject:ngservice', transformNgService))
-    .pipe(gulp.dest(base));
+  var src = `${base}/modals.js`;
+  return injectFiles(src, base, filesToInject.modals,
+    new ImportStrategy(), new NgServiceStrategy());
 }
 
 function injectServices() {
   var base = `${commonBase}services`;
-
-  return gulp.src(`${base}/services.js`)
-    .pipe(inject(serviceFolders, '//inject:import', transformImportFiles))
-    .pipe(inject(serviceFolders, '//inject:ngservice', transformNgService))
-    .pipe(gulp.dest(base));
+  var src = `${base}/services.js`;
+  return injectFiles(src, base, filesToInject.services,
+    new ImportFileStrategy(), new NgServiceStrategy());
 }
 
 function injectResources() {
   var base = `${commonBase}resources`;
-
-  return gulp.src(`${base}/resources.js`)
-    .pipe(inject(resourceFolders, '//inject:import', transformImportFiles))
-    .pipe(inject(resourceFolders, '//inject:ngfactory', transformNgFactory))
-    .pipe(gulp.dest(base));
-}
-
-function injectCommon() {
-  return gulp.src(`${commonBase}common.js`)
-    .pipe(inject(commonFolders, '//inject:import', getTransformImportFolders('')))
-    .pipe(inject(commonFolders, '//inject:ngmodule', transformNgModule))
-    .pipe(gulp.dest(commonBase));
+  var src = `${base}/resources.js`;
+  return injectFiles(src, base, filesToInject.resources,
+    new ImportFileStrategy(), new NgFactoryStrategy());
 }
 
 function injectMainComponents() {
-  return gulp.src(`${componentsBase}components.js`)
-    .pipe(inject(mainComponentsFolders, '//inject:import.main', getTransformImportFolders('main/')))
-    .pipe(inject(mainComponentsFolders, '//inject:ngmodule.main', transformNgModule))
-    .pipe(gulp.dest(componentsBase));
+  var base = componentsBase;
+  var src = `${base}/components.js`;
+  return injectFiles(src, base, filesToInject.main,
+    new MainImportStrategy(), new MainNgModuleStrategy());
 }
 
 function injectAdminComponents() {
-  return gulp.src(`${componentsBase}components.js`)
-    .pipe(inject(adminComponentsFolders, '//inject:import.admin'), getTransformImportFolders('admin/'))
-    .pipe(inject(adminComponentsFolders, '//inject:ngmodule.admin', transformNgModule))
-    .pipe(gulp.dest(componentsBase));
+  var base = componentsBase;
+  var src = `${base}/components.js`;
+  return injectFiles(src, base, filesToInject.admin,
+    new AdminImportStrategy(), new AdminNgModuleStrategy());
 }
 
-function inject(folderPath, starttag, transform) {
+
+function injectFiles(src, dest, toInject, injectStrategy1, injectStrategy2) {
+  return gulp.src(src)
+    .pipe(injectFile(toInject, injectStrategy1))
+    .pipe(injectFile(toInject, injectStrategy2))
+    .pipe(gulp.dest(dest));
+}
+
+function injectFile(folderPath, strategy) {
   return $.inject(
     gulp.src(folderPath, {read: false}), {
-      transform,
-      starttag,
+      transform: filePath => {
+        var extension = path.extname(filePath);
+        var name = path.basename(filePath).replace(extension, '');
+        return strategy.getTransform(name);
+      },
+      starttag: strategy.getStartTag(),
       endtag: END_TAG
     }
   );
-}
-
-function getTransformImportFolders(prefix) {
-  return filePath => {
-    var name = path.basename(filePath);
-    return `import ${name} from './${prefix}${name}/${name}';`;
-  };
-}
-
-function transformImportFiles(filePath) {
-  var extension = path.extname(filePath);
-  var name = path.basename(filePath).replace(extension, '');
-  return `import ${name} from './${name}';`;
-}
-
-function transformNgModule(filePath) {
-  var name = path.basename(filePath);
-  return `${name}.name,`;
-}
-
-function transformNgService(filePath) {
-  var extension = path.extname(filePath);
-  var name = path.basename(filePath).replace(extension, '');
-  return `.service('${name}', ${name})`;
-}
-
-function transformNgFactory(filePath) {
-  var extension = path.extname(filePath);
-  var name = path.basename(filePath).replace(extension, '');
-  return `.factory('${name}', ${name})`;
 }
