@@ -27,8 +27,7 @@ gulp.task('inject', () => {
     injectModals(),
     injectServices(),
     injectResources(),
-    injectMainComponents(),
-    injectAdminComponents()
+    injectComponents()
   );
 });
 
@@ -139,18 +138,16 @@ function injectResources() {
     new ImportFileStrategy(), new NgFactoryStrategy());
 }
 
-function injectMainComponents() {
+function injectComponents() {
   var base = componentsBase;
   var src = `${base}/components.js`;
-  return injectFiles(src, base, filesToInject.main,
-    new MainImportStrategy(), new MainNgModuleStrategy());
-}
 
-function injectAdminComponents() {
-  var base = componentsBase;
-  var src = `${base}/components.js`;
-  return injectFiles(src, base, filesToInject.admin,
-    new AdminImportStrategy(), new AdminNgModuleStrategy());
+  return gulp.src(src)
+    .pipe(injectFile(filesToInject.main, new MainImportStrategy()))
+    .pipe(injectFile(filesToInject.main, new MainNgModuleStrategy()))
+    .pipe(injectFile(filesToInject.admin, new AdminImportStrategy()))
+    .pipe(injectFile(filesToInject.admin, new AdminNgModuleStrategy()))
+    .pipe(gulp.dest(base));
 }
 
 
