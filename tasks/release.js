@@ -1,20 +1,20 @@
 'use strict';
 
 import gulp from 'gulp';
-import pkg from '../../package.json';
-import {SERVER_SSH, RELEASE_NAME} from '../consts';
+import {NAME, SSH_ADDRESS} from '../consts';
+import path from 'path';
 
-gulp.task('release', ['dist'], () => {
+var rootPath = path.normalize(__dirname + '/../..');
+
+//gulp.task('release', ['dist'], () => {
+gulp.task('release', () => {
   var exec = require('child_process').exec;
-  var commitMsg = `chore(release): v${pkg.version}`;
 
   var proc = exec(`
-    rm -r -f ${RELEASE_NAME}/dist ${RELEASE_NAME}/server && \
-    cp -r dist server package.json ${RELEASE_NAME} && \
-    cd ${RELEASE_NAME} && npm i --production --no-optional && \
-    git add . && git commit -m "${commitMsg}" && git push origin master && \
-    ssh ${SERVER_SSH} 'cd ${RELEASE_NAME} && git pull origin master' \
-  `);
+      ssh ${SSH_ADDRESS} "mkdir -p ${NAME} && rm -r -f ${NAME}/dist ${NAME}/server"
+      scp -r ${rootPath}/dist ${rootPath}/server ${rootPath}/package.json ${SSH_ADDRESS}:~/${NAME}
+      ssh ${SSH_ADDRESS} "nvm use 4 && cd ${NAME} && npm i --production --no-optional"
+    `);
 
   proc.stdout.on('data', data => console.log(data));
   proc.stderr.on('data', data => console.log(data));
