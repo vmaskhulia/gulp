@@ -6,8 +6,7 @@ import path from 'path';
 
 var rootPath = path.normalize(__dirname + '/../..');
 
-//gulp.task('release', ['dist'], () => {
-gulp.task('release', () => {
+gulp.task('release', ['dist'], () => {
   var exec = require('child_process').exec;
 
   var proc = exec(`
