@@ -2,8 +2,8 @@
 
 import pkg from '../package.json';
 
-export const SERVER_SSH = pkg.gulp.sshAddress;
-export const RELEASE_NAME = `release-${pkg.name}`;
+export const NAME = pkg.name;
+export const SSH_ADDRESS = pkg.gulp.sshAddress;
 export const LOCALHOST_PORT = pkg.gulp.localhostPort;
 export const BROWSER_SYNC_PORT = pkg.gulp.browserSyncPort;
 
