@@ -7,7 +7,7 @@ var $ = require('gulp-load-plugins')();
 
 gulp.task('watch', ['compile'], () => {
   $.watch(paths.gulpfile, () =>
-    console.log($.util.colors.red('\n------------------------\nRestart the Gulp process\n------------------------'))
+    console.info($.util.colors.red('\n------------------------\nRestart the Gulp process\n------------------------'))
   );
 
   $.watch(paths.app.templates, () => {

@@ -21,6 +21,6 @@ gulp.task('release', ['dist'], () => {
       ssh ${address} "nvm use 4 && cd ${NAME} && npm i --production --no-optional"
     `);
 
-  proc.stdout.on('data', data => console.log(data));
-  proc.stderr.on('data', data => console.log(data));
+  proc.stdout.on('data', data => console.info(data));
+  proc.stderr.on('data', data => console.info(data));
 });
