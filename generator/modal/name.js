@@ -10,7 +10,7 @@ export default class {
     this.$mdDialog = $mdDialog;
   }
 
-  open() {
+  open(targetEvent) {
     return this.$mdDialog.show({
       controller($mdDialog) {
 
@@ -20,6 +20,7 @@ export default class {
       },
       controllerAs: 'vm',
       template,
+      targetEvent,
       clickOutsideToClose: true
     });
   }
