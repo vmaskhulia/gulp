@@ -18,7 +18,7 @@ gulp.task('release', ['dist'], () => {
   var proc = exec(`
       ssh ${address} "mkdir -p ${NAME} && rm -r -f ${NAME}/dist ${NAME}/server"
       scp -r ${rootPath}/dist ${rootPath}/server ${rootPath}/package.json ${address}:~/${NAME}
-      ssh ${address} ". ~/.nvm/nvm.sh && nvm use 4 && cd ${NAME} && npm i --production --no-optional"
+      ssh ${address} ". ~/.nvm/nvm.sh && cd ${NAME} && npm i --production --no-optional"
     `);
 
   proc.stdout.on('data', data => console.info(data));
