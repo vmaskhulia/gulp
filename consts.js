@@ -6,7 +6,7 @@ export const NAME = pkg.name;
 export const SSH_ADDRESS = pkg.gulp.sshAddress;
 export const LOCALHOST_PORT = pkg.gulp.developmentPort;
 export const BROWSER_SYNC_PORT = pkg.gulp.browserSyncPort;
-export const LUCY_SSH_ADDRESS = 'lucy@46.101.194.91';
+export const LUCY_SSH_ADDRESS = 'lucy@46.101.216.104';
 
 export const FILES_TO_INJECT_FOR_DIST = ['build.js', 'build.css'];
 
