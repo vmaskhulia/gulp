@@ -2,24 +2,10 @@
 
 import gulp from 'gulp';
 import path from 'path';
-var es = require('event-stream');
+import es from 'event-stream';
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
-const END_TAG = '//endinject';
-
-const commonBase = paths.app.common;
-const componentsBase = paths.app.components;
-
-const filesToInject = {
-  common: [`!${commonBase}*.*`, `${commonBase}*`],
-  modals: [`!${commonBase}modals/*.*`, `${commonBase}modals/*`],
-  services: [`!${commonBase}services/services.js`, `${commonBase}services/*`],
-  resources: [`!${commonBase}resources/resources.js`, `${commonBase}resources/*`],
-
-  main: [`!${componentsBase}main/*.*`, `${componentsBase}main/*`],
-  admin: [`!${componentsBase}admin/*.*`, `${componentsBase}admin/*`]
-};
 
 gulp.task('inject', () => {
   return es.merge(
@@ -31,143 +17,121 @@ gulp.task('inject', () => {
   );
 });
 
-class ImportStrategy {
-  getStartTag() {
-    return '//inject:import';
-  }
-  getTransform(name) {
-    return `import ${name} from './${name}/${name}';`;
-  }
-}
-
-class MainImportStrategy extends ImportStrategy {
-  getStartTag() {
-    return `${super.getStartTag()}.main`;
-  }
-  getTransform(name) {
-    return `import main${name} from './main/${name}/${name}';`;
-  }
-}
-
-class AdminImportStrategy extends ImportStrategy {
-  getStartTag() {
-    return `${super.getStartTag()}.admin`;
-  }
-  getTransform(name) {
-    return `import admin${name} from './admin/${name}/${name}';`;
-  }
-}
-
-class ImportFileStrategy extends ImportStrategy {
-  getTransform(name) {
-    return `import ${name} from './${name}';`;
-  }
-}
-
-class NgModuleStrategy {
-  getStartTag() {
-    return '//inject:ngmodule';
-  }
-  getTransform(name) {
-    return `${name}.name,`;
-  }
-}
-
-class MainNgModuleStrategy extends NgModuleStrategy {
-  getStartTag() {
-    return `${super.getStartTag()}.main`;
-  }
-  getTransform(name) {
-    return `main${super.getTransform(name)}`;
-  }
-}
-
-class AdminNgModuleStrategy extends NgModuleStrategy {
-  getStartTag() {
-    return `${super.getStartTag()}.admin`;
-  }
-  getTransform(name) {
-    return `admin${super.getTransform(name)}`;
-  }
-}
-
-class NgServiceStrategy {
-  getStartTag() {
-    return '//inject:ngservice';
-  }
-  getTransform(name) {
-    return `.service('${name}', ${name})`;
-  }
-}
-
-class NgFactoryStrategy {
-  getStartTag() {
-    return '//inject:ngfactory';
-  }
-  getTransform(name) {
-    return `.factory('${name}', ${name})`;
-  }
-}
-
-
 function injectCommon() {
-  var base = commonBase;
-  var src = `${base}/common.js`;
-  return injectFiles(src, base, filesToInject.common,
-    new ImportStrategy(), new NgModuleStrategy());
+  var basePath = paths.app.common;
+  var src = `${basePath}/common.js`;
+  var fileNames = excludeFilesWithExtensions(basePath);
+
+  return doubleInject(
+    src,
+    basePath,
+    fileNames,
+    '//inject:import',
+    n => `import ${n} from './${n}/${n}';`,
+    '//inject:ngmodule',
+    n => `${n}.name,`
+  );
 }
 
 function injectModals() {
-  var base = `${commonBase}modals`;
-  var src = `${base}/modals.js`;
-  return injectFiles(src, base, filesToInject.modals,
-    new ImportStrategy(), new NgServiceStrategy());
+  var basePath = `${paths.app.common}/modals`;
+  var src = `${basePath}/modals.js`;
+  var fileNames = excludeFilesWithExtensions(basePath);
+
+  return doubleInject(
+    src,
+    basePath,
+    fileNames,
+    '//inject:import',
+    n => `import ${n} from './${n}/${n}';`,
+    '//inject:ngservice',
+    n => `.service('${n}', ${n})`
+  );
 }
 
 function injectServices() {
-  var base = `${commonBase}services`;
-  var src = `${base}/services.js`;
-  return injectFiles(src, base, filesToInject.services,
-    new ImportFileStrategy(), new NgServiceStrategy());
+  var basePath = `${paths.app.common}/services`;
+  var src = `${basePath}/services.js`;
+  var fileNames = [`!${basePath}/services.js`, `${basePath}/*`];
+
+  return doubleInject(
+    src,
+    basePath,
+    fileNames,
+    '//inject:import',
+    n => `import ${n} from './${n}';`,
+    '//inject:ngservice',
+    n => `.service('${n}', ${n})`
+  );
 }
 
 function injectResources() {
-  var base = `${commonBase}resources`;
-  var src = `${base}/resources.js`;
-  return injectFiles(src, base, filesToInject.resources,
-    new ImportFileStrategy(), new NgFactoryStrategy());
+  var basePath = `${paths.app.common}/resources`;
+  var src = `${basePath}/resources.js`;
+  var fileNames = [`!${basePath}/resources.js`, `${basePath}/*`];
+
+  return doubleInject(
+    src,
+    basePath,
+    fileNames,
+    '//inject:import',
+    n => `import ${n} from './${n}';`,
+    '//inject:ngfactory',
+    n => `.factory('${n}', ${n})`
+  );
 }
 
 function injectComponents() {
-  var base = componentsBase;
-  var src = `${base}/components.js`;
+  var basePath = paths.app.components;
+  var src = `${basePath}/components.js`;
+  var mainFileNames = excludeFilesWithExtensions(`${basePath}/main`);
+  var adminFileNames = excludeFilesWithExtensions(`${basePath}/admin`);
 
   return gulp.src(src)
-    .pipe(injectFile(filesToInject.main, new MainImportStrategy()))
-    .pipe(injectFile(filesToInject.main, new MainNgModuleStrategy()))
-    .pipe(injectFile(filesToInject.admin, new AdminImportStrategy()))
-    .pipe(injectFile(filesToInject.admin, new AdminNgModuleStrategy()))
-    .pipe(gulp.dest(base));
+    .pipe(inject(
+      mainFileNames,
+      '//inject:import.main',
+      n => `import main${n} from './main/${n}/${n}';`
+    ))
+    .pipe(inject(
+      adminFileNames,
+      '//inject:import.admin',
+      n => `import admin${n} from './admin/${n}/${n}';`
+    ))
+    .pipe(inject(
+      mainFileNames,
+      '//inject:ngmodule.main',
+      n => `main${n}.name,`
+    ))
+    .pipe(inject(
+      adminFileNames,
+      '//inject:ngmodule.admin',
+      n => `admin${n}.name,`
+    ))
+    .pipe(gulp.dest(basePath));
 }
 
-
-function injectFiles(src, dest, toInject, injectStrategy1, injectStrategy2) {
+function doubleInject(src, dest, fileNames, starttag1, transform1, starttag2, transform2) {
   return gulp.src(src)
-    .pipe(injectFile(toInject, injectStrategy1))
-    .pipe(injectFile(toInject, injectStrategy2))
+    .pipe(inject(fileNames, starttag1, transform1))
+    .pipe(inject(fileNames, starttag2, transform2))
     .pipe(gulp.dest(dest));
 }
 
-function injectFile(folderPath, strategy) {
+function inject(fileNames, starttag, transformFileName) {
   return $.inject(
-    gulp.src(folderPath, {read: false}), {
+    gulp.src(fileNames, {read: false}), {
+      starttag,
+      endtag: '//endinject',
       transform: filePath => {
-        var extension = path.extname(filePath);
-        var name = path.basename(filePath).replace(extension, '');
-        return strategy.getTransform(name);
-      },
-      starttag: strategy.getStartTag(),
-      endtag: END_TAG
+        var ext = path.extname(filePath);
+        var name = path.basename(filePath).replace(ext, '');
+        return transformFileName(name);
+      }
     }
   );
+}
+
+function excludeFilesWithExtensions(path) {
+  return [`!${path}/*.*`, `${path}/*`];
 }

@@ -3,33 +3,32 @@
 import gulp from 'gulp';
 import browserSync from 'browser-sync';
 import ripe from 'ripe';
-import paths from '../paths';
 import {LOCALHOST_PORT, BROWSER_SYNC_PORT} from '../consts';
+import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
+
 gulp.task('nodemon', done => {
-  var already = false;
+  var hasStarted = false;
 
   $.nodemon({
-    script: 'server/server.js',
-    watch: 'server/**/*.js'
+    script: paths.server.starter,
+    watch: paths.server.scripts
   })
   .on('start', () => {
-    if (already) {
+    if (hasStarted) {
       ripe.wait(() => browserSync.reload({stream: false}));
     } else {
       ripe.wait(done);
-      already = true;
+      hasStarted = true;
     }
   });
 });
 
 gulp.task('serve', ['nodemon', 'watch'], () =>
   browserSync.init({
-    files: [paths.app.html],
     proxy: {target: `localhost:${LOCALHOST_PORT}`, ws: true},
-    port: BROWSER_SYNC_PORT,
-    browser: 'default'
+    port: BROWSER_SYNC_PORT
   })
 );
 

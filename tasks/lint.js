@@ -4,15 +4,17 @@ import gulp from 'gulp';
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
+
 gulp.task('lint', [
-  // 'lintHtml',
+   //'lintHtml',
   'lintStyles',
-  'lintScripts',
-  'lintJs'
+  'lintGulpfiles',
+  'lintClientScripts',
+  'lintServerScripts'
 ]);
 
 gulp.task('lintHtml', () =>
-  gulp.src([paths.app.html, paths.app.templates])
+  gulp.src([paths.app.indexHtml, paths.app.templates])
     .pipe($.w3cjs({doctype: 'HTML5'}))
 );
 
@@ -21,15 +23,20 @@ gulp.task('lintStyles', () =>
     .pipe($.stylint())
 );
 
-gulp.task('lintScripts', () =>
-  gulp.src(paths.app.scripts)
-    .pipe($.jshint(`${paths.jshintrc}`))
+gulp.task('lintGulpfiles', () =>
+  gulp.src(paths.gulpfiles)
+    .pipe($.jshint(paths.jshintrc))
     .pipe($.jshint.reporter('jshint-stylish'))
 );
 
-gulp.task('lintJs', () => {
-  var glob = paths.gulpfile.concat('server/**/*.js');
-  return gulp.src(glob)
-    .pipe($.jshint('.jshintrc'))
+gulp.task('lintClientScripts', () =>
+  gulp.src(paths.app.scripts)
+    .pipe($.jshint(paths.jshintrc))
+    .pipe($.jshint.reporter('jshint-stylish'))
+);
+
+gulp.task('lintServerScripts', () => {
+  return gulp.src(paths.server.scripts)
+    .pipe($.jshint(paths.jshintrc))
     .pipe($.jshint.reporter('jshint-stylish'));
 });
