@@ -19,7 +19,7 @@ gulp.task('watch', ['compile'], () => {
     runSequence('test:server');
   });
 
-  $.watch(paths.gulpfiles, () =>
+  $.watch(paths.gulpfiles, () => {
     console.info($.util.colors.red('\n---------------\nRestart Gulp\n---------------'))
-  );
+  });
 });
