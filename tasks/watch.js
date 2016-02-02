@@ -20,6 +20,6 @@ gulp.task('watch', ['compile'], () => {
   });
 
   $.watch(paths.gulpfiles, () => {
-    console.info($.util.colors.red('\n---------------\nRestart Gulp\n---------------'))
+    console.info($.util.colors.red('\n---------------\nRestart Gulp\n---------------'));
   });
 });

@@ -9,7 +9,7 @@ import {copy} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
-gulp.task('dist', done =>
+gulp.task('dist', done => {
   runSequence([
     'cleanDist',
     'compile'
@@ -18,17 +18,17 @@ gulp.task('dist', done =>
     'copyJspmPackagesToDist'
   ], [
     'replaceIndexHtml'
-  ], done)
-);
+  ], done);
+});
 
-gulp.task('copyAssetsToDist', () =>
-  copy(paths.app.assets, paths.dist.base)
-);
+gulp.task('copyAssetsToDist', () => {
+  return copy(paths.app.assets, paths.dist.base);
+});
 
-gulp.task('copyJspmPackagesToDist', () =>
-  gulp.src(JSPM_PACKAGES_FOR_DIST, {base: '.'}) // base due to fonts
-    .pipe(gulp.dest(paths.dist.base))
-);
+gulp.task('copyJspmPackagesToDist', () => {
+  return gulp.src(JSPM_PACKAGES_FOR_DIST, {base: '.'}) // base due to fonts
+    .pipe(gulp.dest(paths.dist.base));
+});
 
 gulp.task('replaceIndexHtml', ['injectDistFiles'], () => {
   var userefAssets = $.useref.assets();
@@ -43,8 +43,8 @@ gulp.task('replaceIndexHtml', ['injectDistFiles'], () => {
     .pipe(gulp.dest(paths.dist.base));
 });
 
-gulp.task('injectDistFiles', ['bundle'], () =>
-  gulp.src(paths.app.indexHtml)
+gulp.task('injectDistFiles', ['bundle'], () => {
+  return gulp.src(paths.app.indexHtml)
     .pipe($.inject(
       gulp.src(['build.js', 'build.css'], {
         read: false,
@@ -54,7 +54,7 @@ gulp.task('injectDistFiles', ['bundle'], () =>
       })
     )
     .pipe(gulp.dest(paths.dist.base))
-);
+});
 
 gulp.task('bundle', () => {
   var builder = new Builder('', `${paths.jspmConfig}`);

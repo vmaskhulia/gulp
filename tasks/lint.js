@@ -13,27 +13,27 @@ gulp.task('lint', [
   'lintServerScripts'
 ]);
 
-gulp.task('lintHtml', () =>
-  gulp.src([paths.app.indexHtml, paths.app.templates])
-    .pipe($.w3cjs({doctype: 'HTML5'}))
-);
+gulp.task('lintHtml', () => {
+  return gulp.src([paths.app.indexHtml, paths.app.templates])
+    .pipe($.w3cjs({doctype: 'HTML5'}));
+});
 
-gulp.task('lintStyles', () =>
-  gulp.src(paths.app.styles)
-    .pipe($.stylint())
-);
+gulp.task('lintStyles', () => {
+  return gulp.src(paths.app.styles)
+    .pipe($.stylint());
+});
 
-gulp.task('lintGulpfiles', () =>
-  gulp.src(paths.gulpfiles)
+gulp.task('lintGulpfiles', () => {
+  return gulp.src(paths.gulpfiles)
     .pipe($.jshint(paths.jshintrc))
-    .pipe($.jshint.reporter('jshint-stylish'))
-);
+    .pipe($.jshint.reporter('jshint-stylish'));
+});
 
-gulp.task('lintClientScripts', () =>
-  gulp.src(paths.app.scripts)
+gulp.task('lintClientScripts', () => {
+  return gulp.src(paths.app.scripts)
     .pipe($.jshint(paths.jshintrc))
-    .pipe($.jshint.reporter('jshint-stylish'))
-);
+    .pipe($.jshint.reporter('jshint-stylish'));
+});
 
 gulp.task('lintServerScripts', () => {
   return gulp.src(paths.server.scripts)

@@ -25,11 +25,13 @@ gulp.task('nodemon', done => {
   });
 });
 
-gulp.task('serve', ['nodemon', 'watch'], () =>
+gulp.task('serve', ['nodemon', 'watch'], () => {
   browserSync.init({
     proxy: {target: `localhost:${LOCALHOST_PORT}`, ws: true},
     port: BROWSER_SYNC_PORT
-  })
-);
+  });
+});
 
-gulp.task('reload-server', () => browserSync.reload({stream: false}));
+gulp.task('reload-server', () => {
+  browserSync.reload({stream: false});
+});

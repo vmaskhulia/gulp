@@ -15,8 +15,8 @@ gulp.task('compile', ['cleanTmp', 'inject'], done => {
   ], done);
 });
 
-gulp.task('compileStyles', () =>
-  gulp.src(paths.app.styles)
+gulp.task('compileStyles', () => {
+  return gulp.src(paths.app.styles)
     .pipe($.plumber())
     .pipe($.changed(paths.tmp.base, {extension: '.css'}))
     .pipe($.stylus())
@@ -24,11 +24,11 @@ gulp.task('compileStyles', () =>
       browsers: ['last 5 versions'],
       cascade: false
     }))
-    .pipe(gulp.dest(`${paths.tmp.base}/app`))
-);
+    .pipe(gulp.dest(`${paths.tmp.base}/app`));
+});
 
-gulp.task('compileScripts', () =>
-  gulp.src(paths.app.scripts)
+gulp.task('compileScripts', () => {
+  return gulp.src(paths.app.scripts)
     .pipe($.plumber())
     .pipe($.changed(paths.tmp.base, {extension: '.js'}))
     .pipe($.babel({
@@ -36,9 +36,10 @@ gulp.task('compileScripts', () =>
       plugins: ['babel-plugin-transform-runtime']
     }))
     .pipe($.ngAnnotate())
-    .pipe(gulp.dest(`${paths.tmp.base}/app`))
-);
+    .pipe(gulp.dest(`${paths.tmp.base}/app`));
+});
 
-gulp.task('copyTemplates', () =>
-  copy(paths.app.templates, `${paths.tmp.base}/app`)
-);
+
+gulp.task('copyTemplates', () => {
+  return copy(paths.app.templates, `${paths.tmp.base}/app`)
+});

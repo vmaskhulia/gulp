@@ -5,10 +5,10 @@ import del from 'del';
 import paths from '../paths';
 
 
-gulp.task('cleanTmp', done => {
-  del(paths.tmp.base, done);
+gulp.task('cleanTmp', () => {
+  return del(paths.tmp.base);
 });
 
-gulp.task('cleanDist', done => {
-  del(paths.dist.base, done);
+gulp.task('cleanDist', () => {
+  return del(paths.dist.base);
 });
