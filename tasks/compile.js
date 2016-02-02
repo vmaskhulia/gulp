@@ -41,5 +41,5 @@ gulp.task('compileScripts', () => {
 
 
 gulp.task('copyTemplates', () => {
-  return copy(paths.app.templates, `${paths.tmp.base}/app`)
+  return copy(paths.app.templates, `${paths.tmp.base}/app`);
 });

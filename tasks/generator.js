@@ -29,43 +29,43 @@ gulp.task('admincomponent', done => {
 
 gulp.task('addModalTemplates', () => {
   var name = `${getComponentName()}Modal`;
-  var srcPath = paths.generatorTemplates.modal;
-  var destPath = path.join(paths.app.common, 'modals', name);
+  var src = paths.generatorTemplates.modal;
+  var dest = path.join(paths.app.common, 'modals', name);
 
-  return insertTemplates(name, srcPath, destPath);
+  return insertTemplates(name, src, dest);
 });
 
 gulp.task('addCommonTemplates', () => {
   var name = getComponentName();
-  var srcPath = paths.generatorTemplates.common;
-  var destPath = path.join(paths.app.common, name);
+  var src = paths.generatorTemplates.common;
+  var dest = path.join(paths.app.common, name);
 
-  return insertTemplates(name, srcPath, destPath);
+  return insertTemplates(name, src, dest);
 });
 
 gulp.task('addMainComponentTemplates', () => {
   var name = getComponentName();
-  var srcPath = paths.generatorTemplates.mainComponent;
-  var destPath = path.join(paths.app.components, 'main', name);
+  var src = paths.generatorTemplates.mainComponent;
+  var dest = path.join(paths.app.components, 'main', name);
 
-  return insertTemplates(name, srcPath, destPath);
+  return insertTemplates(name, src, dest);
 });
 
 gulp.task('addAdminComponentTemplates', () => {
   var name = getComponentName();
-  var srcPath = paths.generatorTemplates.adminComponent;
-  var destPath = path.join(paths.app.components, 'admin', name);
+  var src = paths.generatorTemplates.adminComponent;
+  var dest = path.join(paths.app.components, 'admin', name);
 
-  return insertTemplates(name, srcPath, destPath);
+  return insertTemplates(name, src, dest);
 });
 
-function insertTemplates(name, srcPath, destPath) {
-  return gulp.src(srcPath)
+function insertTemplates(name, src, dest) {
+  return gulp.src(src)
     .pipe($.template({name}))
     .pipe($.rename(path => {
       path.basename = path.basename.replace('name', name);
     }))
-    .pipe(gulp.dest(destPath));
+    .pipe(gulp.dest(dest));
 }
 
 function getComponentName() {
