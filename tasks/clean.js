@@ -6,9 +6,9 @@ import paths from '../paths';
 
 
 gulp.task('cleanTmp', done => {
-  del(paths.tmp.basePath, done);
+  del(paths.tmp.base, done);
 });
 
 gulp.task('cleanDist', done => {
-  del(paths.dist.basePath, done);
+  del(paths.dist.base, done);
 });

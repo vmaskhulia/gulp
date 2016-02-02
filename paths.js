@@ -38,12 +38,12 @@ var paths = {
   },
 
   tmp: {
-    basePath: `${root}/.tmp`,
+    base: `${root}/.tmp`,
     starter: `${root}/.tmp/app/app.js`
   },
 
   dist: {
-    basePath: `${root}/dist`,
+    base: `${root}/dist`,
     indexHtml: `${root}/dist/index.html`
   }
 };

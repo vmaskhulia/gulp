@@ -18,13 +18,13 @@ gulp.task('inject', () => {
 });
 
 function injectCommon() {
-  var basePath = paths.app.common;
-  var src = `${basePath}/common.js`;
-  var fileNames = excludeFilesWithExtensions(basePath);
+  var base = paths.app.common;
+  var src = `${base}/common.js`;
+  var fileNames = excludeFilesWithExtensions(base);
 
   return doubleInject(
     src,
-    basePath,
+    base,
     fileNames,
     '//inject:import',
     n => `import ${n} from './${n}/${n}';`,
@@ -34,13 +34,13 @@ function injectCommon() {
 }
 
 function injectModals() {
-  var basePath = `${paths.app.common}/modals`;
-  var src = `${basePath}/modals.js`;
-  var fileNames = excludeFilesWithExtensions(basePath);
+  var base = `${paths.app.common}/modals`;
+  var src = `${base}/modals.js`;
+  var fileNames = excludeFilesWithExtensions(base);
 
   return doubleInject(
     src,
-    basePath,
+    base,
     fileNames,
     '//inject:import',
     n => `import ${n} from './${n}/${n}';`,
@@ -50,13 +50,13 @@ function injectModals() {
 }
 
 function injectServices() {
-  var basePath = `${paths.app.common}/services`;
-  var src = `${basePath}/services.js`;
-  var fileNames = [`!${basePath}/services.js`, `${basePath}/*`];
+  var base = `${paths.app.common}/services`;
+  var src = `${base}/services.js`;
+  var fileNames = [`!${base}/services.js`, `${base}/*`];
 
   return doubleInject(
     src,
-    basePath,
+    base,
     fileNames,
     '//inject:import',
     n => `import ${n} from './${n}';`,
@@ -66,13 +66,13 @@ function injectServices() {
 }
 
 function injectResources() {
-  var basePath = `${paths.app.common}/resources`;
-  var src = `${basePath}/resources.js`;
-  var fileNames = [`!${basePath}/resources.js`, `${basePath}/*`];
+  var base = `${paths.app.common}/resources`;
+  var src = `${base}/resources.js`;
+  var fileNames = [`!${base}/resources.js`, `${base}/*`];
 
   return doubleInject(
     src,
-    basePath,
+    base,
     fileNames,
     '//inject:import',
     n => `import ${n} from './${n}';`,
@@ -82,10 +82,10 @@ function injectResources() {
 }
 
 function injectComponents() {
-  var basePath = paths.app.components;
-  var src = `${basePath}/components.js`;
-  var mainFileNames = excludeFilesWithExtensions(`${basePath}/main`);
-  var adminFileNames = excludeFilesWithExtensions(`${basePath}/admin`);
+  var base = paths.app.components;
+  var src = `${base}/components.js`;
+  var mainFileNames = excludeFilesWithExtensions(`${base}/main`);
+  var adminFileNames = excludeFilesWithExtensions(`${base}/admin`);
 
   return gulp.src(src)
     .pipe(inject(
@@ -108,7 +108,7 @@ function injectComponents() {
       '//inject:ngmodule.admin',
       n => `admin${n}.name,`
     ))
-    .pipe(gulp.dest(basePath));
+    .pipe(gulp.dest(base));
 }
 
 function doubleInject(src, dest, fileNames, starttag1, transform1, starttag2, transform2) {

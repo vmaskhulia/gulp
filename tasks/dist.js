@@ -22,12 +22,12 @@ gulp.task('dist', done =>
 );
 
 gulp.task('copyAssetsToDist', () =>
-  copy(paths.app.assets, paths.dist.basePath)
+  copy(paths.app.assets, paths.dist.base)
 );
 
 gulp.task('copyJspmPackagesToDist', () =>
   gulp.src(JSPM_PACKAGES_FOR_DIST, {base: '.'}) // base due to fonts
-    .pipe(gulp.dest(paths.dist.basePath))
+    .pipe(gulp.dest(paths.dist.base))
 );
 
 gulp.task('replaceIndexHtml', ['injectDistFiles'], () => {
@@ -40,7 +40,7 @@ gulp.task('replaceIndexHtml', ['injectDistFiles'], () => {
     .pipe($.useref())
     .pipe($.revReplace())
     .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))
-    .pipe(gulp.dest(paths.dist.basePath));
+    .pipe(gulp.dest(paths.dist.base));
 });
 
 gulp.task('injectDistFiles', ['bundle'], () =>
@@ -48,18 +48,18 @@ gulp.task('injectDistFiles', ['bundle'], () =>
     .pipe($.inject(
       gulp.src(['build.js', 'build.css'], {
         read: false,
-        cwd: paths.dist.basePath
+        cwd: paths.dist.base
       }), {
         relative: false
       })
     )
-    .pipe(gulp.dest(paths.dist.basePath))
+    .pipe(gulp.dest(paths.dist.base))
 );
 
 gulp.task('bundle', () => {
   var builder = new Builder('', `${paths.jspmConfig}`);
   var inputPath = paths.tmp.starter;
-  var outputPath = `${paths.dist.basePath}/build.js`;
+  var outputPath = `${paths.dist.base}/build.js`;
 
   return builder.buildStatic(inputPath, outputPath);
 });

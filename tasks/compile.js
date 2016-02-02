@@ -18,27 +18,27 @@ gulp.task('compile', ['cleanTmp', 'inject'], done => {
 gulp.task('compileStyles', () =>
   gulp.src(paths.app.styles)
     .pipe($.plumber())
-    .pipe($.changed(paths.tmp.basePath, {extension: '.css'}))
+    .pipe($.changed(paths.tmp.base, {extension: '.css'}))
     .pipe($.stylus())
     .pipe($.autoprefixer({
       browsers: ['last 5 versions'],
       cascade: false
     }))
-    .pipe(gulp.dest(`${paths.tmp.basePath}/app`))
+    .pipe(gulp.dest(`${paths.tmp.base}/app`))
 );
 
 gulp.task('compileScripts', () =>
   gulp.src(paths.app.scripts)
     .pipe($.plumber())
-    .pipe($.changed(paths.tmp.basePath, {extension: '.js'}))
+    .pipe($.changed(paths.tmp.base, {extension: '.js'}))
     .pipe($.babel({
       presets: ['es2015'],
       plugins: ['babel-plugin-transform-runtime']
     }))
     .pipe($.ngAnnotate())
-    .pipe(gulp.dest(`${paths.tmp.basePath}/app`))
+    .pipe(gulp.dest(`${paths.tmp.base}/app`))
 );
 
 gulp.task('copyTemplates', () =>
-  copy(paths.app.templates, `${paths.tmp.basePath}/app`)
+  copy(paths.app.templates, `${paths.tmp.base}/app`)
 );
