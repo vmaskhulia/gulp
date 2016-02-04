@@ -11,7 +11,7 @@ var paths = {
   config: {
     karma: `${root}/karma.conf.js`,
     e2e: `${root}/protractor.conf.js`,
-    jspm: `${root}/jspm.config.js`
+    jspm: `${root}/jspm.conf.js`
   },
 
   jshintrc: `${root}/.jshintrc`,
