@@ -53,11 +53,11 @@ gulp.task('injectDistFiles', ['bundle'], () => {
         relative: false
       })
     )
-    .pipe(gulp.dest(paths.dist.base))
+    .pipe(gulp.dest(paths.dist.base));
 });
 
 gulp.task('bundle', () => {
-  var builder = new Builder('', `${paths.jspmConfig}`);
+  var builder = new Builder('', `${paths.config.jspm}`);
   var inputPath = paths.tmp.starter;
   var outputPath = `${paths.dist.base}/build.js`;
 

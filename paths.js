@@ -8,9 +8,12 @@ var root = `${path.dirname(__dirname)}`;
 var paths = {
   root,
 
-  jspmConfig: `${root}/jspm.conf.js`,
-  karmaConfig: `${root}/karma.conf.js`,
-  protractorConfig: `${root}/protractor.conf.js`,
+  config: {
+    karma: `${root}/karma.conf.js`,
+    e2e: `${root}/protractor.conf.js`,
+    jspm: `${root}/jspm.config.js`
+  },
+
   jshintrc: `${root}/.jshintrc`,
 
   gulpfiles: [`${root}/gulpfile.js`, `${root}/gulp/**/*.js`],

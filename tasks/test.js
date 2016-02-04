@@ -8,6 +8,8 @@ var protractor = $.protractor.protractor;
 var Server = require('karma').Server;
 
 
+gulp.task('test', ['test:server', 'test:client', 'test:e2e']);
+
 gulp.task('test:server', () => {
   gulp.src('server/**/*.spec.js', {read: false})
     .pipe($.plumber())
@@ -19,7 +21,7 @@ gulp.task('test:server', () => {
 
 gulp.task('test:client', ['compileScripts'], done => {
   new Server({
-    configFile: paths.karmaConfig
+    configFile: paths.config.karma
   }, done).start();
 });
 
@@ -28,7 +30,7 @@ gulp.task('test:e2e', done => {
 
   gulp.src([])
     .pipe(protractor({
-      configFile: paths.protractorConfig,
+      configFile: paths.config.e2e,
       args
     }))
     .on('error', e => {
