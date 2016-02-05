@@ -53,5 +53,10 @@ gulp.task('bundle', () => {
   var inputPath = paths.tmp.starter;
   var outputPath = `${paths.dist.base}/build.js`;
 
+  builder.config({
+    buildCSS: true,
+    separateCSS: true
+  });
+
   return builder.buildStatic(inputPath, outputPath);
 });
