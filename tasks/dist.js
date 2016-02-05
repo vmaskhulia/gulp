@@ -26,33 +26,25 @@ gulp.task('copyAssetsToDist', () => {
 });
 
 gulp.task('copyJspmPackagesToDist', () => {
-  return gulp.src(JSPM_PACKAGES_FOR_DIST, {base: '.'}) // base due to fonts
+  return gulp.src(JSPM_PACKAGES_FOR_DIST, {base: '.'}) // base due to font's glob
     .pipe(gulp.dest(paths.dist.base));
 });
 
-gulp.task('replaceIndexHtml', ['injectDistFiles'], () => {
-  var userefAssets = $.useref.assets();
-
+gulp.task('replaceIndexHtml', ['injectBundlesToIndexHtml', 'bundle'], () => {
   return gulp.src(paths.dist.indexHtml)
-    .pipe(userefAssets)
-    .pipe($.rev())
-    .pipe(userefAssets.restore())
     .pipe($.useref())
+    .pipe($.if('*.js', $.rev()))
+    .pipe($.if('*.css', $.rev()))
     .pipe($.revReplace())
     .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))
     .pipe(gulp.dest(paths.dist.base));
 });
 
-gulp.task('injectDistFiles', ['bundle'], () => {
+gulp.task('injectBundlesToIndexHtml', ['bundle'], () => {
+  var src = ['build.js', 'build.css'];
+
   return gulp.src(paths.app.indexHtml)
-    .pipe($.inject(
-      gulp.src(['build.js', 'build.css'], {
-        read: false,
-        cwd: paths.dist.base
-      }), {
-        relative: false
-      })
-    )
+    .pipe($.inject(gulp.src(src, {read: false, cwd: paths.dist.base})))
     .pipe(gulp.dest(paths.dist.base));
 });
 
