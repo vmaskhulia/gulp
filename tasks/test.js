@@ -4,11 +4,9 @@ import gulp from 'gulp';
 var $ = require('gulp-load-plugins')();
 import {LOCALHOST_PORT} from '../consts';
 import paths from '../paths';
-var protractor = $.protractor.protractor;
 var Server = require('karma').Server;
+var protractor = $.protractor.protractor;
 
-
-gulp.task('test', ['test:server', 'test:client', 'test:e2e']);
 
 gulp.task('test:server', () => {
   gulp.src('server/**/*.spec.js', {read: false})
@@ -25,13 +23,11 @@ gulp.task('test:client', ['compileScripts'], done => {
   }, done).start();
 });
 
-gulp.task('test:e2e', done => {
-  var args = ['--baseUrl', `http://127.0.0.1:${LOCALHOST_PORT}`];
-
+gulp.task('test:e2e', [], done => {
   gulp.src([])
     .pipe(protractor({
       configFile: paths.config.e2e,
-      args
+      args: ['--baseUrl', `http://127.0.0.1:${LOCALHOST_PORT}`]
     }))
     .on('error', e => {
       console.error(e);
