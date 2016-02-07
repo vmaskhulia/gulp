@@ -15,6 +15,10 @@ gulp.task('watch', ['compile'], () => {
     runSequence('test:client', 'reload-server');
   });
 
+  $.watch(paths.app.templates, () => {
+    runSequence('copyTemplates', 'reload-server');
+  });
+
   $.watch(paths.server.scripts, () => {
     runSequence('test:server');
   });
