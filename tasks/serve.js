@@ -1,12 +1,20 @@
 'use strict';
 
 import gulp from 'gulp';
+import runSequence from 'run-sequence';
 import browserSync from 'browser-sync';
 import ripe from 'ripe';
 import {LOCALHOST_PORT, BROWSER_SYNC_PORT} from '../consts';
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
+
+gulp.task('serve', done => {
+  runSequence(
+    ['nodemon', 'tmp'],
+    ['browserSync', 'watch'],
+    done);
+});
 
 gulp.task('nodemon', done => {
   var hasStarted = false;
@@ -25,7 +33,7 @@ gulp.task('nodemon', done => {
   });
 });
 
-gulp.task('serve', ['nodemon', 'watch'], () => {
+gulp.task('browserSync', () => {
   browserSync.init({
     proxy: {target: `localhost:${LOCALHOST_PORT}`, ws: true},
     port: BROWSER_SYNC_PORT

@@ -6,13 +6,13 @@ import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
 
-gulp.task('watch', ['compile'], () => {
+gulp.task('watch', () => {
   $.watch(paths.app.styles, () => {
     runSequence('compileStyles', 'reload-server');
   });
 
   $.watch(paths.app.scripts, () => {
-    runSequence('test:client', 'reload-server');
+    runSequence('compileScripts', ['reload-server', 'test:client']);
   });
 
   $.watch(paths.app.templates, () => {

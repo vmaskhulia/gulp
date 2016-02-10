@@ -19,13 +19,13 @@ gulp.task('test:server', () => {
     }));
 });
 
-gulp.task('test:client', ['compileScripts'], done => {
+gulp.task('test:client', done => {
   new Server({
     configFile: paths.config.karma
   }, done).start();
 });
 
-gulp.task('test:e2e', [], done => {
+gulp.task('test:e2e', done => {
   gulp.src([])
     .pipe(protractor({
       configFile: paths.config.e2e,

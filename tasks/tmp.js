@@ -7,12 +7,11 @@ import {copy} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
-gulp.task('compile', ['cleanTmp', 'inject'], done => {
-  runSequence([
-    'compileStyles',
-    'compileScripts',
-    'copyTemplates'
-  ], done);
+gulp.task('tmp', done => {
+  runSequence(
+    ['cleanTmp', 'inject'],
+    ['compileStyles', 'compileScripts', 'copyTemplates'],
+    done);
 });
 
 gulp.task('compileStyles', () => {

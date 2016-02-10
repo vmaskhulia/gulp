@@ -10,15 +10,11 @@ var $ = require('gulp-load-plugins')();
 
 
 gulp.task('dist', done => {
-  runSequence([
-    'cleanDist',
-    'compile'
-  ], [
-    'copyAssetsToDist',
-    'copyJspmPackagesToDist'
-  ], [
-    'replaceIndexHtml'
-  ], done);
+  runSequence(
+    ['cleanDist', 'tmp'],
+    ['copyAssetsToDist', 'copyJspmPackagesToDist'],
+    ['replaceIndexHtml'],
+    done);
 });
 
 gulp.task('copyAssetsToDist', () => {
