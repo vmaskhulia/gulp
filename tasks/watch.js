@@ -8,15 +8,15 @@ var $ = require('gulp-load-plugins')();
 
 gulp.task('watch', () => {
   $.watch(paths.app.styles, () => {
-    runSequence('compileStyles', 'reload-server');
+    runSequence('compileStyles', 'reloadBrowserSync');
   });
 
   $.watch(paths.app.scripts, () => {
-    runSequence('compileScripts', ['reload-server', 'test:client']);
+    runSequence('compileScripts', ['reloadBrowserSync', 'test:client']);
   });
 
   $.watch(paths.app.templates, () => {
-    runSequence('copyTemplates', 'reload-server');
+    runSequence('copyTemplates', 'reloadBrowserSync');
   });
 
   $.watch(paths.server.scripts, () => {

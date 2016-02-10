@@ -40,6 +40,6 @@ gulp.task('browserSync', () => {
   });
 });
 
-gulp.task('reload-server', () => {
+gulp.task('reloadBrowserSync', () => {
   browserSync.reload({stream: false});
 });
