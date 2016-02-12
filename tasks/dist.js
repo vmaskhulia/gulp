@@ -26,7 +26,7 @@ gulp.task('copyJspmPackagesToDist', () => {
     .pipe(gulp.dest(paths.dist.base));
 });
 
-gulp.task('replaceIndexHtml', ['injectBundlesToIndexHtml', 'bundle'], () => {
+gulp.task('replaceIndexHtml', ['injectBundlesToIndexHtml'], () => {
   return gulp.src(paths.dist.indexHtml)
     .pipe($.useref())
     .pipe($.if('*.js', $.rev()))
