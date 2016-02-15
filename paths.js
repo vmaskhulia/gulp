@@ -26,8 +26,9 @@ var paths = {
   },
 
   server: {
+    base: `${root}/server`,
     starter: 'server/server.js',
-    scripts: `${root}/server/**/*.js`
+    scripts: `${root}/server/**/*.js`,
   },
 
   app: {

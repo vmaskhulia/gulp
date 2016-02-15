@@ -13,7 +13,8 @@ gulp.task('inject', () => {
     injectModals(),
     injectServices(),
     injectResources(),
-    injectComponents()
+    injectComponents(),
+    injectRoutes()
   );
 });
 
@@ -107,6 +108,20 @@ function injectComponents() {
       adminFileNames,
       '//inject:ngmodule.admin',
       n => `admin${n}.name,`
+    ))
+    .pipe(gulp.dest(base));
+}
+
+function injectRoutes() {
+  var base = paths.server.base;
+  var src = `${base}/routes.js`;
+  var fileNames = [`${base}/api/*`];
+
+  return gulp.src(src)
+    .pipe(inject(
+      fileNames,
+      '//inject:routes',
+      n => `app.use('/api/${n}', require('./api/${n}'));`
     ))
     .pipe(gulp.dest(base));
 }
