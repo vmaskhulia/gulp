@@ -9,16 +9,14 @@ module.exports = {
 
 
 function parseCreateRequest(req, res, next) {
-  req.parsed = {
-  };
+  req.parsed = parse<%=nameC%>(req.body);
 
   next();
 }
 
 function parseUpdateRequest(req, res, next) {
-  req.parsed = {
-    _id: req.body._id
-  };
+  req.parsed = parse<%=nameC%>(req.body);
+  req.parsed._id = req.body._id;
 
   next();
 }
@@ -29,4 +27,10 @@ function parseDestroyRequest(req, res, next) {
   };
 
   next();
+}
+
+function parse<%=nameC%>(body) {
+  return {
+
+  };
 }
