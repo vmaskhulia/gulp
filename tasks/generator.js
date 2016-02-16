@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-import capitalize from '../helpers';
+import {capitalize} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 var argv = $.util.env;
