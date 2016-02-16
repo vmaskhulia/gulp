@@ -6,3 +6,7 @@ export function copy(src, dest) {
   return gulp.src(src)
     .pipe(gulp.dest(dest));
 }
+
+export function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

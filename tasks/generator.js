@@ -1,15 +1,16 @@
 'use strict';
 
-import _ from 'lodash';
 import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
 import paths from '../paths';
+import capitalize from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 var argv = $.util.env;
 var LOG = $.util.log;
 var COLORS = $.util.colors;
+
 
 gulp.task('modal', done => {
   runSequence('addModalTemplates', 'inject', done);
@@ -75,8 +76,10 @@ function insertTemplates(name, src, dest) {
   return gulp.src(src)
     .pipe($.template({
       name,
-      nameC: name.charAt(0).toUpperCase() + name.slice(1)
-    }, { interpolate: /<%=([\s\S]+?)%>/g }))
+      nameC: capitalize(name)
+    }, {
+      interpolate: /<%=([\s\S]+?)%>/g
+    }))
     .pipe($.rename(path => {
       path.basename = path.basename.replace('name', name);
     }))

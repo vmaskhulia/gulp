@@ -4,6 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import es from 'event-stream';
 import paths from '../paths';
+import capitalize from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
@@ -169,8 +170,4 @@ function inject(fileNames, starttag, transformFileName) {
 
 function excludeFilesWithExtensions(path) {
   return [`!${path}/*.*`, `${path}/*`];
-}
-
-function capitalize(text) {
-  return text.charAt(0).toUpperCase() + text.slice(1);
 }
