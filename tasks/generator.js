@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
@@ -9,7 +10,6 @@ var $ = require('gulp-load-plugins')();
 var argv = $.util.env;
 var LOG = $.util.log;
 var COLORS = $.util.colors;
-
 
 gulp.task('modal', done => {
   runSequence('addModalTemplates', 'inject', done);
@@ -25,6 +25,10 @@ gulp.task('maincomponent', done => {
 
 gulp.task('admincomponent', done => {
   runSequence('addAdminComponentTemplates', 'inject', done);
+});
+
+gulp.task('api', done => {
+  runSequence('addApiTemplates', 'inject', done);
 });
 
 gulp.task('addModalTemplates', () => {
@@ -59,9 +63,20 @@ gulp.task('addAdminComponentTemplates', () => {
   return insertTemplates(name, src, dest);
 });
 
+gulp.task('addApiTemplates', () => {
+  var name = getComponentName();
+  var src = paths.generatorTemplates.api;
+  var dest = path.join(paths.server.base, 'api', name);
+
+  return insertTemplates(name, src, dest);
+});
+
 function insertTemplates(name, src, dest) {
   return gulp.src(src)
-    .pipe($.template({name}))
+    .pipe($.template({
+      name,
+      nameC: name.charAt(0).toUpperCase() + name.slice(1)
+    }, { interpolate: /<%=([\s\S]+?)%>/g }))
     .pipe($.rename(path => {
       path.basename = path.basename.replace('name', name);
     }))

@@ -22,13 +22,14 @@ var paths = {
     modal: `${root}/gulp/generator/modal/**`,
     common: `${root}/gulp/generator/common/**`,
     mainComponent: `${root}/gulp/generator/main-component/**`,
-    adminComponent: `${root}/gulp/generator/admin-component/**`
+    adminComponent: `${root}/gulp/generator/admin-component/**`,
+    api: `${root}/gulp/generator/api/**`
   },
 
   server: {
     base: `${root}/server`,
     starter: 'server/server.js',
-    scripts: `${root}/server/**/*.js`,
+    scripts: `${root}/server/**/*.js`
   },
 
   app: {

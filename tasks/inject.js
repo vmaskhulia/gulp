@@ -14,7 +14,8 @@ gulp.task('inject', () => {
     injectServices(),
     injectResources(),
     injectComponents(),
-    injectRoutes()
+    injectRoutes(),
+    injectSeed()
   );
 });
 
@@ -126,6 +127,25 @@ function injectRoutes() {
     .pipe(gulp.dest(base));
 }
 
+function injectSeed() {
+  var base = paths.server.base;
+  var src = `${base}/config/seed/index.js`;
+  var fileNames = [`${base}/api/*`];
+
+  return gulp.src(src)
+    .pipe(inject(
+      fileNames,
+      '//inject:daos',
+      n => `var ${capitalize(n)} = require('../../api/${n}/${n}.dao');`
+    ))
+    .pipe(inject(
+      fileNames,
+      '//inject:destroyAll',
+      n => `${capitalize(n)}.destroyAll(),`
+    ))
+    .pipe(gulp.dest(`${base}/config/seed`));
+}
+
 function doubleInject(src, dest, fileNames, starttag1, transform1, starttag2, transform2) {
   return gulp.src(src)
     .pipe(inject(fileNames, starttag1, transform1))
@@ -149,4 +169,8 @@ function inject(fileNames, starttag, transformFileName) {
 
 function excludeFilesWithExtensions(path) {
   return [`!${path}/*.*`, `${path}/*`];
+}
+
+function capitalize(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
