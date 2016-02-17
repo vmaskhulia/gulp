@@ -7,8 +7,7 @@ import './<%= name %>.css!';
 export default angular.module('admin.<%= name %>', [])
   .config($stateProvider => {
     $stateProvider
-      .state('<%= name %>', {
-        parent: 'admin',
+      .state('admin.<%= name %>', {
         url: '<%= name %>',
         template,
         controller,
