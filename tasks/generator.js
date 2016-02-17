@@ -16,6 +16,14 @@ gulp.task('modal', done => {
   runSequence('addModalTemplates', 'inject', done);
 });
 
+gulp.task('resource', done => {
+  runSequence('addResourceTemplates', 'inject', done);
+});
+
+gulp.task('service', done => {
+  runSequence('addServiceTemplates', 'inject', done);
+});
+
 gulp.task('common', done => {
   runSequence('addCommonTemplates', 'inject', done);
 });
@@ -36,6 +44,22 @@ gulp.task('addModalTemplates', () => {
   var name = `${getComponentName()}Modal`;
   var src = paths.generatorTemplates.modal;
   var dest = path.join(paths.app.common, 'modals', name);
+
+  return insertTemplates(name, src, dest);
+});
+
+gulp.task('addResourceTemplates', () => {
+  var name = getComponentName();
+  var src = paths.generatorTemplates.resource;
+  var dest = path.join(paths.app.common, 'resources');
+
+  return insertTemplates(name, src, dest);
+});
+
+gulp.task('addServiceTemplates', () => {
+  var name = getComponentName();
+  var src = paths.generatorTemplates.service;
+  var dest = path.join(paths.app.common, 'services');
 
   return insertTemplates(name, src, dest);
 });
@@ -76,7 +100,8 @@ function insertTemplates(name, src, dest) {
   return gulp.src(src)
     .pipe($.template({
       name,
-      nameC: capitalize(name)
+      nameC: capitalize(name),
+      nameL: name.toLowerCase()
     }, {
       interpolate: /<%=([\s\S]+?)%>/g
     }))

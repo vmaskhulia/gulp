@@ -20,6 +20,8 @@ var paths = {
 
   generatorTemplates: {
     modal: `${root}/gulp/generator/modal/**`,
+    resource: `${root}/gulp/generator/resources/**`,
+    service: `${root}/gulp/generator/services/**`,
     common: `${root}/gulp/generator/common/**`,
     mainComponent: `${root}/gulp/generator/main-component/**`,
     adminComponent: `${root}/gulp/generator/admin-component/**`,
