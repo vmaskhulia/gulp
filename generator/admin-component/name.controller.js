@@ -1,6 +1,5 @@
 'use strict';
 
-
 export default class {
   constructor($state, Request, <%=nameC%>, <%=nameL%>Modal, <%=nameL%>s) {
     'ngInject';
@@ -11,7 +10,7 @@ export default class {
     this.<%=nameL%>Modal = <%=nameL%>Modal;
     this.<%=nameL%>s = <%=nameL%>s;
     this.perPageCount = {
-      DEFAULT: 10,
+      DEFAULT: 4,
       ALL: this.<%=nameL%>s.length
     };
     this.itemsPerPage = this.perPageCount.DEFAULT;

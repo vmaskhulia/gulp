@@ -1,43 +1,60 @@
-<md-button
-  type="button"
-  ng-click="vm.setItemsPerPage(vm.perPageCount.DEFAULT)"
-  class="md-fab md-mini md-primary pull-right"
-  aria-label="label">10</md-button>
+<div>
+  <md-button
+    style="position:fixed;"
+    type="button"
+    ng-click="vm.create<%=nameC%>($event)"
+    class="md-fab md-mini md-primary md-fab-bottom-right">
+    <i class="fa fa-plus ng-scope"></i>
+    <md-tooltip md-direction="top">
+      Add
+    </md-tooltip>
+  </md-button>
 
-<md-button
-  type="button"
-  ng-click="vm.setItemsPerPage(vm.perPageCount.ALL)"
-  class="md-fab md-mini md-primary pull-right"
-  aria-label="label">All</md-button>
+  <md-toolbar class="md-primary md-hue-1">
+    <div class="md-toolbar-tools" layout="row">
 
-<md-button
-  type="button"
-  ng-click="vm.create<%=nameC%>($event)"
-  class="md-fab md-mini md-primary pull-right"
-  aria-label="label">
-  <i class="fa fa-plus ng-scope"></i>
-</md-button>
+      <md-input-container>
+        <label>Search</label>
+        <input
+          type="text"
+          ng-model="vm.searchText"
+          aria-label="label">
+      </md-input-container>
+      <span flex></span>
 
-<ul>
-  <li
-    dir-paginate="<%=nameL%> in vm.<%=nameL%>s | itemsPerPage: vm.itemsPerPage"
-    current-page="vm.currentPage">
-    <h3><%=nameL%>.myField</h3>
-    <md-icon
-      md-font-icon="material-icons"
-      ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
-      edit
-    </md-icon>
-    <md-icon
-      md-font-icon="material-icons"
-      ng-click="vm.destroy<%=nameC%>(<%=nameL%>)">
-      delete
-    </md-icon>
-  </li>
-</ul>
+      <md-radio-group layout="row" class="page-items" ng-model="vm.itemsPerPage">
+        <md-radio-button value="{{vm.perPageCount.DEFAULT}}" class="md-primary">Show {{::vm.perPageCount.DEFAULT}}</md-radio-button>
+        <md-radio-button value="{{vm.perPageCount.ALL}}" class="md-primary">Show All</md-radio-button>
+      </md-radio-group>
 
+    </div>
+  </md-toolbar>
 
-<dir-pagination-controls
-  on-page-change="vm.onPageChange(newPageNumber)"
-  boundary-links="true">
-</dir-pagination-controls>
+  <md-content flex layout-padding>
+
+    <md-list>
+      <md-list-item dir-paginate="<%=nameL%> in vm.<%=nameL%>s | itemsPerPage: vm.itemsPerPage | filter: vm.searchText">
+        <p> {{<%=nameL%>.myField}} </p>
+        <md-icon
+          md-font-icon="material-icons"
+          ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
+          edit
+        </md-icon>
+        <md-icon
+          md-font-icon="material-icons"
+          ng-click="vm.destroy<%=nameC%>(<%=nameL%>)">
+          delete
+        </md-icon>
+        <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
+
+    <div layout="row" layout-align="center center">
+      <dir-pagination-controls
+        boundary-links="true">
+      </dir-pagination-controls>
+    </div>
+
+  </md-content>
+
+</div>
