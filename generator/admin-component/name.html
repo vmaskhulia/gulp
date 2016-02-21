@@ -1,1 +1,32 @@
-<h1><%=name%></h1>
+<md-button
+  type="button"
+  ng-click="vm.create<%=nameC%>($event)"
+  class="md-fab md-mini md-primary pull-right"
+  aria-label="label">
+  <i class="fa fa-plus ng-scope"></i>
+</md-button>
+
+<ul>
+  <li
+    dir-paginate="<%=name%> in vm.<%=name%>s | itemsPerPage: vm.<%=name%>sPerPage">
+    <article>
+      <h3>{{'T' | translate:<%=name%>.title}}</h3>
+      <md-icon
+        md-font-icon="material-icons"
+        ng-click="vm.update<%=nameC%>($event, <%=name%>)">
+        edit
+      </md-icon>
+      <md-icon
+        md-font-icon="material-icons"
+        ng-click="vm.destroy<%=nameC%>(<%=name%>)">
+        delete
+      </md-icon>
+      <span ng-bind-html="'T' | translate:<%=name%>.content"></span>
+    </article>
+  </li>
+</ul>
+
+
+<dir-pagination-controls
+  boundary-links="true">
+</dir-pagination-controls>

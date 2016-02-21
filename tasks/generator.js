@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-import {capitalize} from '../helpers';
+import {firstLetterToUpperCase, firstLetterToLowerCase} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 var argv = $.util.env;
@@ -13,50 +13,51 @@ var COLORS = $.util.colors;
 
 
 gulp.task('modal', done => {
-  runSequence('addModalTemplates', 'inject', done);
+  runSequence('generateModal', 'inject', done);
 });
 
 gulp.task('resource', done => {
-  runSequence('addResourceTemplates', 'inject', done);
+  runSequence('generateResource', 'inject', done);
 });
 
 gulp.task('service', done => {
-  runSequence('addServiceTemplates', 'inject', done);
+  runSequence('generateService', 'inject', done);
 });
 
 gulp.task('common', done => {
-  runSequence('addCommonTemplates', 'inject', done);
+  runSequence('generateCommon', 'inject', done);
 });
 
-gulp.task('maincomponent', done => {
-  runSequence('addMainComponentTemplates', 'inject', done);
+gulp.task('main-component', done => {
+  runSequence('generateMainComponent', 'inject', done);
 });
 
-gulp.task('admincomponent', done => {
-  runSequence('addAdminComponentTemplates', 'inject', done);
+gulp.task('admin-component', done => {
+  runSequence('generateAdminComponent', 'inject', done);
 });
 
 gulp.task('api', done => {
-  runSequence('addApiTemplates', 'inject', done);
+  runSequence('generateApi', 'generateResource', 'inject', done);
 });
 
-gulp.task('addModalTemplates', () => {
-  var name = `${getComponentName()}Modal`;
+
+gulp.task('generateModal', () => {
+  var name = `${firstLetterToLowerCase(getComponentName())}Modal`;
   var src = paths.generatorTemplates.modal;
   var dest = path.join(paths.app.common, 'modals', name);
 
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('addResourceTemplates', () => {
-  var name = getComponentName();
+gulp.task('generateResource', () => {
+  var name = firstLetterToUpperCase(getComponentName());
   var src = paths.generatorTemplates.resource;
   var dest = path.join(paths.app.common, 'resources');
 
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('addServiceTemplates', () => {
+gulp.task('generateService', () => {
   var name = getComponentName();
   var src = paths.generatorTemplates.service;
   var dest = path.join(paths.app.common, 'services');
@@ -64,7 +65,7 @@ gulp.task('addServiceTemplates', () => {
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('addCommonTemplates', () => {
+gulp.task('generateCommon', () => {
   var name = getComponentName();
   var src = paths.generatorTemplates.common;
   var dest = path.join(paths.app.common, name);
@@ -72,7 +73,7 @@ gulp.task('addCommonTemplates', () => {
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('addMainComponentTemplates', () => {
+gulp.task('generateMainComponent', () => {
   var name = getComponentName();
   var src = paths.generatorTemplates.mainComponent;
   var dest = path.join(paths.app.components, 'main', name);
@@ -80,7 +81,7 @@ gulp.task('addMainComponentTemplates', () => {
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('addAdminComponentTemplates', () => {
+gulp.task('generateAdminComponent', () => {
   var name = getComponentName();
   var src = paths.generatorTemplates.adminComponent;
   var dest = path.join(paths.app.components, 'admin', name);
@@ -88,8 +89,8 @@ gulp.task('addAdminComponentTemplates', () => {
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('addApiTemplates', () => {
-  var name = getComponentName();
+gulp.task('generateApi', () => {
+  var name = firstLetterToLowerCase(getComponentName());
   var src = paths.generatorTemplates.api;
   var dest = path.join(paths.server.base, 'api', name);
 
@@ -100,8 +101,8 @@ function insertTemplates(name, src, dest) {
   return gulp.src(src)
     .pipe($.template({
       name,
-      nameC: capitalize(name),
-      nameL: name.toLowerCase()
+      nameC: firstLetterToUpperCase(name),
+      nameL: firstLetterToLowerCase(name)
     }, {
       interpolate: /<%=([\s\S]+?)%>/g
     }))

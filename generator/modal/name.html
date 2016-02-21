@@ -6,4 +6,29 @@
     </span>
   </div>
 
+  <form
+    name="<%=name%>Form"
+    ng-submit="vm.submit(<%=name%>)"
+    novalidate>
+
+    <div flex="33" flex-sm="100">
+      <md-input-container>
+        <label>myField</label>
+        <input
+          type="text"
+          name="myField"
+          ng-model="vm.<%=name%>.myField"
+          required
+          aria-label="label">
+      </md-input-container>
+    </div>
+
+    <md-button
+      type="submit"
+      class="md-raised md-primary button-filled"
+      aria-label="label">
+      Submit
+    </md-button>
+  </form>
+
 </md-dialog>

@@ -10,9 +10,16 @@ export default class {
     this.$mdDialog = $mdDialog;
   }
 
-  open(targetEvent) {
+  open(targetEvent, <%=name%>) {
     return this.$mdDialog.show({
       controller($mdDialog) {
+        this.<%=name%> = <%=name%>
+
+        this.submit = (form) => {
+          if (form.$valid) {
+            $mdDialog.hide(this.<%=name%>);
+          }
+        };
 
         this.close = () => {
           $mdDialog.cancel();
