@@ -13,7 +13,7 @@ var COLORS = $.util.colors;
 
 
 gulp.task('api', done => {
-  runSequence('generateApi', 'generateStub', 'generateResource', 'generateAdminComponent', 'generateModal', 'inject', done);
+  runSequence('generateApi', 'generateStub', 'generateResource', 'generateMainComponent', 'generateAdminComponent', 'generateModal', 'inject', done);
 });
 
 gulp.task('modal', done => {

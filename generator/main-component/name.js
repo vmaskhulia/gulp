@@ -1,17 +1,20 @@
 'use strict';
 
-import template from './<%= name %>.html!text';
-import controller from './<%= name %>.controller';
-import './<%= name %>.css!';
+import template from './<%=nameL%>.html!text';
+import controller from './<%=nameL%>.controller';
+import './<%=nameL%>.css!';
 
-export default angular.module('main.<%= name %>', [])
+export default angular.module('main.<%=nameL%>', [])
   .config($stateProvider => {
     $stateProvider
-      .state('<%= name %>', {
+      .state('<%=nameL%>', {
         parent: 'main',
-        url: '<%= name %>',
+        url: '<%=nameL%>',
         template,
         controller,
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          <%=nameL%>s: <%=nameC%> => <%=nameC%>.getAll()
+        }
       });
   });

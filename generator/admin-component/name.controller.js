@@ -1,18 +1,21 @@
 'use strict';
 
 export default class {
-  constructor($state, Request, <%=nameC%>, <%=nameL%>Modal, <%=nameL%>s) {
+  constructor($state, Request, <%=nameC%>, <%=nameL%>Modal, confirmDestroyModal, <%=nameL%>s) {
     'ngInject';
 
     this.$state = $state;
     this.Request = Request;
     this.<%=nameC%> = <%=nameC%>;
     this.<%=nameL%>Modal = <%=nameL%>Modal;
+    this.confirmDestroyModal = confirmDestroyModal;
     this.<%=nameL%>s = <%=nameL%>s;
+
     this.perPageCount = {
-      DEFAULT: 4,
+      DEFAULT: 10,
       ALL: this.<%=nameL%>s.length
     };
+
     this.itemsPerPage = this.perPageCount.DEFAULT;
     this.currentPage = $state.params.page || 1;
   }
@@ -35,10 +38,13 @@ export default class {
       });
   }
 
-  destroy<%=nameC%>(<%=nameL%>) {
-    this.Request.send(
-      this.<%=nameC%>.destroy(<%=nameL%>._id)
-    );
+  destroy<%=nameC%>(event, <%=nameL%>) {
+    this.confirmDestroyModal.open(event)
+      .then(() =>
+        this.Request.send(
+          this.<%=nameC%>.destroy(<%=nameL%>._id)
+        )
+      );
   }
 
   onPageChange(newPageNumber) {

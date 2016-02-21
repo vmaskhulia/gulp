@@ -13,13 +13,13 @@
   <md-toolbar class="md-primary md-hue-1">
     <div class="md-toolbar-tools" layout="row">
 
-      <md-input-container>
-        <label>Search</label>
-        <input
-          type="text"
-          ng-model="vm.searchText"
-          aria-label="label">
-      </md-input-container>
+      <input
+        class="search-input"
+        type="text"
+        placeholder="Search for..."
+        ng-model="vm.searchText"
+        aria-label="label"
+        flex="20">
       <span flex></span>
 
       <md-radio-group layout="row" class="page-items" ng-model="vm.itemsPerPage">
@@ -33,18 +33,23 @@
   <md-content flex layout-padding>
 
     <md-list>
-      <md-list-item dir-paginate="<%=nameL%> in vm.<%=nameL%>s | itemsPerPage: vm.itemsPerPage | filter: vm.searchText">
-        <p> {{<%=nameL%>.myField}} </p>
-        <md-icon
-          md-font-icon="material-icons"
-          ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
-          edit
-        </md-icon>
-        <md-icon
-          md-font-icon="material-icons"
-          ng-click="vm.destroy<%=nameC%>(<%=nameL%>)">
-          delete
-        </md-icon>
+      <md-list-item dir-paginate="<%=name%> in vm.<%=name%>s | filter: vm.searchText | itemsPerPage: vm.itemsPerPage ">
+        <p> {{<%=name%>.myField}} </p>
+
+        <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.update<%=nameC%>($event, <%=name%>)">
+          <md-icon
+            md-font-icon="material-icons">
+            edit
+          </md-icon>
+        </md-button>
+
+        <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.destroy<%=nameC%>($event, <%=name%>)">
+          <md-icon
+            md-font-icon="material-icons">
+            delete
+          </md-icon>
+        </md-button>
+
         <md-divider></md-divider>
       </md-list-item>
     </md-list>
