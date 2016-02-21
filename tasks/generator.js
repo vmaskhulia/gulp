@@ -12,6 +12,10 @@ var LOG = $.util.log;
 var COLORS = $.util.colors;
 
 
+gulp.task('api', done => {
+  runSequence('generateApi', 'generateStub', 'generateResource', 'generateAdminComponent', 'generateModal', 'inject', done);
+});
+
 gulp.task('modal', done => {
   runSequence('generateModal', 'inject', done);
 });
@@ -36,13 +40,9 @@ gulp.task('admin-component', done => {
   runSequence('generateAdminComponent', 'inject', done);
 });
 
-gulp.task('api', done => {
-  runSequence('generateApi', 'generateResource', 'inject', done);
-});
-
 
 gulp.task('generateModal', () => {
-  var name = `${firstLetterToLowerCase(getComponentName())}Modal`;
+  var name = firstLetterToLowerCase(getComponentName());
   var src = paths.generatorTemplates.modal;
   var dest = path.join(paths.app.common, 'modals', name);
 
@@ -58,7 +58,7 @@ gulp.task('generateResource', () => {
 });
 
 gulp.task('generateService', () => {
-  var name = getComponentName();
+  var name = firstLetterToUpperCase(getComponentName());
   var src = paths.generatorTemplates.service;
   var dest = path.join(paths.app.common, 'services');
 
@@ -66,7 +66,7 @@ gulp.task('generateService', () => {
 });
 
 gulp.task('generateCommon', () => {
-  var name = getComponentName();
+  var name = firstLetterToLowerCase(getComponentName());
   var src = paths.generatorTemplates.common;
   var dest = path.join(paths.app.common, name);
 
@@ -74,7 +74,7 @@ gulp.task('generateCommon', () => {
 });
 
 gulp.task('generateMainComponent', () => {
-  var name = getComponentName();
+  var name = firstLetterToLowerCase(getComponentName());
   var src = paths.generatorTemplates.mainComponent;
   var dest = path.join(paths.app.components, 'main', name);
 
@@ -82,7 +82,7 @@ gulp.task('generateMainComponent', () => {
 });
 
 gulp.task('generateAdminComponent', () => {
-  var name = getComponentName();
+  var name = firstLetterToLowerCase(getComponentName());
   var src = paths.generatorTemplates.adminComponent;
   var dest = path.join(paths.app.components, 'admin', name);
 
@@ -93,6 +93,14 @@ gulp.task('generateApi', () => {
   var name = firstLetterToLowerCase(getComponentName());
   var src = paths.generatorTemplates.api;
   var dest = path.join(paths.server.base, 'api', name);
+
+  return insertTemplates(name, src, dest);
+});
+
+gulp.task('generateStub', () => {
+  var name = firstLetterToLowerCase(getComponentName());
+  var src = paths.generatorTemplates.stub;
+  var dest = path.join(paths.server.base, 'stubs');
 
   return insertTemplates(name, src, dest);
 });

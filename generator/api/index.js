@@ -12,10 +12,10 @@ module.exports = router;
 
 router.get('/', co.wrap(getAll));
 
-router.post('/', auth.isAuthenticated(), <%=name%>Parser.parseCreateRequest, co.wrap(create));
-router.post('/update', auth.isAuthenticated(), <%=name%>Parser.parseUpdateRequest, co.wrap(update));
+router.post('/', auth.isAdmin(), <%=name%>Parser.parseCreateRequest, co.wrap(create));
+router.post('/update', auth.isAdmin(), <%=name%>Parser.parseUpdateRequest, co.wrap(update));
 
-router.delete('/:<%=name%>Id', auth.isAuthenticated(), <%=name%>Parser.parseDestroyRequest, co.wrap(destroy));
+router.delete('/:<%=name%>Id', auth.isAdmin(), <%=name%>Parser.parseDestroyRequest, co.wrap(destroy));
 
 
 // =============== GET ===============

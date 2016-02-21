@@ -1,7 +1,7 @@
 'use strict';
 
-import template from './<%= name %>.html!text';
-import './<%= name %>.css!';
+import template from './<%=nameL%>.html!text';
+import './<%=nameL%>.css!';
 
 export default class {
   constructor($mdDialog) {
@@ -10,14 +10,14 @@ export default class {
     this.$mdDialog = $mdDialog;
   }
 
-  open(targetEvent, <%=name%>) {
+  open(targetEvent, <%=nameL%>) {
     return this.$mdDialog.show({
       controller($mdDialog) {
-        this.<%=name%> = <%=name%>
+        this.<%=nameL%> = <%=nameL%>;
 
         this.submit = (form) => {
           if (form.$valid) {
-            $mdDialog.hide(this.<%=name%>);
+            $mdDialog.hide(this.<%=nameL%>);
           }
         };
 

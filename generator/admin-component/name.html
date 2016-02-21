@@ -1,5 +1,17 @@
 <md-button
   type="button"
+  ng-click="vm.setItemsPerPage(vm.perPageCount.DEFAULT)"
+  class="md-fab md-mini md-primary pull-right"
+  aria-label="label">10</md-button>
+
+<md-button
+  type="button"
+  ng-click="vm.setItemsPerPage(vm.perPageCount.ALL)"
+  class="md-fab md-mini md-primary pull-right"
+  aria-label="label">All</md-button>
+
+<md-button
+  type="button"
   ng-click="vm.create<%=nameC%>($event)"
   class="md-fab md-mini md-primary pull-right"
   aria-label="label">
@@ -8,25 +20,24 @@
 
 <ul>
   <li
-    dir-paginate="<%=name%> in vm.<%=name%>s | itemsPerPage: vm.<%=name%>sPerPage">
-    <article>
-      <h3>{{'T' | translate:<%=name%>.title}}</h3>
-      <md-icon
-        md-font-icon="material-icons"
-        ng-click="vm.update<%=nameC%>($event, <%=name%>)">
-        edit
-      </md-icon>
-      <md-icon
-        md-font-icon="material-icons"
-        ng-click="vm.destroy<%=nameC%>(<%=name%>)">
-        delete
-      </md-icon>
-      <span ng-bind-html="'T' | translate:<%=name%>.content"></span>
-    </article>
+    dir-paginate="<%=nameL%> in vm.<%=nameL%>s | itemsPerPage: vm.itemsPerPage"
+    current-page="vm.currentPage">
+    <h3><%=nameL%>.myField</h3>
+    <md-icon
+      md-font-icon="material-icons"
+      ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
+      edit
+    </md-icon>
+    <md-icon
+      md-font-icon="material-icons"
+      ng-click="vm.destroy<%=nameC%>(<%=nameL%>)">
+      delete
+    </md-icon>
   </li>
 </ul>
 
 
 <dir-pagination-controls
+  on-page-change="vm.onPageChange(newPageNumber)"
   boundary-links="true">
 </dir-pagination-controls>

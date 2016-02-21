@@ -48,7 +48,7 @@ function injectModals() {
     '//inject:import',
     n => `import ${n} from './${n}/${n}';`,
     '//inject:ngservice',
-    n => `.service('${n}', ${n})`
+    n => `.service('${n}Modal', ${n})`
   );
 }
 
@@ -130,21 +130,26 @@ function injectRoutes() {
 
 function injectSeed() {
   var base = paths.server.base;
-  var src = `${base}/config/seed/index.js`;
+  var src = `${base}/config/seed.js`;
   var fileNames = [`${base}/api/*`];
 
   return gulp.src(src)
     .pipe(inject(
       fileNames,
-      '//inject:daos',
-      n => `var ${firstLetterToUpperCase(n)} = require('../../api/${n}/${n}.dao');`
+      '//inject:require.daos',
+      n => `var ${firstLetterToUpperCase(n)} = require('../api/${n}/${n}.dao');`
     ))
     .pipe(inject(
       fileNames,
-      '//inject:destroyAll',
+      '//inject:require.stubs',
+      n => `var ${firstLetterToUpperCase(n)}Stub = require('../stubs/${n}.stub');`
+    ))
+    .pipe(inject(
+      fileNames,
+      '//inject:daos.destroyAll',
       n => `${firstLetterToUpperCase(n)}.destroyAll(),`
     ))
-    .pipe(gulp.dest(`${base}/config/seed`));
+    .pipe(gulp.dest(`${base}/config`));
 }
 
 function doubleInject(src, dest, fileNames, starttag1, transform1, starttag2, transform2) {

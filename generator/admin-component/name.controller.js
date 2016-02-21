@@ -1,37 +1,53 @@
 'use strict';
 
+
 export default class {
-  constructor(Request, <%=nameC%>, <%=name%>Modal, <%=name%>s) {
+  constructor($state, Request, <%=nameC%>, <%=nameL%>Modal, <%=nameL%>s) {
     'ngInject';
 
+    this.$state = $state;
     this.Request = Request;
     this.<%=nameC%> = <%=nameC%>;
-    this.<%=name%>Modal = <%=name%>Modal;
-    this.<%=name%>s = <%=name%>s;
-    this.<%=name%>sPerPage = 4;
+    this.<%=nameL%>Modal = <%=nameL%>Modal;
+    this.<%=nameL%>s = <%=nameL%>s;
+    this.perPageCount = {
+      DEFAULT: 10,
+      ALL: this.<%=nameL%>s.length
+    };
+    this.itemsPerPage = this.perPageCount.DEFAULT;
+    this.currentPage = $state.params.page || 1;
   }
 
-  createPost(event) {
-    this.<%=name%>Modal.open(event, this.<%=nameC%>.getSchema())
-      .then((<%=name%>) => {
+  create<%=nameC%>(event) {
+    this.<%=nameL%>Modal.open(event, this.<%=nameC%>.getSchema())
+      .then((<%=nameL%>) => {
         this.Request.send(
-          this.<%=nameC%>.create(<%=name%>)
+          this.<%=nameC%>.create(<%=nameL%>)
         );
       });
   }
 
-  updatePost(event, <%=name%>) {
-    this.<%=name%>Modal.open(event, <%=name%>)
-      .then((<%=name%>) => {
+  update<%=nameC%>(event, <%=nameL%>) {
+    this.<%=nameL%>Modal.open(event, <%=nameL%>)
+      .then((<%=nameL%>) => {
         this.Request.send(
-          this.<%=nameC%>.update(<%=name%>)
+          this.<%=nameC%>.update(<%=nameL%>)
         );
       });
   }
 
-  destroyPost(<%=name%>) {
+  destroy<%=nameC%>(<%=nameL%>) {
     this.Request.send(
-      this.<%=nameC%>.destroy(<%=name%>._id)
+      this.<%=nameC%>.destroy(<%=nameL%>._id)
     );
+  }
+
+  onPageChange(newPageNumber) {
+    this.currentPage = newPageNumber;
+    this.$state.params.page = newPageNumber;
+  }
+
+  setItemsPerPage(count) {
+    this.itemsPerPage = count;
   }
 }

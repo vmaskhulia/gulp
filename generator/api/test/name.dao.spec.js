@@ -9,7 +9,7 @@ chai.use(require('chai-datetime'));
 var testHelpers = require('../../../helpers/testHelpers');
 var ResourceNotFoundError = require('../../../errors').ResourceNotFoundError;
 var <%=nameC%> = require('../<%=name%>.dao');
-var <%=name%>StubJson = require('./<%=name%>.stub.json');
+var <%=nameC%>Stub = require('../../../stubs/<%=name%>.stub');
 
 
 describe('<%=name%>.dao', () => {
@@ -21,7 +21,7 @@ describe('<%=name%>.dao', () => {
   }));
 
   beforeEach(() => {
-    <%=name%>Stub = testHelpers.cloneStub(<%=name%>StubJson);
+    <%=name%>Stub = <%=nameC%>Stub.getSingle();
   });
 
   after(testHelpers.clearDB);
@@ -32,7 +32,7 @@ describe('<%=name%>.dao', () => {
   describe('#getAll()', () => {
     it('should get all <%=name%>s', co.wrap(function* () {
       var <%=name%>sData = _.range(10)
-        .map(() => testHelpers.cloneStub(<%=name%>StubJson));
+        .map(() => <%=nameC%>Stub.getSingle());
 
       yield <%=nameC%>.create(<%=name%>sData);
 
@@ -80,7 +80,7 @@ describe('<%=name%>.dao', () => {
     });
 
     it('should contain proper fields', () => {
-      //expect(<%=name%>).to.have.property('name', <%=name%>Data.name);
+      expect(<%=name%>).to.have.property('myField', <%=name%>Data.myField);
     });
   });
 
@@ -89,14 +89,14 @@ describe('<%=name%>.dao', () => {
       var <%=name%> = yield <%=nameC%>.create(<%=name%>Stub);
 
       var newData = {
-        //name: 'new-name',
+        myField: 'new-my-field',
       };
 
       yield <%=nameC%>.update(<%=name%>._id, newData);
 
       var updated<%=nameC%> = yield <%=nameC%>.getById(<%=name%>._id);
 
-      //expect(updated<%=nameC%>).to.have.property('name', newData.name);
+      expect(updated<%=nameC%>).to.have.property('myField', newData.myField);
     }));
 
     it('should throw error if passed <%=name%> does not exist', () => {

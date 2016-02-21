@@ -25,7 +25,8 @@ var paths = {
     common: `${root}/gulp/generator/common/**`,
     mainComponent: `${root}/gulp/generator/main-component/**`,
     adminComponent: `${root}/gulp/generator/admin-component/**`,
-    api: `${root}/gulp/generator/api/**`
+    api: `${root}/gulp/generator/api/**`,
+    stub: `${root}/gulp/generator/stubs/**`
   },
 
   server: {

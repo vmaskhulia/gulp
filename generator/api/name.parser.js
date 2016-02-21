@@ -31,6 +31,6 @@ function parseDestroyRequest(req, res, next) {
 
 function parse<%=nameC%>(body) {
   return {
-
+    myField: body.myField
   };
 }

@@ -1,34 +1,49 @@
-<md-dialog aria-label="label" ng-cloak>
-  <div layout="row">
-    <span flex></span>
-    <span class="close-button" ng-click="vm.close()">
-      <i class="fa fa-times"></i>
-    </span>
-  </div>
-
+<md-dialog aria-label="label" style="min-width:400px">
   <form
-    name="<%=name%>Form"
-    ng-submit="vm.submit(<%=name%>)"
+    name="<%=nameL%>Form"
+    ng-submit="vm.submit(<%=nameL%>Form)"
     novalidate>
 
-    <div flex="33" flex-sm="100">
-      <md-input-container>
-        <label>myField</label>
-        <input
-          type="text"
-          name="myField"
-          ng-model="vm.<%=name%>.myField"
-          required
-          aria-label="label">
-      </md-input-container>
-    </div>
+    <md-toolbar aria-label="label">
+      <div class="md-toolbar-tools">
+        <h2><%=nameC%></h2>
+        <span flex></span>
+        <span class="close-button" ng-click="vm.close()">
+          <i class="fa fa-times"></i>
+          <md-tooltip md-direction="left">
+            close
+          </md-tooltip>
+        </span>
+      </div>
+    </md-toolbar>
 
-    <md-button
-      type="submit"
-      class="md-raised md-primary button-filled"
-      aria-label="label">
-      Submit
-    </md-button>
+    <md-dialog-content>
+      <md-content class="md-padding">
+
+        <div>
+          <md-input-container>
+            <label>myField</label>
+            <input
+              type="text"
+              name="myField"
+              ng-model="vm.<%=nameL%>.myField"
+              required
+              aria-label="label">
+          </md-input-container>
+        </div>
+
+      </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button
+        type="button"
+        ng-click="vm.close()"
+        class="md-raised md-primary">Cancel</md-button>
+      <md-button
+        type="submit"
+        class="md-raised md-primary button-filled"
+        aria-label="label">Submit</md-button>
+    </md-dialog-actions>
   </form>
-
 </md-dialog>
