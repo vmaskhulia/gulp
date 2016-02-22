@@ -4,6 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import del from 'del';
 import Promise from 'bluebird';
+import runSequence from 'run-sequence';
 import paths from '../paths';
 import {getNameFromArgv, firstLetterToUpperCase} from '../helpers';
 
@@ -16,15 +17,18 @@ gulp.task('cleanDist', () => {
   return del(paths.dist.base);
 });
 
-gulp.task('cleanApi', () => {
+gulp.task('cleanApi', (done) => {
   var name = getNameFromArgv();
 
-  return Promise.all([
+  Promise.all([
     del(path.join(paths.app.common, 'modals', name)),
     del(path.join(paths.app.common, 'resources', `${firstLetterToUpperCase(name)}.js`)),
     del(path.join(paths.app.components, 'main', name)),
     del(path.join(paths.app.components, 'admin', name)),
     del(path.join(paths.server.base, 'api', name)),
     del(path.join(paths.server.base, 'stubs', `${name}.stub.js`))
-  ]);
+  ])
+  .then(() => {
+    return runSequence('inject', done);
+  });
 });
