@@ -101,6 +101,7 @@ gulp.task('generateStub', () => {
   return insertTemplates(name, src, dest);
 });
 
+
 function insertTemplates(name, src, dest) {
   return gulp.src(src)
     .pipe($.template({
