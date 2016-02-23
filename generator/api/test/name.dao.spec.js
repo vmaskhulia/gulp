@@ -51,7 +51,7 @@ describe('<%=name%>.dao', () => {
       <%=name%> = yield <%=nameC%>.getById(created<%=nameC%>._id);
     }));
 
-    it('should get <%=name%> by name', () => {
+    it('should get <%=name%> by id', () => {
       expect(<%=name%>).to.be.an('object');
     });
 
