@@ -30,7 +30,7 @@ export default class {
   }
 
   update<%=nameC%>(event, <%=nameL%>) {
-    this.<%=nameL%>Modal.open(event, <%=nameL%>)
+    this.<%=nameL%>Modal.open(event, <%=nameL%>, true)
       .then((<%=nameL%>) => {
         this.Request.send(
           this.<%=nameC%>.update(<%=nameL%>)

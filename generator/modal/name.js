@@ -10,10 +10,11 @@ export default class {
     this.$mdDialog = $mdDialog;
   }
 
-  open(targetEvent, <%=nameL%>) {
+  open(targetEvent, <%=nameL%>, isUpdate) {
     return this.$mdDialog.show({
       controller($mdDialog) {
         this.<%=nameL%> = <%=nameL%>;
+        this.isUpdate = isUpdate;
 
         this.submit = (form) => {
           if (form.$valid) {
