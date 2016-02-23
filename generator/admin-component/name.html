@@ -34,7 +34,7 @@
 
     <md-list>
       <md-list-item dir-paginate="<%=nameL%> in vm.<%=nameL%>s | filter: vm.searchText | itemsPerPage: vm.itemsPerPage ">
-        <p> {{<%=nameL%>.myField}} </p>
+        <p> {{::<%=nameL%>.myField}} </p>
 
         <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
           <md-icon
