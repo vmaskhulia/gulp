@@ -1,5 +1,6 @@
 'use strict';
 
+import _ from 'lodash';
 import template from './<%=nameL%>.html!text';
 import './<%=nameL%>.css!';
 
@@ -13,7 +14,7 @@ export default class {
   open(targetEvent, <%=nameL%>, isUpdate) {
     return this.$mdDialog.show({
       controller($mdDialog) {
-        this.<%=nameL%> = <%=nameL%>;
+        this.<%=nameL%> = _.cloneDeep(<%=nameL%>);
         this.isUpdate = isUpdate;
 
         this.submit = (form) => {
