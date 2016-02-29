@@ -13,7 +13,7 @@ export default angular.module('admin.<%=name%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          <%=name%>s: <%=nameC%> => <%=nameC%>.getAll()
+          <%=name%>s: (<%=nameC%>) => <%=nameC%>.getAll()
         }
       });
   });
