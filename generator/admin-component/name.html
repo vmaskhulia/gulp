@@ -1,16 +1,15 @@
 <div>
   <md-button
-    style="position:fixed;"
     type="button"
     ng-click="vm.create<%=nameC%>($event)"
-    class="md-fab md-mini md-primary md-fab-bottom-right">
+    class="md-fab md-primary md-fab-bottom-right add-new-btn">
     <i class="fa fa-plus ng-scope"></i>
     <md-tooltip md-direction="top">
       Add
     </md-tooltip>
   </md-button>
 
-  <md-toolbar class="md-primary md-hue-1">
+  <md-toolbar class="md-primary md-hue-1 inner-toolbar md-whiteframe-z1">
     <div class="md-toolbar-tools" layout="row">
 
       <input
@@ -19,7 +18,7 @@
         placeholder="Search for..."
         ng-model="vm.searchText"
         aria-label="label"
-        flex="20">
+        flex="30">
       <span flex></span>
 
       <md-radio-group layout="row" class="page-items" ng-model="vm.itemsPerPage">
@@ -28,13 +27,19 @@
       </md-radio-group>
 
     </div>
+    <div layout="row" class="page-title">
+      <span class="title-font">
+        <%=name%>s
+      </span>
+      <span></span>
+    </div>
   </md-toolbar>
 
   <md-content flex layout-padding>
 
     <md-list>
       <md-list-item dir-paginate="<%=nameL%> in vm.<%=nameL%>s | filter: vm.searchText | itemsPerPage: vm.itemsPerPage ">
-        <p> {{::<%=nameL%>.myField}} </p>
+        <p>{{::<%=nameL%>.myField}}</p>
 
         <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
           <md-icon
