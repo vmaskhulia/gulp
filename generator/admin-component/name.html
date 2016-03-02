@@ -38,7 +38,9 @@
   <md-content flex layout-padding>
 
     <md-list>
-      <md-list-item dir-paginate="<%=nameL%> in vm.<%=nameL%>s | filter: vm.searchText | itemsPerPage: vm.itemsPerPage ">
+      <md-list-item
+        dir-paginate="<%=nameL%> in vm.<%=nameL%>s | filter: vm.searchText | itemsPerPage: vm.itemsPerPage"
+        pagination-id="admin-<%=nameL%>">
         <p>{{::<%=nameL%>.myField}}</p>
 
         <md-button class="md-icon-button md-primary" aria-label="Settings" ng-click="vm.update<%=nameC%>($event, <%=nameL%>)">
@@ -61,6 +63,7 @@
 
     <div layout="row" layout-align="center center">
       <dir-pagination-controls
+        pagination-id="admin-<%=nameL%>"
         boundary-links="true">
       </dir-pagination-controls>
     </div>
