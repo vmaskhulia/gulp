@@ -14,7 +14,6 @@ export default angular.module('main.<%=nameL%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          <%=nameL%>s: (<%=nameC%>) => <%=nameC%>.getAll()
         }
       });
   });

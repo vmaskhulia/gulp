@@ -1,9 +1,8 @@
 'use strict';
 
 export default class {
-  constructor(<%=nameL%>s) {
+  constructor() {
     'ngInject';
 
-    this.<%=nameL%>s = <%=nameL%>s;
   }
 }
