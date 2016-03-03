@@ -12,12 +12,20 @@ export function copy(src, dest) {
     .pipe(gulp.dest(dest));
 }
 
-export function firstLetterToUpperCase(str) {
+export function firstUC(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function firstLetterToLowerCase(str) {
+export function firstLC(str) {
   return str.charAt(0).toLowerCase() + str.slice(1);
+}
+
+export function plural(str) {
+  if (str.endsWith('y')) {
+    return str.substr(0, str.length - 1) + 'ies';
+  } else {
+    return str + 's';
+  }
 }
 
 export function getNameFromArgv() {

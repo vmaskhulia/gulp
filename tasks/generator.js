@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-import {getNameFromArgv, firstLetterToUpperCase, firstLetterToLowerCase} from '../helpers';
+import {getNameFromArgv, firstUC, firstLC} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
@@ -38,7 +38,7 @@ gulp.task('admin-component', done => {
 
 
 gulp.task('generateModal', () => {
-  var name = firstLetterToLowerCase(getNameFromArgv());
+  var name = firstLC(getNameFromArgv());
   var src = paths.generatorTemplates.modal;
   var dest = path.join(paths.app.common, 'modals', name);
 
@@ -46,7 +46,7 @@ gulp.task('generateModal', () => {
 });
 
 gulp.task('generateResource', () => {
-  var name = firstLetterToUpperCase(getNameFromArgv());
+  var name = firstUC(getNameFromArgv());
   var src = paths.generatorTemplates.resource;
   var dest = path.join(paths.app.common, 'resources');
 
@@ -54,7 +54,7 @@ gulp.task('generateResource', () => {
 });
 
 gulp.task('generateService', () => {
-  var name = firstLetterToUpperCase(getNameFromArgv());
+  var name = firstUC(getNameFromArgv());
   var src = paths.generatorTemplates.service;
   var dest = path.join(paths.app.common, 'services');
 
@@ -62,7 +62,7 @@ gulp.task('generateService', () => {
 });
 
 gulp.task('generateCommon', () => {
-  var name = firstLetterToLowerCase(getNameFromArgv());
+  var name = firstLC(getNameFromArgv());
   var src = paths.generatorTemplates.common;
   var dest = path.join(paths.app.common, name);
 
@@ -70,7 +70,7 @@ gulp.task('generateCommon', () => {
 });
 
 gulp.task('generateMainComponent', () => {
-  var name = firstLetterToLowerCase(getNameFromArgv());
+  var name = firstLC(getNameFromArgv());
   var src = paths.generatorTemplates.mainComponent;
   var dest = path.join(paths.app.components, 'main', name);
 
@@ -78,7 +78,7 @@ gulp.task('generateMainComponent', () => {
 });
 
 gulp.task('generateAdminComponent', () => {
-  var name = firstLetterToLowerCase(getNameFromArgv());
+  var name = firstLC(getNameFromArgv());
   var src = paths.generatorTemplates.adminComponent;
   var dest = path.join(paths.app.components, 'admin', name);
 
@@ -86,7 +86,7 @@ gulp.task('generateAdminComponent', () => {
 });
 
 gulp.task('generateApi', () => {
-  var name = firstLetterToLowerCase(getNameFromArgv());
+  var name = firstLC(getNameFromArgv());
   var src = paths.generatorTemplates.api;
   var dest = path.join(paths.server.base, 'api', name);
 
@@ -94,7 +94,7 @@ gulp.task('generateApi', () => {
 });
 
 gulp.task('generateStub', () => {
-  var name = firstLetterToLowerCase(getNameFromArgv());
+  var name = firstLC(getNameFromArgv());
   var src = paths.generatorTemplates.stub;
   var dest = path.join(paths.server.base, 'stubs');
 
@@ -106,8 +106,8 @@ function insertTemplates(name, src, dest) {
   return gulp.src(src)
     .pipe($.template({
       name,
-      nameC: firstLetterToUpperCase(name),
-      nameL: firstLetterToLowerCase(name)
+      nameC: firstUC(name),
+      nameL: firstLC(name)
     }, {
       interpolate: /<%=([\s\S]+?)%>/g
     }))

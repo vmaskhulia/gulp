@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import es from 'event-stream';
 import paths from '../paths';
-import {firstLetterToUpperCase} from '../helpers';
+import {firstUC} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
@@ -137,17 +137,17 @@ function injectSeed() {
     .pipe(inject(
       fileNames,
       '//inject:require.daos',
-      n => `var ${firstLetterToUpperCase(n)} = require('../api/${n}/${n}.dao');`
+      n => `var ${firstUC(n)} = require('../api/${n}/${n}.dao');`
     ))
     .pipe(inject(
       fileNames,
       '//inject:require.stubs',
-      n => `var ${firstLetterToUpperCase(n)}Stub = require('../stubs/${n}.stub');`
+      n => `var ${firstUC(n)}Stub = require('../stubs/${n}.stub');`
     ))
     .pipe(inject(
       fileNames,
       '//inject:daos.destroyAll',
-      n => `${firstLetterToUpperCase(n)}.destroyAll(),`
+      n => `${firstUC(n)}.destroyAll(),`
     ))
     .pipe(gulp.dest(`${base}/config`));
 }

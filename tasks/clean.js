@@ -6,7 +6,7 @@ import del from 'del';
 import Promise from 'bluebird';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-import {getNameFromArgv, firstLetterToUpperCase} from '../helpers';
+import {getNameFromArgv, firstUC} from '../helpers';
 
 
 gulp.task('cleanTmp', () => {
@@ -22,7 +22,7 @@ gulp.task('cleanApi', (done) => {
 
   Promise.all([
     del(path.join(paths.app.common, 'modals', name)),
-    del(path.join(paths.app.common, 'resources', `${firstLetterToUpperCase(name)}.js`)),
+    del(path.join(paths.app.common, 'resources', `${firstUC(name)}.js`)),
     del(path.join(paths.app.components, 'main', name)),
     del(path.join(paths.app.components, 'admin', name)),
     del(path.join(paths.server.base, 'api', name)),
