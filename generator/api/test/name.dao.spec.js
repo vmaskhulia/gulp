@@ -8,12 +8,12 @@ chai.use(require('chai-as-promised'));
 chai.use(require('chai-datetime'));
 var testHelpers = require('../../../helpers/testHelpers');
 var ResourceNotFoundError = require('../../../errors').ResourceNotFoundError;
-var <%=nameC%> = require('../<%=name%>.dao');
-var <%=nameC%>Stub = require('../../../stubs/<%=name%>.stub');
+var <%=nameUC%> = require('../<%=nameLC%>.dao');
+var <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 
-describe('<%=name%>.dao', () => {
-  var <%=name%>Stub;
+describe('<%=nameLC%>.dao', () => {
+  var <%=nameLC%>Stub;
 
   before(co.wrap(function* () {
     testHelpers.connectDB();
@@ -21,7 +21,7 @@ describe('<%=name%>.dao', () => {
   }));
 
   beforeEach(() => {
-    <%=name%>Stub = <%=nameC%>Stub.getSingle();
+    <%=nameLC%>Stub = <%=nameUC%>Stub.getSingle();
   });
 
   after(testHelpers.clearDB);
@@ -30,36 +30,36 @@ describe('<%=name%>.dao', () => {
   // =============== getters ===============
 
   describe('#getAll()', () => {
-    it('should get all <%=name%>s', co.wrap(function* () {
-      var <%=name%>sData = _.range(10)
-        .map(() => <%=nameC%>Stub.getSingle());
+    it('should get all <%=namePlural%>', co.wrap(function* () {
+      var <%=namePlural%>Data = _.range(10)
+        .map(() => <%=nameUC%>Stub.getSingle());
 
-      yield <%=nameC%>.create(<%=name%>sData);
+      yield <%=nameUC%>.create(<%=namePlural%>Data);
 
-      var <%=name%>s = yield <%=nameC%>.getAll();
+      var <%=namePlural%> = yield <%=nameUC%>.getAll();
 
-      expect(<%=name%>s).to.be.instanceof(Array);
-      expect(<%=name%>s).to.have.length(<%=name%>sData.length);
+      expect(<%=namePlural%>).to.be.instanceof(Array);
+      expect(<%=namePlural%>).to.have.length(<%=namePlural%>Data.length);
     }));
   });
 
   describe('#getById()', () => {
-    var <%=name%>;
+    var <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
-      var created<%=nameC%> = yield <%=nameC%>.create(<%=name%>Stub);
-      <%=name%> = yield <%=nameC%>.getById(created<%=nameC%>._id);
+      var created<%=nameUC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
+      <%=nameLC%> = yield <%=nameUC%>.getById(created<%=nameUC%>._id);
     }));
 
-    it('should get <%=name%> by id', () => {
-      expect(<%=name%>).to.be.an('object');
+    it('should get <%=nameLC%> by id', () => {
+      expect(<%=nameLC%>).to.be.an('object');
     });
 
-    it('should throw error if <%=name%> was not found', () => {
+    it('should throw error if <%=nameLC%> was not found', () => {
       var dummyId = testHelpers.DUMMY_ID;
 
-      return expect(<%=nameC%>.getById(dummyId))
-        .to.be.rejectedWith(ResourceNotFoundError, `<%=name%> (id "${dummyId}") was not found`);
+      return expect(<%=nameUC%>.getById(dummyId))
+        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameLC%> (id "${dummyId}") was not found`);
     });
   });
 
@@ -67,62 +67,62 @@ describe('<%=name%>.dao', () => {
   // =============== setters ===============
 
   describe('#create()', () => {
-    var <%=name%>Data;
-    var <%=name%>;
+    var <%=nameLC%>Data;
+    var <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
-      <%=name%>Data = <%=name%>Stub;
-      <%=name%> = yield <%=nameC%>.create(<%=name%>Data);
+      <%=nameLC%>Data = <%=nameLC%>Stub;
+      <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Data);
     }));
 
-    it('should create <%=name%>', () => {
-      expect(<%=name%>).to.be.an('object');
+    it('should create <%=nameLC%>', () => {
+      expect(<%=nameLC%>).to.be.an('object');
     });
 
     it('should contain proper fields', () => {
-      expect(<%=name%>).to.have.property('myField', <%=name%>Data.myField);
+      expect(<%=nameLC%>).to.have.property('myField', <%=nameLC%>Data.myField);
     });
   });
 
   describe('#update()', () => {
-    it('should update <%=name%>', co.wrap(function* () {
-      var <%=name%> = yield <%=nameC%>.create(<%=name%>Stub);
+    it('should update <%=nameLC%>', co.wrap(function* () {
+      var <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
       var newData = {
         myField: 'new-my-field',
       };
 
-      yield <%=nameC%>.update(<%=name%>._id, newData);
+      yield <%=nameUC%>.update(<%=nameLC%>._id, newData);
 
-      var updated<%=nameC%> = yield <%=nameC%>.getById(<%=name%>._id);
+      var updated<%=nameUC%> = yield <%=nameUC%>.getById(<%=nameLC%>._id);
 
-      expect(updated<%=nameC%>).to.have.property('myField', newData.myField);
+      expect(updated<%=nameUC%>).to.have.property('myField', newData.myField);
     }));
 
-    it('should throw error if passed <%=name%> does not exist', () => {
+    it('should throw error if passed <%=nameLC%> does not exist', () => {
       var dummyId = testHelpers.DUMMY_ID;
-      var newData = <%=name%>Stub;
+      var newData = <%=nameLC%>Stub;
 
-      return expect(<%=nameC%>.update(dummyId, newData))
-        .to.be.rejectedWith(ResourceNotFoundError, `could not update <%=name%> (id "${dummyId}")`);
+      return expect(<%=nameUC%>.update(dummyId, newData))
+        .to.be.rejectedWith(ResourceNotFoundError, `could not update <%=nameLC%> (id "${dummyId}")`);
     });
   });
 
   describe('#destroy()', () => {
-    it('should destroy <%=name%>', co.wrap(function* () {
-      var <%=name%> = yield <%=nameC%>.create(<%=name%>Stub);
+    it('should destroy <%=nameLC%>', co.wrap(function* () {
+      var <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
-      yield <%=nameC%>.destroy(<%=name%>._id);
+      yield <%=nameUC%>.destroy(<%=nameLC%>._id);
 
-      return expect(<%=nameC%>.getById(<%=name%>._id))
-        .to.be.rejectedWith(ResourceNotFoundError, `<%=name%> (id "${<%=name%>._id}") was not found`);
+      return expect(<%=nameUC%>.getById(<%=nameLC%>._id))
+        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameLC%> (id "${<%=nameLC%>._id}") was not found`);
     }));
 
-    it('should throw error if passed <%=name%> does not exist', () => {
+    it('should throw error if passed <%=nameLC%> does not exist', () => {
       var dummyId = testHelpers.DUMMY_ID;
 
-      return expect(<%=nameC%>.destroy(dummyId))
-        .to.be.rejectedWith(ResourceNotFoundError, `could not destroy <%=name%> (id "${dummyId}")`);
+      return expect(<%=nameUC%>.destroy(dummyId))
+        .to.be.rejectedWith(ResourceNotFoundError, `could not destroy <%=nameLC%> (id "${dummyId}")`);
     });
   });
 });

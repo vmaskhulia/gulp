@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var helpers = require('../helpers/stubHelpers');
 
-var <%=nameC%>Stub = {
+var <%=nameUC%>Stub = {
   myField: 'myField'
 };
 
@@ -15,7 +15,7 @@ module.exports = {
 
 
 function getSingle() {
-  var stub = helpers.cloneStub(<%=nameC%>Stub);
+  var stub = helpers.cloneStub(<%=nameUC%>Stub);
   return stub;
 }
 

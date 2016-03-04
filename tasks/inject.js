@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import es from 'event-stream';
 import paths from '../paths';
-import {firstUC} from '../helpers';
+import {firstUC, singular} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
@@ -30,7 +30,7 @@ function injectCommon() {
     base,
     fileNames,
     '//inject:import',
-    n => `import ${n} from './${n}/${n}';`,
+    n => `import ${n} from './${n}/${n}.js';`,
     '//inject:ngmodule',
     n => `${n}.name,`
   );
@@ -46,7 +46,7 @@ function injectModals() {
     base,
     fileNames,
     '//inject:import',
-    n => `import ${n} from './${n}/${n}';`,
+    n => `import ${n} from './${n}/${n}.js';`,
     '//inject:ngservice',
     n => `.service('${n}Modal', ${n})`
   );
@@ -62,7 +62,7 @@ function injectServices() {
     base,
     fileNames,
     '//inject:import',
-    n => `import ${n} from './${n}';`,
+    n => `import ${n} from './${n}.js';`,
     '//inject:ngservice',
     n => `.service('${n}', ${n})`
   );
@@ -78,7 +78,7 @@ function injectResources() {
     base,
     fileNames,
     '//inject:import',
-    n => `import ${n} from './${n}';`,
+    n => `import ${n} from './${n}.js';`,
     '//inject:ngfactory',
     n => `.factory('${n}', ${n})`
   );
@@ -94,12 +94,12 @@ function injectComponents() {
     .pipe(inject(
       mainFileNames,
       '//inject:import.main',
-      n => `import main${n} from './main/${n}/${n}';`
+      n => `import main${n} from './main/${n}/${n}.js';`
     ))
     .pipe(inject(
       adminFileNames,
       '//inject:import.admin',
-      n => `import admin${n} from './admin/${n}/${n}';`
+      n => `import admin${n} from './admin/${n}/${n}.js';`
     ))
     .pipe(inject(
       mainFileNames,
@@ -137,17 +137,17 @@ function injectSeed() {
     .pipe(inject(
       fileNames,
       '//inject:require.daos',
-      n => `var ${firstUC(n)} = require('../api/${n}/${n}.dao');`
+      n => `var ${firstUC(singular(n))} = require('../api/${n}/${singular(n)}.dao');`
     ))
     .pipe(inject(
       fileNames,
       '//inject:require.stubs',
-      n => `var ${firstUC(n)}Stub = require('../stubs/${n}.stub');`
+      n => `var ${firstUC(singular(n))}Stub = require('../stubs/${singular(n)}.stub');`
     ))
     .pipe(inject(
       fileNames,
       '//inject:daos.destroyAll',
-      n => `${firstUC(n)}.destroyAll(),`
+      n => `${firstUC(singular(n))}.destroyAll(),`
     ))
     .pipe(gulp.dest(`${base}/config`));
 }

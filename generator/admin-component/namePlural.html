@@ -1,0 +1,91 @@
+<div>
+  <md-button
+    ng-click="vm.create<%=namePlural%>($event)"
+    class="md-fab md-primary md-fab-bottom-right add-new-btn">
+    <i class="fa fa-plus ng-scope"></i>
+    <md-tooltip md-direction="top">
+      Add
+    </md-tooltip>
+  </md-button>
+
+  <md-toolbar class="md-primary md-hue-1 inner-toolbar md-whiteframe-z1">
+    <div class="md-toolbar-tools" layout="row">
+      <input
+        ng-model="vm.query.searchText"
+        type="text"
+        class="search-input"
+        placeholder="Search for..."
+        flex="30"
+        aria-label="Search">
+      <md-button
+        ng-click="vm.searchByText()"
+        class="md-fab md-mini"
+        aria-label="Search">
+        <i class="fa fa-search"></i>
+      </md-button>
+      <span flex></span>
+
+      <md-checkbox
+        ng-click="vm.toggleShowAllPages()"
+        ng-model="vm.showAll"
+        ng-value="vm.showAll"
+        aria-label="Show all">
+        Show all
+      </md-checkbox>
+    </div>
+    <div layout="row" class="page-title">
+      <span class="title-font">
+        <%=namePlural%>
+      </span>
+      <span></span>
+    </div>
+  </md-toolbar>
+
+  <md-content flex layout-padding>
+
+    <md-list>
+      <md-list-item
+        ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
+        <p>{{::<%=nameLC%>.myField}}</p>
+
+        <md-button
+          ng-click="vm.update<%=namePlural%>($event, <%=nameLC%>)"
+          class="md-icon-button md-primary"
+          aria-label="Settings">
+          <md-icon
+            md-font-icon="material-icons">
+            edit
+          </md-icon>
+        </md-button>
+
+        <md-button
+          ng-click="vm.destroy<%=namePlural%>($event, <%=nameLC%>)"
+          class="md-icon-button md-primary"
+          aria-label="Delete">
+          <md-icon
+            md-font-icon="material-icons">
+            delete
+          </md-icon>
+        </md-button>
+
+        <md-divider></md-divider>
+      </md-list-item>
+    </md-list>
+
+    <div ng-if="!vm.showAll" layout="row" layout-align="center center">
+      <uib-pagination
+        ng-change="vm.reloadPage()"
+        ng-model="vm.query.page"
+        total-items="::vm.<%=namePlural%>Data.numTotal"
+        items-per-page="::vm.query.limit"
+        max-size="5"
+        boundary-link-numbers="true"
+        previous-text="&lsaquo;"
+        next-text="&rsaquo;"
+        first-text="&laquo;"
+        last-text="&raquo;">
+      </uib-pagination>
+    </div>
+
+  </md-content>
+</div>

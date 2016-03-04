@@ -28,6 +28,14 @@ export function plural(str) {
   }
 }
 
+export function singular(str) {
+  if (str.endsWith('ies')) {
+    return str.substr(0, str.length - 3) + 'y';
+  } else {
+    return str.substr(0, str.length - 1);
+  }
+}
+
 export function getNameFromArgv() {
   var name = argv.name || argv.n;
 
@@ -36,5 +44,5 @@ export function getNameFromArgv() {
     process.exit(1);
   }
 
-  return name;
+  return firstLC(name);
 }

@@ -2,8 +2,8 @@
 
 var router = require('express').Router();
 var co = require('co');
-var <%=nameC%> = require('./<%=name%>.dao');
-var <%=name%>Parser = require('./<%=name%>.parser');
+var <%=nameUC%> = require('./<%=nameLC%>.dao');
+var <%=nameLC%>Parser = require('./<%=nameLC%>.parser');
 var auth = require('../../auth');
 
 
@@ -12,19 +12,19 @@ module.exports = router;
 
 router.get('/', co.wrap(getAll));
 
-router.post('/', auth.isAdmin(), <%=name%>Parser.parseCreateRequest, co.wrap(create));
-router.post('/update', auth.isAdmin(), <%=name%>Parser.parseUpdateRequest, co.wrap(update));
+router.post('/', auth.isAdmin(), <%=nameLC%>Parser.parseCreateRequest, co.wrap(create));
+router.post('/update', auth.isAdmin(), <%=nameLC%>Parser.parseUpdateRequest, co.wrap(update));
 
-router.delete('/:<%=name%>Id', auth.isAdmin(), <%=name%>Parser.parseDestroyRequest, co.wrap(destroy));
+router.delete('/:<%=nameLC%>Id', auth.isAdmin(), <%=nameLC%>Parser.parseDestroyRequest, co.wrap(destroy));
 
 
 // =============== GET ===============
 
 function* getAll(req, res, next) {
   try {
-    var <%=name%>s = yield <%=nameC%>.getAll();
+    var <%=nameLC%>s = yield <%=nameUC%>.getAll();
 
-    res.json(<%=name%>s);
+    res.json(<%=nameLC%>s);
   } catch (e) {
     next(e);
   }
@@ -34,9 +34,9 @@ function* getAll(req, res, next) {
 
 function* create(req, res, next) {
   try {
-    var parsed<%=nameC%> = req.parsed;
+    var parsed<%=nameUC%> = req.parsed;
 
-    yield <%=nameC%>.create(parsed<%=nameC%>);
+    yield <%=nameUC%>.create(parsed<%=nameUC%>);
 
     res.sendStatus(201);
   } catch (e) {
@@ -46,9 +46,9 @@ function* create(req, res, next) {
 
 function* update(req, res, next) {
   try {
-    var parsed<%=nameC%> = req.parsed;
+    var parsed<%=nameUC%> = req.parsed;
 
-    yield <%=nameC%>.update(parsed<%=nameC%>._id, parsed<%=nameC%>);
+    yield <%=nameUC%>.update(parsed<%=nameUC%>._id, parsed<%=nameUC%>);
 
     res.sendStatus(200);
   } catch (e) {
@@ -58,9 +58,9 @@ function* update(req, res, next) {
 
 function* destroy(req, res, next) {
   try {
-    var parsed<%=nameC%> = req.parsed;
+    var parsed<%=nameUC%> = req.parsed;
 
-    yield <%=nameC%>.destroy(parsed<%=nameC%>._id);
+    yield <%=nameUC%>.destroy(parsed<%=nameUC%>._id);
 
     res.sendStatus(200);
   } catch (e) {

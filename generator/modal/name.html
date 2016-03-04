@@ -1,12 +1,12 @@
 <md-dialog aria-label="label" style="min-width:400px">
   <form
-    name="<%=nameL%>Form"
-    ng-submit="vm.submit(<%=nameL%>Form)"
+    name="<%=nameLC%>Form"
+    ng-submit="vm.submit(<%=nameLC%>Form)"
     novalidate>
 
     <md-toolbar aria-label="label">
       <div class="md-toolbar-tools">
-        <h2><%=nameC%></h2>
+        <h2><%=nameUC%></h2>
         <span flex></span>
       </div>
     </md-toolbar>
@@ -19,7 +19,7 @@
             <label>myField</label>
             <input
               type="text"
-              ng-model="vm.<%=nameL%>.myField"
+              ng-model="vm.<%=nameLC%>.myField"
               required
               aria-label="label">
           </md-input-container>
@@ -30,13 +30,14 @@
 
     <md-dialog-actions layout="row">
       <md-button
-        type="button"
         ng-click="vm.close()"
-        class="md-raised md-primary">Cancel</md-button>
+        type="button"
+        class="md-raised md-primary"
+        aria-label="Close">Cancel</md-button>
       <md-button
         type="submit"
         class="md-raised md-primary button-filled"
-        aria-label="label">Submit</md-button>
+        aria-label="Submit">Submit</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

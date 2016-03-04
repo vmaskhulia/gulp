@@ -9,13 +9,13 @@ module.exports = {
 
 
 function parseCreateRequest(req, res, next) {
-  req.parsed = parse<%=nameC%>(req.body);
+  req.parsed = parse<%=nameUC%>(req.body);
 
   next();
 }
 
 function parseUpdateRequest(req, res, next) {
-  req.parsed = parse<%=nameC%>(req.body);
+  req.parsed = parse<%=nameUC%>(req.body);
   req.parsed._id = req.body._id;
 
   next();
@@ -23,13 +23,13 @@ function parseUpdateRequest(req, res, next) {
 
 function parseDestroyRequest(req, res, next) {
   req.parsed = {
-    _id: req.params.<%=name%>Id
+    _id: req.params.<%=nameLC%>Id
   };
 
   next();
 }
 
-function parse<%=nameC%>(body) {
+function parse<%=nameUC%>(body) {
   return {
     myField: body.myField
   };

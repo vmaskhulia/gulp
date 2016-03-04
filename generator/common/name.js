@@ -1,6 +1,13 @@
 'use strict';
 
-import <%= name %>Component from './<%= name %>.component';
+import template from './<%=nameLC%>.html!text';
+import controller from './<%=nameLC%>.controller';
+import './<%=nameLC%>.css!';
 
-export default angular.module('<%= name %>', [])
-  .directive('<%= name %>', <%= name %>Component);
+export default angular.module('<%=nameLC%>', [])
+  .component('<%=nameLC%>', {
+    template,
+    controller,
+    controllerAs: 'vm',
+    bindings: {}
+  });

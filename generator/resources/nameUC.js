@@ -19,12 +19,12 @@ export default (Restangular) => {
   };
 
   function resource(type) {
-    return Restangular.one('<%=nameL%>', type);
+    return Restangular.one('<%=namePlural%>', type);
   }
 
   function getSchema() {
     return {
-
+      myField: ''
     };
   }
 };
