@@ -3,28 +3,30 @@
 var router = require('express').Router();
 var co = require('co');
 var <%=nameUC%> = require('./<%=nameLC%>.dao');
-var <%=nameLC%>Parser = require('./<%=nameLC%>.parser');
+var carParser = require('./<%=nameLC%>.parser');
 var auth = require('../../auth');
 
 
 module.exports = router;
 
 
-router.get('/', co.wrap(getAll));
+router.get('/', carParser.parseGetByQueryRequest, co.wrap(getByQuery));
 
-router.post('/', auth.isAdmin(), <%=nameLC%>Parser.parseCreateRequest, co.wrap(create));
-router.post('/update', auth.isAdmin(), <%=nameLC%>Parser.parseUpdateRequest, co.wrap(update));
+router.post('/', auth.isAdmin(), carParser.parseCreateRequest, co.wrap(create));
+router.post('/update', auth.isAdmin(), carParser.parseUpdateRequest, co.wrap(update));
 
-router.delete('/:<%=nameLC%>Id', auth.isAdmin(), <%=nameLC%>Parser.parseDestroyRequest, co.wrap(destroy));
+router.delete('/:carId', auth.isAdmin(), carParser.parseDestroyRequest, co.wrap(destroy));
 
 
 // =============== GET ===============
 
-function* getAll(req, res, next) {
+function* getByQuery(req, res, next) {
   try {
-    var <%=nameLC%>s = yield <%=nameUC%>.getAll();
+    var q = req.parsed;
 
-    res.json(<%=nameLC%>s);
+    var <%=namePlural%>Data = yield <%=nameUC%>.getByQuery(q.findQuery, q.orQuery, q.sortBy, q.offset, q.limit);
+
+    res.json(<%=namePlural%>Data);
   } catch (e) {
     next(e);
   }
@@ -34,9 +36,9 @@ function* getAll(req, res, next) {
 
 function* create(req, res, next) {
   try {
-    var parsed<%=nameUC%> = req.parsed;
+    var parsedCar = req.parsed;
 
-    yield <%=nameUC%>.create(parsed<%=nameUC%>);
+    yield <%=nameUC%>.create(parsedCar);
 
     res.sendStatus(201);
   } catch (e) {
@@ -46,9 +48,9 @@ function* create(req, res, next) {
 
 function* update(req, res, next) {
   try {
-    var parsed<%=nameUC%> = req.parsed;
+    var parsedCar = req.parsed;
 
-    yield <%=nameUC%>.update(parsed<%=nameUC%>._id, parsed<%=nameUC%>);
+    yield <%=nameUC%>.update(parsedCar._id, parsedCar);
 
     res.sendStatus(200);
   } catch (e) {
@@ -58,9 +60,9 @@ function* update(req, res, next) {
 
 function* destroy(req, res, next) {
   try {
-    var parsed<%=nameUC%> = req.parsed;
+    var parsedCar = req.parsed;
 
-    yield <%=nameUC%>.destroy(parsed<%=nameUC%>._id);
+    yield <%=nameUC%>.destroy(parsedCar._id);
 
     res.sendStatus(200);
   } catch (e) {

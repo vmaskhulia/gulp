@@ -4,8 +4,8 @@ export default (Restangular) => {
   'ngInject';
 
   return {
-    getAll: () =>
-      resource('').get(),
+    getByQuery: (query) =>
+      resource('').get(query),
 
     create: (data) =>
       resource('').post('', data),

@@ -1,14 +1,17 @@
 'use strict';
 
+var Promise = require('bluebird');
 var DBResultHandler = require('../../helpers/DBResultHandler');
 var Model = require('./<%=nameLC%>.model');
 
 
 module.exports = {
   getAll,
+  getByQuery,
   getById,
 
   create,
+  insertMany,
   update,
 
   destroy,
@@ -22,6 +25,18 @@ function getAll() {
   return Model.find();
 }
 
+function getByQuery(findQuery, orQuery, sortBy, offset, limit) {
+  return Promise.all([
+    Model.find(findQuery).or(orQuery).sort(sortBy).skip(offset).limit(limit),
+    Model.find(findQuery).or(orQuery).count()
+  ]).spread((items, numTotal) => {
+    return {
+      items,
+      numTotal
+    };
+  });
+}
+
 function getById(id) {
   return Model.findOne({_id: id})
     .then(DBResultHandler.assertFound(`<%=nameLC%> (id "${id}") was not found`));
@@ -31,6 +46,10 @@ function getById(id) {
 
 function create(data) {
   return Model.create(data);
+}
+
+function insertMany(data) {
+  return Model.insertMany(data);
 }
 
 function update(id, data) {

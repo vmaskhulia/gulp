@@ -43,6 +43,97 @@ describe('<%=nameLC%>.dao', () => {
     }));
   });
 
+  describe('#getByQuery()', () => {
+    const TOTAL_COUNT = 24;
+
+    before(co.wrap(function* () {
+      yield <%=nameUC%>.destroyAll();
+
+      var <%=namePlural%> = _.range(TOTAL_COUNT)
+        .map(i => {
+          var stub = <%=nameUC%>Stub.getSingle();
+          stub.myField = (i % 2 === 0) ? 'value-a' : 'value-b';
+          return stub;
+        });
+
+      yield <%=nameUC%>.insertMany(<%=namePlural%>);
+    }));
+
+    it('should get all <%=namePlural%> by findQuery', co.wrap(function* () {
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, TOTAL_COUNT);
+      expect(data.items).to.have.length(TOTAL_COUNT);
+      expect(data.numTotal).to.equal(TOTAL_COUNT);
+    }));
+
+    it('should get part of <%=namePlural%> by findQuery', co.wrap(function* () {
+      var data = yield <%=nameUC%>.getByQuery({myField: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
+      expect(data.items).to.have.length(TOTAL_COUNT / 2);
+      expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
+    }));
+
+    it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
+      var query = [{
+        myField: {$regex: 'value-a', $options: 'gi'}
+      }, {
+        myField: {$regex: 'value-b', $options: 'gi'}
+      }];
+
+      var data = yield <%=nameUC%>.getByQuery({}, query, {}, 0, TOTAL_COUNT);
+
+      expect(data.items).to.have.length(TOTAL_COUNT);
+      expect(data.numTotal).to.equal(TOTAL_COUNT);
+    }));
+
+    it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
+      var query = [{
+        myField: {$regex: 'value-a', $options: 'gi'}
+      }];
+
+      var data = yield <%=nameUC%>.getByQuery({}, query, {}, 0, TOTAL_COUNT);
+
+      expect(data.items).to.have.length(TOTAL_COUNT / 2);
+      expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
+    }));
+
+    it('should sort by ascending order', co.wrap(function* () {
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {myField: 1}, 0, TOTAL_COUNT);
+
+      expect(data.items).to.have.length(TOTAL_COUNT);
+
+      for (var i = 1; i < data.items.length; i++) {
+        expect(data.items[i].myField).to.be.at.least(data.items[i - 1].myField);
+      }
+
+      expect(data.numTotal).to.equal(TOTAL_COUNT);
+    }));
+
+    it('should sort by descending order', co.wrap(function* () {
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {myField: -1}, 0, TOTAL_COUNT);
+
+      expect(data.items).to.have.length(TOTAL_COUNT);
+
+      for (var i = 1; i < data.items.length; i++) {
+        expect(data.items[i - 1].myField).to.be.at.least(data.items[i].myField);
+      }
+
+      expect(data.numTotal).to.equal(TOTAL_COUNT);
+    }));
+
+    it('should get all <%=namePlural%> after offset', co.wrap(function* () {
+      var offset = 5;
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, offset, TOTAL_COUNT);
+      expect(data.items).to.have.length(TOTAL_COUNT - offset);
+      expect(data.numTotal).to.equal(TOTAL_COUNT);
+    }));
+
+    it('should get limited amount of <%=namePlural%>', co.wrap(function* () {
+      var limit = 9;
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
+      expect(data.items).to.have.length(limit);
+      expect(data.numTotal).to.equal(TOTAL_COUNT);
+    }));
+  });
+
   describe('#getById()', () => {
     var <%=nameLC%>;
 

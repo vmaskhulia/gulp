@@ -1,6 +1,6 @@
 <div>
   <md-button
-    ng-click="vm.create<%=namePlural%>($event)"
+    ng-click="vm.create<%=nameUC%>($event)"
     class="md-fab md-primary md-fab-bottom-right add-new-btn">
     <i class="fa fa-plus ng-scope"></i>
     <md-tooltip md-direction="top">
@@ -49,7 +49,7 @@
         <p>{{::<%=nameLC%>.myField}}</p>
 
         <md-button
-          ng-click="vm.update<%=namePlural%>($event, <%=nameLC%>)"
+          ng-click="vm.update<%=nameUC%>($event, <%=nameLC%>)"
           class="md-icon-button md-primary"
           aria-label="Settings">
           <md-icon
@@ -59,7 +59,7 @@
         </md-button>
 
         <md-button
-          ng-click="vm.destroy<%=namePlural%>($event, <%=nameLC%>)"
+          ng-click="vm.destroy<%=nameUC%>($event, <%=nameLC%>)"
           class="md-icon-button md-primary"
           aria-label="Delete">
           <md-icon
