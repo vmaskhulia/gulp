@@ -24,7 +24,7 @@ export default angular.module('admin.<%=namePlural%>', [])
 
 function getQuery($stateParams, Constants) {
   return {
-    searchText: $stateParams.searchText || '',
+    searchText: $stateParams.searchText,
     page: Number($stateParams.page) || 1,
     limit: Number($stateParams.limit) || Constants.query.limit
   };
