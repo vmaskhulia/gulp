@@ -13,8 +13,11 @@ export default angular.module('admin.<%=namePlural%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          query: ($stateParams, Constants) => getQuery($stateParams, Constants),
-          <%=namePlural%>Data: (query, <%=nameUC%>) => <%=nameUC%>.getByQuery(query)
+          query: ($stateParams, Constants) =>
+            getQuery($stateParams, Constants),
+
+          <%=namePlural%>Data: (query, <%=nameUC%>) =>
+            <%=nameUC%>.getByQuery(query)
         }
       });
   });
