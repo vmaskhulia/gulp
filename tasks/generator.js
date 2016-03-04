@@ -9,7 +9,7 @@ var $ = require('gulp-load-plugins')();
 
 
 gulp.task('api', done => {
-  runSequence('generateModal', 'generateResource', 'generateMainComponent', 'generateAdminComponent', 'generateApi', 'generateStub', 'inject', done);
+  runSequence('generateModal', 'generateResource', 'generateAdminComponent', 'generateApi', 'generateStub', 'inject', done);
 });
 
 gulp.task('modal', done => {

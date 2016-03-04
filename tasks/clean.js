@@ -23,7 +23,6 @@ gulp.task('cleanApi', (done) => {
   Promise.all([
     del(path.join(paths.app.common, 'modals', name)),
     del(path.join(paths.app.common, 'resources', `${firstUC(name)}.js`)),
-    del(path.join(paths.app.components, 'main', name)),
     del(path.join(paths.app.components, 'admin', plural(name))),
     del(path.join(paths.server.base, 'api', plural(name))),
     del(path.join(paths.server.base, 'stubs', `${name}.stub.js`))
