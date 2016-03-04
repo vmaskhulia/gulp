@@ -6,7 +6,7 @@ import del from 'del';
 import Promise from 'bluebird';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-import {getNameFromArgv, firstUC} from '../helpers';
+import {getNameFromArgv, firstUC, plural} from '../helpers';
 
 
 gulp.task('cleanTmp', () => {
@@ -24,8 +24,8 @@ gulp.task('cleanApi', (done) => {
     del(path.join(paths.app.common, 'modals', name)),
     del(path.join(paths.app.common, 'resources', `${firstUC(name)}.js`)),
     del(path.join(paths.app.components, 'main', name)),
-    del(path.join(paths.app.components, 'admin', name)),
-    del(path.join(paths.server.base, 'api', name)),
+    del(path.join(paths.app.components, 'admin', plural(name))),
+    del(path.join(paths.server.base, 'api', plural(name))),
     del(path.join(paths.server.base, 'stubs', `${name}.stub.js`))
   ])
   .then(() => {
