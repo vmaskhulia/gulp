@@ -3,19 +3,19 @@
 var router = require('express').Router();
 var co = require('co');
 var <%=nameUC%> = require('./<%=nameLC%>.dao');
-var carParser = require('./<%=nameLC%>.parser');
+var <%=nameLC%>Parser = require('./<%=nameLC%>.parser');
 var auth = require('../../auth');
 
 
 module.exports = router;
 
 
-router.get('/', carParser.parseGetByQueryRequest, co.wrap(getByQuery));
+router.get('/', <%=nameLC%>Parser.parseGetByQueryRequest, co.wrap(getByQuery));
 
-router.post('/', auth.isAdmin(), carParser.parseCreateRequest, co.wrap(create));
-router.post('/update', auth.isAdmin(), carParser.parseUpdateRequest, co.wrap(update));
+router.post('/', auth.isAdmin(), <%=nameLC%>Parser.parseCreateRequest, co.wrap(create));
+router.post('/update', auth.isAdmin(), <%=nameLC%>Parser.parseUpdateRequest, co.wrap(update));
 
-router.delete('/:carId', auth.isAdmin(), carParser.parseDestroyRequest, co.wrap(destroy));
+router.delete('/:<%=nameLC%>Id', auth.isAdmin(), <%=nameLC%>Parser.parseDestroyRequest, co.wrap(destroy));
 
 
 // =============== GET ===============
@@ -36,9 +36,9 @@ function* getByQuery(req, res, next) {
 
 function* create(req, res, next) {
   try {
-    var parsedCar = req.parsed;
+    var parsed<%=nameUC%> = req.parsed;
 
-    yield <%=nameUC%>.create(parsedCar);
+    yield <%=nameUC%>.create(parsed<%=nameUC%>);
 
     res.sendStatus(201);
   } catch (e) {
@@ -48,9 +48,9 @@ function* create(req, res, next) {
 
 function* update(req, res, next) {
   try {
-    var parsedCar = req.parsed;
+    var parsed<%=nameUC%> = req.parsed;
 
-    yield <%=nameUC%>.update(parsedCar._id, parsedCar);
+    yield <%=nameUC%>.update(parsed<%=nameUC%>._id, parsed<%=nameUC%>);
 
     res.sendStatus(200);
   } catch (e) {
@@ -60,9 +60,9 @@ function* update(req, res, next) {
 
 function* destroy(req, res, next) {
   try {
-    var parsedCar = req.parsed;
+    var parsed<%=nameUC%> = req.parsed;
 
-    yield <%=nameUC%>.destroy(parsedCar._id);
+    yield <%=nameUC%>.destroy(parsed<%=nameUC%>._id);
 
     res.sendStatus(200);
   } catch (e) {

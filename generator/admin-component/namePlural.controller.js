@@ -16,7 +16,7 @@ export default class {
     this.showAll = query.limit === <%=namePlural%>Data.numTotal;
   }
 
-  createCar(event) {
+  create<%=nameUC%>(event) {
     this.<%=nameLC%>Modal.open(event, this.<%=nameUC%>.getSchema())
       .then((<%=nameLC%>) => {
         this.Request.send(
@@ -25,7 +25,7 @@ export default class {
       });
   }
 
-  updateCar(event, <%=nameLC%>) {
+  update<%=nameUC%>(event, <%=nameLC%>) {
     this.<%=nameLC%>Modal.open(event, <%=nameLC%>, true)
       .then((<%=nameLC%>) => {
         this.Request.send(
@@ -34,7 +34,7 @@ export default class {
       });
   }
 
-  destroyCar(event, <%=nameLC%>) {
+  destroy<%=nameUC%>(event, <%=nameLC%>) {
     this.confirmDestroyModal.open(event)
       .then(() =>
         this.Request.send(
