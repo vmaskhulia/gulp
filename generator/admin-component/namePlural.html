@@ -3,9 +3,7 @@
     ng-click="vm.create<%=nameUC%>($event)"
     class="md-fab md-primary md-fab-bottom-right add-new-btn">
     <i class="fa fa-plus ng-scope"></i>
-    <md-tooltip md-direction="top">
-      Add
-    </md-tooltip>
+    <md-tooltip md-direction="top">Add</md-tooltip>
   </md-button>
 
   <md-toolbar class="md-primary md-hue-1 inner-toolbar md-whiteframe-z1">
@@ -34,9 +32,7 @@
       </md-checkbox>
     </div>
     <div layout="row" class="page-title">
-      <span class="title-font">
-        <%=namePlural%>
-      </span>
+      <span class="title-font"><%=namePlural%></span>
       <span></span>
     </div>
   </md-toolbar>
@@ -52,20 +48,14 @@
           ng-click="vm.update<%=nameUC%>($event, <%=nameLC%>)"
           class="md-icon-button md-primary"
           aria-label="Settings">
-          <md-icon
-            md-font-icon="material-icons">
-            edit
-          </md-icon>
+          <md-icon md-font-icon="material-icons">edit</md-icon>
         </md-button>
 
         <md-button
           ng-click="vm.destroy<%=nameUC%>($event, <%=nameLC%>)"
           class="md-icon-button md-primary"
           aria-label="Delete">
-          <md-icon
-            md-font-icon="material-icons">
-            delete
-          </md-icon>
+          <md-icon md-font-icon="material-icons">delete</md-icon>
         </md-button>
 
         <md-divider></md-divider>
