@@ -59,7 +59,10 @@
       </md-list-item>
     </md-list>
 
-    <div ng-if="!vm.showAll" layout="row" layout-align="center center">
+    <div
+      ng-if="!vm.showAll && !!vm.<%=namePlural%>Data.numTotal"
+      layout="row"
+      layout-align="center center">
       <uib-pagination
         ng-change="vm.reloadPage()"
         ng-model="vm.query.page"
