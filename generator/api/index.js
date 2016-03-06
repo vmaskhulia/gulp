@@ -3,19 +3,19 @@
 var router = require('express').Router();
 var co = require('co');
 var <%=nameUC%> = require('./<%=nameLC%>.dao');
-var <%=nameLC%>Parser = require('./<%=nameLC%>.parser');
+var parser = require('./<%=nameLC%>.parser');
 var auth = require('../../auth');
 
 
 module.exports = router;
 
 
-router.get('/', <%=nameLC%>Parser.parseGetByQueryRequest, co.wrap(getByQuery));
+router.get('/', parser.parseGetByQueryRequest, co.wrap(getByQuery));
 
-router.post('/', auth.isAdmin(), <%=nameLC%>Parser.parseCreateRequest, co.wrap(create));
-router.post('/update', auth.isAdmin(), <%=nameLC%>Parser.parseUpdateRequest, co.wrap(update));
+router.post('/', auth.isAdmin(), parser.parseCreateRequest, co.wrap(create));
+router.post('/update', auth.isAdmin(), parser.parseUpdateRequest, co.wrap(update));
 
-router.delete('/:<%=nameLC%>Id', auth.isAdmin(), <%=nameLC%>Parser.parseDestroyRequest, co.wrap(destroy));
+router.delete('/:<%=nameLC%>Id', auth.isAdmin(), parser.parseDestroyRequest, co.wrap(destroy));
 
 
 // =============== GET ===============
