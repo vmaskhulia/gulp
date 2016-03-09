@@ -23,9 +23,7 @@ router.delete('/:<%=nameLC%>Id', auth.isAdmin(), parser.parseDestroyRequest, co.
 function* getByQuery(req, res, next) {
   try {
     var q = req.parsed;
-
     var <%=namePlural%>Data = yield <%=nameUC%>.getByQuery(q.findQuery, q.orQuery, q.sortBy, q.offset, q.limit);
-
     res.json(<%=namePlural%>Data);
   } catch (e) {
     next(e);
@@ -37,9 +35,7 @@ function* getByQuery(req, res, next) {
 function* create(req, res, next) {
   try {
     var parsed<%=nameUC%> = req.parsed;
-
     yield <%=nameUC%>.create(parsed<%=nameUC%>);
-
     res.sendStatus(201);
   } catch (e) {
     next(e);
@@ -49,9 +45,7 @@ function* create(req, res, next) {
 function* update(req, res, next) {
   try {
     var parsed<%=nameUC%> = req.parsed;
-
     yield <%=nameUC%>.update(parsed<%=nameUC%>._id, parsed<%=nameUC%>);
-
     res.sendStatus(200);
   } catch (e) {
     next(e);
@@ -60,10 +54,8 @@ function* update(req, res, next) {
 
 function* destroy(req, res, next) {
   try {
-    var parsed<%=nameUC%> = req.parsed;
-
-    yield <%=nameUC%>.destroy(parsed<%=nameUC%>._id);
-
+    var <%=nameLC%>Id = req.parsed.<%=nameLC%>Id;
+    yield <%=nameUC%>.destroy(<%=nameLC%>Id);
     res.sendStatus(200);
   } catch (e) {
     next(e);

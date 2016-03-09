@@ -45,7 +45,7 @@ function parseUpdateRequest(req, res, next) {
 
 function parseDestroyRequest(req, res, next) {
   req.parsed = {
-    _id: req.params.<%=nameLC%>Id
+    <%=nameLC%>Id: req.params.<%=nameLC%>Id
   };
   next();
 }
