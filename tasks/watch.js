@@ -5,6 +5,8 @@ import runSequence from 'run-sequence';
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
+var isTestRunning = false;
+
 
 gulp.task('watch', () => {
   $.watch(paths.app.styles, () => {
@@ -20,7 +22,12 @@ gulp.task('watch', () => {
   });
 
   $.watch(paths.server.scripts, () => {
-    runSequence('test:server');
+    if (!isTestRunning) {
+      isTestRunning = true;
+      runSequence('test:server', () => {
+        isTestRunning = false;
+      });
+    }
   });
 
   $.watch(paths.gulpfiles, () => {

@@ -11,7 +11,7 @@ var protractor = $.protractor.protractor;
 gulp.task('test', ['test:e2e', 'test:server', 'test:client']);
 
 gulp.task('test:server', () => {
-  gulp.src('server/**/*.spec.js', {read: false})
+  return gulp.src('server/**/*.spec.js', {read: false})
     .pipe($.plumber())
     .pipe($.spawnMocha({
       env: {'NODE_ENV': 'test'},
