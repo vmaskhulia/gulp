@@ -10,12 +10,12 @@ var auth = require('../../auth');
 module.exports = router;
 
 
-router.get('/', parser.parseGetByQueryRequest, co.wrap(getByQuery));
+router.get('/', parser.parseGetByQuery, co.wrap(getByQuery));
 
-router.post('/', auth.isAdmin(), parser.parseCreateRequest, co.wrap(create));
-router.post('/update', auth.isAdmin(), parser.parseUpdateRequest, co.wrap(update));
+router.post('/', auth.isAdmin(), parser.parseCreate, co.wrap(create));
+router.post('/update', auth.isAdmin(), parser.parseUpdate, co.wrap(update));
 
-router.delete('/:<%=nameLC%>Id', auth.isAdmin(), parser.parseDestroyRequest, co.wrap(destroy));
+router.delete('/:<%=nameLC%>Id', auth.isAdmin(), parser.parseDestroy, co.wrap(destroy));
 
 
 // =============== GET ===============

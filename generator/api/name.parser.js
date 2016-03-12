@@ -2,14 +2,14 @@
 
 
 module.exports = {
-  parseGetByQueryRequest,
-  parseCreateRequest,
-  parseUpdateRequest,
-  parseDestroyRequest
+  parseGetByQuery,
+  parseCreate,
+  parseUpdate,
+  parseDestroy
 };
 
 
-function parseGetByQueryRequest(req, res, next) {
+function parseGetByQuery(req, res, next) {
   var query = req.query;
 
   var page = (Number(query.page) > 0) ? Number(query.page) : 1;
@@ -32,18 +32,18 @@ function parseGetByQueryRequest(req, res, next) {
   next();
 }
 
-function parseCreateRequest(req, res, next) {
+function parseCreate(req, res, next) {
   req.parsed = parse<%=nameUC%>(req.body);
   next();
 }
 
-function parseUpdateRequest(req, res, next) {
+function parseUpdate(req, res, next) {
   req.parsed = parse<%=nameUC%>(req.body);
   req.parsed._id = req.body._id;
   next();
 }
 
-function parseDestroyRequest(req, res, next) {
+function parseDestroy(req, res, next) {
   req.parsed = {
     <%=nameLC%>Id: req.params.<%=nameLC%>Id
   };
