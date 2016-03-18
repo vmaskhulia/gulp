@@ -27,6 +27,7 @@ function parseGetByQuery(req, res, next) {
   if (query.all === 'true') {
     req.parsed.offset = 0;
     req.parsed.limit = 'all';
+    req.parsed.orQuery.push({});
     return next();
   }
 
