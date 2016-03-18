@@ -16,11 +16,6 @@ function parseGetByQuery(req, res, next) {
   var limit = (Number(query.limit) > 0) ? Number(query.limit) : 0;
   var offset = (page - 1) * limit;
 
-  if (query.all === 'true') {
-    offset = 0;
-    limit = 'all';
-  }
-
   req.parsed = {
     findQuery: {},
     orQuery: [],
@@ -28,6 +23,12 @@ function parseGetByQuery(req, res, next) {
     offset,
     limit
   };
+
+  if (query.all === 'true') {
+    req.parsed.offset = 0;
+    req.parsed.limit = 'all';
+    return next();
+  }
 
   if (query.searchText) {
     req.parsed.orQuery.push({myField: {$regex: query.searchText, $options: 'gi'}});
