@@ -16,6 +16,11 @@ function parseGetByQuery(req, res, next) {
   var limit = (Number(query.limit) > 0) ? Number(query.limit) : 0;
   var offset = (page - 1) * limit;
 
+  if (query.all === 'true') {
+    offset = 0;
+    limit = 'all';
+  }
+
   req.parsed = {
     findQuery: {},
     orQuery: [],

@@ -12,8 +12,6 @@ export default class {
 
     this.query = query;
     this.<%=namePlural%>Data = <%=namePlural%>Data;
-
-    this.showAll = query.limit === <%=namePlural%>Data.numTotal;
   }
 
   create<%=nameUC%>(event) {
@@ -46,16 +44,12 @@ export default class {
   searchByText() {
     delete this.query.page;
     delete this.query.limit;
+    delete this.query.all;
     this.reloadPage();
   }
 
   toggleShowAllPages() {
-    delete this.query.searchText;
-    delete this.query.page;
-    delete this.query.limit;
-    if (!this.showAll) {
-      this.query.limit = this.<%=namePlural%>Data.numTotal;
-    }
+    this.query = {all: !this.query.all};
     this.reloadPage();
   }
 

@@ -8,7 +8,7 @@ export default angular.module('admin.<%=namePlural%>', [])
   .config($stateProvider => {
     $stateProvider
       .state('admin.<%=namePlural%>', {
-        url: '<%=namePlural%>?searchText&page&limit',
+        url: '<%=namePlural%>?searchText&page&limit&all',
         template,
         controller,
         controllerAs: 'vm',
@@ -26,6 +26,7 @@ function getQuery($stateParams, Constants) {
   return {
     searchText: $stateParams.searchText,
     page: Number($stateParams.page) || 1,
-    limit: Number($stateParams.limit) || Constants.query.limit
+    limit: Number($stateParams.limit) || Constants.query.limit,
+    all: $stateParams.all === 'true'
   };
 }
