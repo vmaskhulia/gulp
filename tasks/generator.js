@@ -24,8 +24,8 @@ gulp.task('service', done => {
   runSequence('generateService', 'inject', done);
 });
 
-gulp.task('component', done => {
-  runSequence('generateComponent', 'inject', done);
+gulp.task('common', done => {
+  runSequence('generateCommon', 'inject', done);
 });
 
 gulp.task('main-component', done => {
@@ -58,7 +58,7 @@ gulp.task('generateService', () => {
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('generateComponent', () => {
+gulp.task('generateCommon', () => {
   var name = 'lc' + firstUC(getNameFromArgv());
   var src = paths.generatorTemplates.common;
   var dest = path.join(paths.app.common, name);
