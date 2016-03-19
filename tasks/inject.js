@@ -94,22 +94,22 @@ function injectComponents() {
     .pipe(inject(
       mainFileNames,
       '//inject:import.main',
-      n => `import main${n} from './main/${n}/${n}.js';`
+      n => `import Main${firstUC(n)} from './main/${n}/${n}.js';`
     ))
     .pipe(inject(
       adminFileNames,
       '//inject:import.admin',
-      n => `import admin${n} from './admin/${n}/${n}.js';`
+      n => `import Admin${firstUC(n)} from './admin/${n}/${n}.js';`
     ))
     .pipe(inject(
       mainFileNames,
       '//inject:ngmodule.main',
-      n => `main${n}.name,`
+      n => `Main${firstUC(n)}.name,`
     ))
     .pipe(inject(
       adminFileNames,
       '//inject:ngmodule.admin',
-      n => `admin${n}.name,`
+      n => `Admin${firstUC(n)}.name,`
     ))
     .pipe(gulp.dest(base));
 }
