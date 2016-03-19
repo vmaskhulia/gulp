@@ -1,81 +1,84 @@
 <div>
-  <md-button
-    ng-click="vm.create<%=nameUC%>($event)"
-    class="md-fab md-primary md-fab-bottom-right add-new-btn">
-    <i class="fa fa-plus ng-scope"></i>
-    <md-tooltip md-direction="top">Add</md-tooltip>
-  </md-button>
-
-  <md-toolbar class="md-primary md-hue-1 inner-toolbar md-whiteframe-z1">
+  <div class="inner-toolbar">
     <div class="md-toolbar-tools" layout="row">
-      <input
-        ng-model="vm.query.searchText"
-        type="text"
-        class="search-input"
-        placeholder="Search for..."
-        flex="30"
-        aria-label="Search">
-      <md-button
-        ng-click="vm.searchByText()"
-        class="md-fab md-mini"
-        aria-label="Search">
-        <i class="fa fa-search"></i>
-      </md-button>
+      <span flex="5"></span>
+      <span class="page-title"><%=namePlural%></span>
       <span flex></span>
-
-      <md-checkbox
-        ng-click="vm.toggleShowAllPages()"
-        ng-model="vm.query.all"
-        aria-label="Show all">Show all</md-checkbox>
+      <div class="search  md-whiteframe-4dp" flex="70">
+        <md-icon md-font-icon="material-icons icon">search</md-icon>
+        <input
+          ng-model="vm.query.searchText"
+          ng-change="vm.searchByText()"
+          lc-autofocus
+          ng-model-options="{debounce: 500}"
+          type="text"
+          class="search-input"
+          placeholder="Search for..."
+          aria-label="Search">
+      </div>
+      <span flex="5"></span>
     </div>
-    <div layout="row" class="page-title">
-      <span class="title-font"><%=namePlural%></span>
-      <span></span>
+    <div class="md-toolbar-tools page-tools" layout="row">
+      <span flex></span>
+      <div class="tools md-whiteframe-4dp" flex="70" layout="row">
+
+        <div class="tool" flex="50" layout="row" layout-align="left center">
+          <md-checkbox
+            class="show-all md-primary"
+            ng-click="vm.toggleShowAllPages()"
+            ng-model="vm.query.all"
+            aria-label="Show all">Show all
+          </md-checkbox>
+        </div>
+
+        <lc-pagination
+          query="::vm.query"
+          num-total="::vm.<%=namePlural%>Data.numTotal"
+          num-total="::vm.carsData.numTotal"
+          reload-page="::vm.reloadPage()"
+          flex="50"
+          class="pagination-wrapp"
+          layout-align="right center">
+        </lc-pagination>
+
+      </div>
+      <span flex="5"></span>
     </div>
-  </md-toolbar>
+  </div>
 
-  <md-content flex layout-padding>
+  <md-content flex layout-padding class="page-content" >
 
-    <md-list>
-      <md-list-item
-        ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
-        <p>{{::<%=nameLC%>.myField}}</p>
+    <md-button
+      ng-click="vm.createCar($event)"
+      class="md-fab md-primary md-fab-bottom-right add-new-btn">
+      <i class="material-icons">add</i>
+      <md-tooltip md-direction="top">Add</md-tooltip>
+    </md-button>
 
-        <md-button
-          ng-click="vm.update<%=nameUC%>($event, <%=nameLC%>)"
-          class="md-icon-button md-primary"
-          aria-label="Edit">
-          <md-icon md-font-icon="material-icons">edit</md-icon>
-        </md-button>
+    <md-card>
+      <md-list>
+        <md-list-item
+          ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
+          <p>{{::<%=nameLC%>.myField}}</p>
 
-        <md-button
-          ng-click="vm.destroy<%=nameUC%>($event, <%=nameLC%>)"
-          class="md-icon-button md-primary"
-          aria-label="Delete">
-          <md-icon md-font-icon="material-icons">delete</md-icon>
-        </md-button>
+          <md-button
+            ng-click="vm.updateCar($event, <%=nameLC%>)"
+            class="md-icon-button md-primary"
+            aria-label="Edit">
+            <md-icon md-font-icon="material-icons">edit</md-icon>
+          </md-button>
 
-        <md-divider></md-divider>
-      </md-list-item>
-    </md-list>
+          <md-button
+            ng-click="vm.destroyCar($event, <%=nameLC%>)"
+            class="md-icon-button md-primary"
+            aria-label="Delete">
+            <md-icon md-font-icon="material-icons">delete</md-icon>
+          </md-button>
 
-    <div
-      ng-if="!vm.query.all && !!vm.<%=namePlural%>Data.numTotal"
-      layout="row"
-      layout-align="center center">
-      <uib-pagination
-        ng-change="vm.reloadPage()"
-        ng-model="vm.query.page"
-        total-items="::vm.<%=namePlural%>Data.numTotal"
-        items-per-page="::vm.query.limit"
-        max-size="5"
-        boundary-link-numbers="true"
-        previous-text="&lsaquo;"
-        next-text="&rsaquo;"
-        first-text="&laquo;"
-        last-text="&raquo;">
-      </uib-pagination>
-    </div>
+          <md-divider></md-divider>
+        </md-list-item>
+      </md-list>
+    </md-card>
 
   </md-content>
 </div>
