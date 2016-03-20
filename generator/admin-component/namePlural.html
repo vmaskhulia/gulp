@@ -34,7 +34,6 @@
         <lc-pagination
           query="::vm.query"
           num-total="::vm.<%=namePlural%>Data.numTotal"
-          num-total="::vm.carsData.numTotal"
           reload-page="::vm.reloadPage()"
           flex="50"
           class="pagination-wrapp"
@@ -57,8 +56,7 @@
 
     <md-card>
       <md-list>
-        <md-list-item
-          ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
+        <md-list-item ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
           <p>{{::<%=nameLC%>.myField}}</p>
 
           <md-button
