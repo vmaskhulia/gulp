@@ -32,13 +32,15 @@ var paths = {
   server: {
     base: `${root}/server`,
     starter: 'server/server.js',
-    scripts: `${root}/server/**/*.js`
+    scripts: `${root}/server/**/*.js`,
+    specs: `${root}/server/**/*.spec.js`
   },
 
   app: {
     indexHtml: `${root}/client/index.html`,
     styles: `${root}/client/app/**/*.styl`,
     scripts: `${root}/client/app/**/*.js`,
+    specs: `${root}/client/app/**/*.spec.js`,
     templates: `${root}/client/app/**/*.html`,
     assets: `${root}/client/{assets/**/*,.htaccess,robots.txt,favicon.ico}`,
     common: `${root}/client/app/common`,

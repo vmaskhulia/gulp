@@ -31,9 +31,6 @@ gulp.task('test:e2e', done => {
       configFile: paths.config.e2e,
       args: ['--baseUrl', `http://127.0.0.1:${LOCALHOST_PORT}`]
     }))
-    .on('error', e => {
-      console.error(e);
-      process.exit(1);
-    })
+    .on('error', done)
     .on('end', done);
 });

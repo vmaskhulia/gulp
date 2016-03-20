@@ -5,7 +5,11 @@ import runSequence from 'run-sequence';
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
-var isTestRunning = false;
+var isTestRunning = {
+  server: false,
+  client: false,
+  e2e: false
+};
 
 
 gulp.task('watch', () => {
@@ -14,18 +18,27 @@ gulp.task('watch', () => {
   });
 
   $.watch(paths.app.scripts, () => {
-    runSequence('compileScripts', ['reloadBrowserSync', 'test:client']);
+    runSequence('compileScripts', 'reloadBrowserSync');
   });
 
   $.watch(paths.app.templates, () => {
     runSequence('copyTemplates', 'reloadBrowserSync');
   });
 
-  $.watch(paths.server.scripts, () => {
-    if (!isTestRunning) {
-      isTestRunning = true;
+  $.watch(paths.app.specs, () => {
+    if (!isTestRunning.e2e) {
+      isTestRunning.e2e = true;
+      runSequence('test:e2e', () => {
+        isTestRunning.e2e = false;
+      });
+    }
+  });
+
+  $.watch(paths.server.specs, () => {
+    if (!isTestRunning.server) {
+      isTestRunning.server = true;
       runSequence('test:server', () => {
-        isTestRunning = false;
+        isTestRunning.server = false;
       });
     }
   });
