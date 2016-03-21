@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import runSequence from 'run-sequence';
 import paths from '../paths';
 import Builder from 'systemjs-builder';
-import {JSPM_PACKAGES_FOR_DIST} from '../consts';
+import {FONTS_PATHS} from '../consts';
 import {copy} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
@@ -22,7 +22,7 @@ gulp.task('copyAssetsToDist', () => {
 });
 
 gulp.task('copyJspmPackagesToDist', () => {
-  return gulp.src(JSPM_PACKAGES_FOR_DIST, {base: '.'}) // base due to font's glob
+  return gulp.src(FONTS_PATHS, {base: '.'}) // base due to font's glob
     .pipe(gulp.dest(paths.dist.base));
 });
 
