@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-import {getNameFromArgv, firstUC, firstLC, plural} from '../helpers';
+import {getNameFromArgv, getDefFieldFromArgv, firstUC, firstLC, plural} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
@@ -99,7 +99,8 @@ function insertTemplates(name, src, dest) {
     .pipe($.template({
       nameUC: firstUC(name),
       nameLC: firstLC(name),
-      namePlural: plural(name)
+      namePlural: plural(name),
+      defField: getDefFieldFromArgv()
     }, {
       interpolate: /<%=([\s\S]+?)%>/g
     }))

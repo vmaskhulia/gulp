@@ -38,11 +38,18 @@ export function singular(str) {
 
 export function getNameFromArgv() {
   var name = argv.name || argv.n;
-
   if (!name) {
     log(colors.red('Error: name parameter is required (e.g. --name <myName>)'));
     process.exit(1);
   }
-
   return firstLC(name);
+}
+
+export function getDefFieldFromArgv() {
+  var field = argv.f;
+  if (!field) {
+    log(colors.red('Error: default field is required (e.g. -f <myField>)'));
+    process.exit(1);
+  }
+  return field;
 }

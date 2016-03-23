@@ -32,7 +32,7 @@ function parseGetByQuery(req, res, next) {
   }
 
   if (query.searchText) {
-    req.parsed.orQuery.push({myField: {$regex: query.searchText, $options: 'gi'}});
+    req.parsed.orQuery.push({<%=defField%>: {$regex: query.searchText, $options: 'gi'}});
   } else {
     req.parsed.orQuery.push({});
   }
@@ -59,6 +59,6 @@ function parseDestroy(req, res, next) {
 
 function parse<%=nameUC%>(body) {
   return {
-    myField: body.myField
+    <%=defField%>: body.<%=defField%>
   };
 }

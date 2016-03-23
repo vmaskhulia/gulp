@@ -57,7 +57,7 @@
     <md-card>
       <md-list>
         <md-list-item ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
-          <p>{{::<%=nameLC%>.myField}}</p>
+          <p>{{::<%=nameLC%>.<%=defField%>}}</p>
 
           <md-button
             ng-click="vm.update<%=nameUC%>($event, <%=nameLC%>)"

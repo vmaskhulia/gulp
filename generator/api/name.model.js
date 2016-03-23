@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 
 var <%=nameUC%>Schema = new Schema({
-  myField: String
+  <%=defField%>: String
 });
 
 module.exports = mongoose.model('<%=nameUC%>', <%=nameUC%>Schema);

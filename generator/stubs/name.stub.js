@@ -4,7 +4,7 @@ var _ = require('lodash');
 var helpers = require('../helpers/stubHelpers');
 
 var <%=nameUC%>Stub = {
-  myField: 'myField'
+  <%=defField%>: '<%=defField%>'
 };
 
 
@@ -23,7 +23,7 @@ function getMany(count) {
   return _.range(count)
     .map((i) => {
       var stub = getSingle();
-      stub.myField = `${stub.myField}-${i}`;
+      stub.<%=defField%> = `${stub.<%=defField%>}_${i}`;
       return stub;
     });
 }

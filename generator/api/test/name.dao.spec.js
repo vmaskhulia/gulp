@@ -52,7 +52,7 @@ describe('<%=nameLC%>.dao', () => {
       var <%=namePlural%> = _.range(TOTAL_COUNT)
         .map(i => {
           var stub = <%=nameUC%>Stub.getSingle();
-          stub.myField = (i % 2 === 0) ? 'value-a' : 'value-b';
+          stub.<%=defField%> = (i % 2 === 0) ? 'value-a' : 'value-b';
           return stub;
         });
 
@@ -66,16 +66,16 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should get part of <%=namePlural%> by findQuery', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({myField: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
+      var data = yield <%=nameUC%>.getByQuery({<%=defField%>: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
       expect(data.items).to.have.length(TOTAL_COUNT / 2);
       expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
     it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
       var query = [{
-        myField: {$regex: 'value-a', $options: 'gi'}
+        <%=defField%>: {$regex: 'value-a', $options: 'gi'}
       }, {
-        myField: {$regex: 'value-b', $options: 'gi'}
+        <%=defField%>: {$regex: 'value-b', $options: 'gi'}
       }];
 
       var data = yield <%=nameUC%>.getByQuery({}, query, {}, 0, TOTAL_COUNT);
@@ -86,7 +86,7 @@ describe('<%=nameLC%>.dao', () => {
 
     it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
       var query = [{
-        myField: {$regex: 'value-a', $options: 'gi'}
+        <%=defField%>: {$regex: 'value-a', $options: 'gi'}
       }];
 
       var data = yield <%=nameUC%>.getByQuery({}, query, {}, 0, TOTAL_COUNT);
@@ -96,24 +96,24 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should sort by ascending order', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {myField: 1}, 0, TOTAL_COUNT);
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: 1}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT);
 
       for (var i = 1; i < data.items.length; i++) {
-        expect(data.items[i].myField).to.be.at.least(data.items[i - 1].myField);
+        expect(data.items[i].<%=defField%>).to.be.at.least(data.items[i - 1].<%=defField%>);
       }
 
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should sort by descending order', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {myField: -1}, 0, TOTAL_COUNT);
+      var data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: -1}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT);
 
       for (var i = 1; i < data.items.length; i++) {
-        expect(data.items[i - 1].myField).to.be.at.least(data.items[i].myField);
+        expect(data.items[i - 1].<%=defField%>).to.be.at.least(data.items[i].<%=defField%>);
       }
 
       expect(data.numTotal).to.equal(TOTAL_COUNT);
@@ -180,7 +180,7 @@ describe('<%=nameLC%>.dao', () => {
       var <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
       var newData = {
-        myField: 'new-my-field',
+        <%=defField%>: 'new-my-field',
       };
 
       yield <%=nameUC%>.update(<%=nameLC%>._id, newData);
@@ -219,5 +219,5 @@ describe('<%=nameLC%>.dao', () => {
 });
 
 function expectBaseFieldsToMatch(actual, expected) {
-  expect(actual).to.have.property('myField', expected.myField);
+  expect(actual).to.have.property('<%=defField%>', expected.<%=defField%>);
 }

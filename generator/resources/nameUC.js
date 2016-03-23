@@ -24,7 +24,7 @@ export default (Restangular) => {
 
   function getSchema() {
     return {
-      myField: ''
+      <%=defField%>: ''
     };
   }
 };
