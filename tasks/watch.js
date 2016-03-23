@@ -25,7 +25,7 @@ gulp.task('watch', () => {
     runSequence('copyTemplates', 'reloadBrowserSync');
   });
 
-  $.watch(paths.app.specs, () => {
+  $.watch(paths.test.e2e, () => {
     if (!isTestRunning.e2e) {
       isTestRunning.e2e = true;
       runSequence('test:e2e', () => {

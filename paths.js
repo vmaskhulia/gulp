@@ -40,11 +40,15 @@ var paths = {
     indexHtml: `${root}/client/index.html`,
     styles: `${root}/client/app/**/*.styl`,
     scripts: `${root}/client/app/**/*.js`,
-    specs: `${root}/client/app/**/*.spec.js`,
     templates: `${root}/client/app/**/*.html`,
     assets: `${root}/client/{assets/**/*,.htaccess,robots.txt,favicon.ico}`,
     common: `${root}/client/app/common`,
     components: `${root}/client/app/components`
+  },
+
+  test: {
+    e2e: `${root}/client/test/e2e/**/*.js`,
+    unit: `${root}/client/test/unit/**/*.js`
   },
 
   tmp: {
