@@ -171,7 +171,7 @@ describe('<%=nameLC%>.dao', () => {
     });
 
     it('should contain proper fields', () => {
-      expect(<%=nameLC%>).to.have.property('myField', <%=nameLC%>Data.myField);
+      expectBaseFieldsToMatch(<%=nameLC%>, <%=nameLC%>Data);
     });
   });
 
@@ -187,7 +187,7 @@ describe('<%=nameLC%>.dao', () => {
 
       var updated<%=nameUC%> = yield <%=nameUC%>.getById(<%=nameLC%>._id);
 
-      expect(updated<%=nameUC%>).to.have.property('myField', newData.myField);
+      expectBaseFieldsToMatch(updated<%=nameUC%>, newData);
     }));
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
@@ -217,3 +217,7 @@ describe('<%=nameLC%>.dao', () => {
     });
   });
 });
+
+function expectBaseFieldsToMatch(actual, expected) {
+  expect(actual).to.have.property('myField', expected.myField);
+}
