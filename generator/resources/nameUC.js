@@ -5,7 +5,11 @@ export default (Restangular) => {
 
   return {
     getByQuery: (query) =>
-      resource('').get(query),
+      resource('').get(query)
+        .then((result) => {
+          result.items = result.items.map(format);
+          return result;
+        }),
 
     create: (data) =>
       resource('').post('', data),
@@ -26,5 +30,9 @@ export default (Restangular) => {
     return {
       <%=defField%>: ''
     };
+  }
+
+  function format(item) {
+    return item;
   }
 };
