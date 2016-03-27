@@ -6,6 +6,8 @@ var argv = $.util.env;
 var log = $.util.log;
 var colors = $.util.colors;
 
+const vowels = ['a', 'e', 'i', 'o', 'u'];
+
 
 export function copy(src, dest) {
   return gulp.src(src)
@@ -21,7 +23,8 @@ export function firstLC(str) {
 }
 
 export function plural(str) {
-  if (str.endsWith('y')) {
+  var secondLastChar = str[str.length - 2];
+  if (str.endsWith('y') && vowels.indexOf(secondLastChar) === -1) {
     return str.substr(0, str.length - 1) + 'ies';
   } else {
     return str + 's';
