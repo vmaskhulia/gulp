@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import runSequence from 'run-sequence';
 import browserSync from 'browser-sync';
 import ripe from 'ripe';
-import {DEVELOPMENT_PORT, BROWSER_SYNC_PORT} from '../consts';
+import {DEVELOPMENT_PORT, LIVE_RELOAD_PORT} from '../consts';
 import paths from '../paths';
 var $ = require('gulp-load-plugins')();
 
@@ -36,7 +36,7 @@ gulp.task('nodemon', done => {
 gulp.task('browserSync', () => {
   browserSync.init({
     proxy: {target: `localhost:${DEVELOPMENT_PORT}`, ws: true},
-    port: BROWSER_SYNC_PORT
+    port: LIVE_RELOAD_PORT
   });
 });
 
