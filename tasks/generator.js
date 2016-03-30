@@ -41,14 +41,14 @@ gulp.task('generateModal', () => {
   var name = getNameFromArgv();
   var src = paths.generatorTemplates.modal;
   var dest = path.join(paths.app.common, 'modals', name);
-  return insertTemplates(name, src, dest);
+  return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateResource', () => {
   var name = getNameFromArgv();
   var src = paths.generatorTemplates.resource;
   var dest = path.join(paths.app.common, 'resources');
-  return insertTemplates(name, src, dest);
+  return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateService', () => {
@@ -76,31 +76,31 @@ gulp.task('generateAdminComponent', () => {
   var name = getNameFromArgv();
   var src = paths.generatorTemplates.adminComponent;
   var dest = path.join(paths.app.components, 'admin', plural(name));
-  return insertTemplates(name, src, dest);
+  return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateApi', () => {
   var name = getNameFromArgv();
   var src = paths.generatorTemplates.api;
   var dest = path.join(paths.server.base, 'api', plural(name));
-  return insertTemplates(name, src, dest);
+  return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateStub', () => {
   var name = getNameFromArgv();
   var src = paths.generatorTemplates.stub;
   var dest = path.join(paths.server.base, 'stubs');
-  return insertTemplates(name, src, dest);
+  return insertTemplates(name, src, dest, true);
 });
 
 
-function insertTemplates(name, src, dest) {
+function insertTemplates(name, src, dest, defFieldIncluded) {
   return gulp.src(src)
     .pipe($.template({
       nameUC: firstUC(name),
       nameLC: firstLC(name),
       namePlural: plural(name),
-      defField: getDefFieldFromArgv()
+      defField: defFieldIncluded ? getDefFieldFromArgv() : null
     }, {
       interpolate: /<%=([\s\S]+?)%>/g
     }))
