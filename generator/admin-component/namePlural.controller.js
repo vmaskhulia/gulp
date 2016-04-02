@@ -34,11 +34,11 @@ export default class {
 
   destroy<%=nameUC%>(event, <%=nameLC%>) {
     this.confirmDestroyModal.open(event)
-      .then(() =>
+      .then(() => {
         this.Request.send(
           this.<%=nameUC%>.destroy(<%=nameLC%>._id)
-        )
-      );
+        );
+      });
   }
 
   searchByText() {
