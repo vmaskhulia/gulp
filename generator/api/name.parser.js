@@ -5,11 +5,15 @@ var _ = require('lodash');
 
 module.exports = {
   parseGetByQuery,
+
   parseCreate,
   parseUpdate,
+
   parseDestroy
 };
 
+
+// =============== GET ===============
 
 function parseGetByQuery(req, res, next) {
   var query = req.query;
@@ -40,6 +44,8 @@ function parseGetByQuery(req, res, next) {
   }
   next();
 }
+
+// =============== POST ===============
 
 function parseCreate(req, res, next) {
   req.parsed = parse<%=nameUC%>(req.body);
