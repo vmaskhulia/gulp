@@ -1,5 +1,7 @@
 'use strict';
 
+var _ = require('lodash');
+
 
 module.exports = {
   parseGetByQuery,
@@ -51,14 +53,10 @@ function parseUpdate(req, res, next) {
 }
 
 function parseDestroy(req, res, next) {
-  req.parsed = {
-    <%=nameLC%>Id: req.params.<%=nameLC%>Id
-  };
+  req.parsed = _.pick(req.params, '<%=nameLC%>Id');
   next();
 }
 
 function parse<%=nameUC%>(body) {
-  return {
-    <%=defField%>: body.<%=defField%>
-  };
+  return _.pick(body, ['<%=defField%>']);
 }
