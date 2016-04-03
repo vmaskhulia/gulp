@@ -44,12 +44,12 @@ export default class {
   }
 
   searchByText() {
-    this.query = _.pick(this.query, 'searchText');
+    this.query = _.pick(this.query, ['searchText']);
     this.reloadPage();
   }
 
   toggleShowAllPages() {
-    this.query = _.pick(this.query, 'all');
+    this.query = _.pick(this.query, ['all']);
     this.reloadPage();
   }
 
