@@ -25,7 +25,7 @@ function parseGetByQuery(req, res, next) {
   req.parsed = {
     findQuery: {},
     orQuery: [],
-    sortBy: {},
+    sortBy: { '_id': -1 },
     offset,
     limit
   };
