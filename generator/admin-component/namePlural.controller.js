@@ -1,5 +1,7 @@
 'use strict';
 
+import _ from 'lodash';
+
 export default class {
   constructor($state, Request, <%=nameUC%>, <%=nameLC%>Modal, confirmDestroyModal, query, <%=namePlural%>Data) {
     'ngInject';
@@ -42,14 +44,12 @@ export default class {
   }
 
   searchByText() {
-    delete this.query.page;
-    delete this.query.limit;
-    delete this.query.all;
+    this.query = _.pick(this.query, 'searchText');
     this.reloadPage();
   }
 
   toggleShowAllPages() {
-    this.query = {all: !this.query.all};
+    this.query = _.pick(this.query, 'all');
     this.reloadPage();
   }
 
