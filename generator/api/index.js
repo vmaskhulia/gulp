@@ -6,18 +6,16 @@ var <%=nameUC%> = require('./<%=nameLC%>.dao');
 var parser = require('./<%=nameLC%>.parser');
 var auth = require('../../auth');
 
-var isAdmin = auth.isAdmin();
-
 
 module.exports = router;
 
 
 router.get('/', parser.parseGetByQuery, getByQuery);
 
-router.post('/', isAdmin, parser.parseCreate, create);
-router.post('/update', isAdmin, parser.parseUpdate, update);
+router.post('/', auth.isAdmin, parser.parseCreate, create);
+router.post('/update', auth.isAdmin, parser.parseUpdate, update);
 
-router.delete('/:<%=nameLC%>Id', isAdmin, parser.parseDestroy, destroy);
+router.delete('/:<%=nameLC%>Id', auth.isAdmin, parser.parseDestroy, destroy);
 
 
 // =============== GET ===============
