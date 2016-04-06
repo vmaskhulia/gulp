@@ -11,9 +11,11 @@ var $ = require('gulp-load-plugins')();
 gulp.task('inject', () => {
   return es.merge(
     injectCommon(),
+    injectDirectives(),
     injectModals(),
     injectServices(),
     injectResources(),
+    injectValidators(),
     injectComponents(),
     injectRoutes(),
     injectSeed()
@@ -23,6 +25,22 @@ gulp.task('inject', () => {
 function injectCommon() {
   var base = paths.app.common;
   var src = `${base}/common.js`;
+  var fileNames = excludeFilesWithExtensions(base);
+
+  return doubleInject(
+    src,
+    base,
+    fileNames,
+    '//inject:import',
+    n => `import ${n} from './${n}/${n}.js';`,
+    '//inject:ngmodule',
+    n => `${n}.name,`
+  );
+}
+
+function injectDirectives() {
+  var base = `${paths.app.common}/directives`;
+  var src = `${base}/directives.js`;
   var fileNames = excludeFilesWithExtensions(base);
 
   return doubleInject(
@@ -81,6 +99,22 @@ function injectResources() {
     n => `import ${n} from './${n}.js';`,
     '//inject:ngfactory',
     n => `.factory('${n}', ${n})`
+  );
+}
+
+function injectValidators() {
+  var base = `${paths.app.common}/validators`;
+  var src = `${base}/validators.js`;
+  var fileNames = [`!${base}/validators.js`, `${base}/*`];
+
+  return doubleInject(
+    src,
+    base,
+    fileNames,
+    '//inject:import',
+    n => `import ${n} from './${n}.js';`,
+    '//inject:ngservice',
+    n => `.service('${n}', ${n})`
   );
 }
 
