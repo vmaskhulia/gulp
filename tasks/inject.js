@@ -113,8 +113,8 @@ function injectValidators() {
     fileNames,
     '//inject:import',
     n => `import ${n} from './${n}.js';`,
-    '//inject:ngservice',
-    n => `.service('${n}', ${n})`
+    '//inject:ngdirective',
+    n => `.directive('${n}', ${n})`
   );
 }
 
