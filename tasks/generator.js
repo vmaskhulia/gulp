@@ -8,46 +8,50 @@ import {getNameFromArgv, getDefFieldFromArgv, firstUC, firstLC, plural} from '..
 var $ = require('gulp-load-plugins')();
 
 
-gulp.task('api', done => {
-  runSequence('generateModal', 'generateResource', 'generateAdminComponent', 'generateApi', 'generateStub', 'inject', done);
+gulp.task('directive', (done) => {
+  runSequence('generateDirective', 'inject', done);
 });
 
-gulp.task('modal', done => {
+gulp.task('modal', (done) => {
   runSequence('generateModal', 'inject', done);
 });
 
-gulp.task('resource', done => {
-  runSequence('generateResource', 'inject', done);
-});
-
-gulp.task('service', done => {
+gulp.task('service', (done) => {
   runSequence('generateService', 'inject', done);
 });
 
-gulp.task('common', done => {
-  runSequence('generateCommon', 'inject', done);
+gulp.task('resource', (done) => {
+  runSequence('generateResource', 'inject', done);
 });
 
-gulp.task('main-component', done => {
+gulp.task('validator', (done) => {
+  runSequence('generateValidator', 'inject', done);
+});
+
+gulp.task('main-component', (done) => {
   runSequence('generateMainComponent', 'inject', done);
 });
 
-gulp.task('admin-component', done => {
+gulp.task('admin-component', (done) => {
   runSequence('generateAdminComponent', 'inject', done);
 });
 
+gulp.task('api', (done) => {
+  runSequence('generateModal', 'generateResource', 'generateAdminComponent', 'generateApi', 'generateStub', 'inject', done);
+});
+
+
+gulp.task('generateDirective', () => {
+  var name = 'lc' + firstUC(getNameFromArgv());
+  var src = paths.generatorTemplates.directive;
+  var dest = path.join(paths.app.common, 'directives', name);
+  return insertTemplates(name, src, dest);
+});
 
 gulp.task('generateModal', () => {
   var name = getNameFromArgv();
   var src = paths.generatorTemplates.modal;
   var dest = path.join(paths.app.common, 'modals', name);
-  return insertTemplates(name, src, dest, true);
-});
-
-gulp.task('generateResource', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.resource;
-  var dest = path.join(paths.app.common, 'resources');
   return insertTemplates(name, src, dest, true);
 });
 
@@ -58,10 +62,17 @@ gulp.task('generateService', () => {
   return insertTemplates(name, src, dest);
 });
 
-gulp.task('generateCommon', () => {
-  var name = 'lc' + firstUC(getNameFromArgv());
-  var src = paths.generatorTemplates.common;
-  var dest = path.join(paths.app.common, name);
+gulp.task('generateResource', () => {
+  var name = getNameFromArgv();
+  var src = paths.generatorTemplates.resource;
+  var dest = path.join(paths.app.common, 'resources');
+  return insertTemplates(name, src, dest, true);
+});
+
+gulp.task('generateValidator', () => {
+  var name = getNameFromArgv();
+  var src = paths.generatorTemplates.validator;
+  var dest = path.join(paths.app.common, 'validators');
   return insertTemplates(name, src, dest);
 });
 

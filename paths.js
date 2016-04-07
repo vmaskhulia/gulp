@@ -19,10 +19,11 @@ var paths = {
   gulpfiles: [`${root}/gulpfile.js`, `${root}/gulp/**/*.js`],
 
   generatorTemplates: {
+    directive: `${root}/gulp/generator/directive/**`,
     modal: `${root}/gulp/generator/modal/**`,
-    resource: `${root}/gulp/generator/resources/**`,
-    service: `${root}/gulp/generator/services/**`,
-    common: `${root}/gulp/generator/common/**`,
+    service: `${root}/gulp/generator/service/**`,
+    resource: `${root}/gulp/generator/resource/**`,
+    validator: `${root}/gulp/generator/validator/**`,
     mainComponent: `${root}/gulp/generator/main-component/**`,
     adminComponent: `${root}/gulp/generator/admin-component/**`,
     api: `${root}/gulp/generator/api/**`,
