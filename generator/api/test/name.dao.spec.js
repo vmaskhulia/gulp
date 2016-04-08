@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 var _ = require('lodash');
 var co = require('co');
 var chai = require('chai');
@@ -10,7 +11,6 @@ var testHelpers = require('../../../helpers/testHelpers');
 var ResourceNotFoundError = require('../../../errors').ResourceNotFoundError;
 var <%=nameUC%> = require('../<%=nameLC%>.dao');
 var <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
-
 
 describe('<%=nameLC%>.dao', () => {
   var <%=nameLC%>Stub;
@@ -221,3 +221,4 @@ describe('<%=nameLC%>.dao', () => {
 function expectBaseFieldsToMatch(actual, expected) {
   expect(actual).to.have.property('<%=defField%>', expected.<%=defField%>);
 }
+*/
