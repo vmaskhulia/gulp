@@ -3,7 +3,7 @@
 var co = require('co');
 var testHelpers = require('../../../helpers/testHelpers');
 var agents = require('../../users/test/agents');
-var CarStub = require('../../../stubs/<%=nameLC%>.stub');
+var <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 
 describe('api/<%=namePlural%>', () => {
@@ -47,7 +47,7 @@ describe('api/<%=namePlural%>', () => {
     let <%=nameLC%>Stub;
 
     beforeEach(() => {
-      <%=nameLC%>Stub = CarStub.getSingle();
+      <%=nameLC%>Stub = <%=nameUC%>Stub.getSingle();
     });
 
     it('should return 401 for guest', (done) => {
