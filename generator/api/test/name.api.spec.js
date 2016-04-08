@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 var co = require('co');
 var testHelpers = require('../../../helpers/testHelpers');
 var agents = require('../../users/test/agents');
@@ -63,3 +64,4 @@ describe('api/<%=namePlural%>', () => {
     });
   });
 });
+*/
