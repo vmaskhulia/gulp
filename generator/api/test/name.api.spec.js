@@ -25,7 +25,7 @@ describe('api/<%=namePlural%>', () => {
 
   after(testHelpers.clearDB);
 
-  // =============== getters ===============
+  // =============== GET ===============
 
   describe('GET /', () => {
     let route = '/api/<%=namePlural%>';
@@ -42,6 +42,8 @@ describe('api/<%=namePlural%>', () => {
       adminAgent.get(route).expect(200, done);
     });
   });
+
+ // =============== POST ===============
 
   describe('POST /', () => {
     let route = '/api/<%=namePlural%>';
