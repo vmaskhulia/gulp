@@ -15,12 +15,9 @@ describe('api/<%=namePlural%>', () => {
   before(co.wrap(function* () {
     testHelpers.connectDB();
     yield testHelpers.clearDB();
-  }));
 
-  before((done) => {
-    clientAgent.authorize(() => {
-      adminAgent.authorize(done);
-    });
+    yield clientAgent.authorize();
+    yield adminAgent.authorize();
   });
 
   after(testHelpers.clearDB);
