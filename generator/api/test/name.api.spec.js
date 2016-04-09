@@ -18,7 +18,7 @@ describe('api/<%=namePlural%>', () => {
 
     yield clientAgent.authorize();
     yield adminAgent.authorize();
-  });
+  }));
 
   after(testHelpers.clearDB);
 
