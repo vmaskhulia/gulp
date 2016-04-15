@@ -56,3 +56,7 @@ export function getDefFieldFromArgv() {
   }
   return field;
 }
+
+export function getMinifyFromArgv() {
+  return argv.m || argv.minify;
+}

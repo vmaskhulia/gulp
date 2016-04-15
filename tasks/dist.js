@@ -5,7 +5,7 @@ import runSequence from 'run-sequence';
 import paths from '../paths';
 import Builder from 'systemjs-builder';
 import {FONTS_PATHS} from '../consts';
-import {copy} from '../helpers';
+import {getMinifyFromArgv, copy} from '../helpers';
 var $ = require('gulp-load-plugins')();
 
 
@@ -48,11 +48,12 @@ gulp.task('bundle', () => {
   var builder = new Builder('', `${paths.config.jspm}`);
   var inputPath = paths.tmp.starter;
   var outputPath = `${paths.dist.base}/build.js`;
+  var minify = getMinifyFromArgv();
 
   builder.config({
     buildCSS: true,
     separateCSS: true
   });
 
-  return builder.buildStatic(inputPath, outputPath);
+  return builder.buildStatic(inputPath, outputPath, {minify});
 });
