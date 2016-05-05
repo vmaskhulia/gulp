@@ -1,6 +1,5 @@
 'use strict';
 
-/*
 var _ = require('lodash');
 var co = require('co');
 var chai = require('chai');
@@ -221,4 +220,3 @@ describe('<%=nameLC%>.dao', () => {
 function expectBaseFieldsToMatch(actual, expected) {
   expect(actual).to.have.property('<%=defField%>', expected.<%=defField%>);
 }
-*/
