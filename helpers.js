@@ -36,7 +36,7 @@ export function plural(str) {
 export function singular(str) {
   if (str.endsWith('ies')) {
     return str.substr(0, str.length - 3) + 'y';
-  } else if (str.endsWith('es')) {
+  } else if (str.endsWith('ches')) {
     return str.substr(0, str.length - 2);
   } else {
     return str.substr(0, str.length - 1);
