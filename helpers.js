@@ -26,6 +26,8 @@ export function plural(str) {
   var secondLastChar = str[str.length - 2];
   if (str.endsWith('y') && vowels.indexOf(secondLastChar) === -1) {
     return str.substr(0, str.length - 1) + 'ies';
+  } else if (str.endsWith('ch')) {
+    return str + 'es';
   } else {
     return str + 's';
   }
@@ -34,6 +36,8 @@ export function plural(str) {
 export function singular(str) {
   if (str.endsWith('ies')) {
     return str.substr(0, str.length - 3) + 'y';
+  } else if (str.endsWith('es')) {
+    return str.substr(0, str.length - 2);
   } else {
     return str.substr(0, str.length - 1);
   }
