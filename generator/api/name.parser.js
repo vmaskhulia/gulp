@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var queryParser = require('../../helpers/queryParser');
 
 
 module.exports = {
@@ -18,30 +19,14 @@ module.exports = {
 function parseGetByQuery(req, res, next) {
   var query = req.query;
 
-  var page = (Number(query.page) > 0) ? Number(query.page) : 1;
-  var limit = (Number(query.limit) > 0) ? Number(query.limit) : 0;
-  var offset = (page - 1) * limit;
-
-  req.parsed = {
-    findQuery: {},
-    orQuery: [],
-    sortBy: { '_id': -1 },
-    offset,
-    limit
-  };
-
-  if (query.all === 'true') {
-    req.parsed.offset = 0;
-    req.parsed.limit = 'all';
-    req.parsed.orQuery.push({});
-    return next();
-  }
+  req.parsed = queryParser.parse(query);
 
   if (query.searchText) {
-    req.parsed.orQuery.push({<%=defField%>: {$regex: query.searchText, $options: 'gi'}});
-  } else {
-    req.parsed.orQuery.push({});
+    req.parsed.orQuery = [
+      {myField: {$regex: query.searchText, $options: 'gi'}}
+    ];
   }
+
   next();
 }
 
