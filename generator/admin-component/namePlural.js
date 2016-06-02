@@ -13,20 +13,11 @@ export default angular.module('admin.<%=namePlural%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          query: ($stateParams, Constants) =>
-            getQuery($stateParams, Constants),
+          query: ($stateParams, QueryParser) =>
+            QueryParser.parse($stateParams),
 
-          <%=namePlural%>Data: (query, <%=nameUC%>) =>
+          <%=namePlural%>Data: (<%=nameUC%>, query) =>
             <%=nameUC%>.getByQuery(query)
         }
       });
   });
-
-function getQuery($stateParams, Constants) {
-  return {
-    searchText: $stateParams.searchText,
-    page: Number($stateParams.page) || 1,
-    limit: Number($stateParams.limit) || Constants.query.limit,
-    all: $stateParams.all === 'true'
-  };
-}
