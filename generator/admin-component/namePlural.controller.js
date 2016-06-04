@@ -1,59 +1,22 @@
 'use strict';
 
-import _ from 'lodash';
+import AdminBaseController from '../AdminBaseController';
 
-export default class {
+class <%=namePlural%>Controller extends AdminBaseController {
   constructor($state, Request, <%=nameUC%>, <%=nameLC%>Modal, confirmDestroyModal, query, <%=namePlural%>Data) {
     'ngInject';
+    super();
 
     this.$state = $state;
     this.Request = Request;
-    this.<%=nameUC%> = <%=nameUC%>;
-    this.<%=nameLC%>Modal = <%=nameLC%>Modal;
+    this.Model = <%=nameUC%>;
+    this.modal = <%=nameLC%>Modal;
     this.confirmDestroyModal = confirmDestroyModal;
 
     this.query = query;
     this.<%=namePlural%>Data = <%=namePlural%>Data;
   }
 
-  create<%=nameUC%>(event) {
-    this.<%=nameLC%>Modal.open(event, this.<%=nameUC%>.getSchema())
-      .then((<%=nameLC%>) => {
-        this.Request.send(
-          this.<%=nameUC%>.create(<%=nameLC%>)
-        );
-      });
-  }
-
-  update<%=nameUC%>(event, <%=nameLC%>) {
-    this.<%=nameLC%>Modal.open(event, <%=nameLC%>, true)
-      .then((<%=nameLC%>) => {
-        this.Request.send(
-          this.<%=nameUC%>.update(<%=nameLC%>)
-        );
-      });
-  }
-
-  destroy<%=nameUC%>(event, <%=nameLC%>) {
-    this.confirmDestroyModal.open(event)
-      .then(() => {
-        this.Request.send(
-          this.<%=nameUC%>.destroy(<%=nameLC%>._id)
-        );
-      });
-  }
-
-  searchByText() {
-    this.query = _.pick(this.query, ['searchText']);
-    this.reloadPage();
-  }
-
-  toggleShowAllPages() {
-    this.query = _.pick(this.query, ['all']);
-    this.reloadPage();
-  }
-
-  reloadPage() {
-    this.$state.go(this.$state.current, this.query, {inherit: false});
-  }
 }
+
+export default <%=namePlural%>Controller;

@@ -48,7 +48,7 @@
   <md-content flex layout-padding class="page-content" >
 
     <md-button
-      ng-click="vm.create<%=nameUC%>($event)"
+      ng-click="vm.create($event)"
       class="md-fab md-primary md-fab-bottom-right add-new-btn">
       <i class="material-icons">add</i>
       <md-tooltip md-direction="top">Add</md-tooltip>
@@ -60,14 +60,14 @@
           <p>{{::<%=nameLC%>.<%=defField%>}}</p>
 
           <md-button
-            ng-click="vm.update<%=nameUC%>($event, <%=nameLC%>)"
+            ng-click="vm.update($event, <%=nameLC%>)"
             class="md-icon-button md-primary"
             aria-label="Edit">
             <md-icon md-font-icon="material-icons">edit</md-icon>
           </md-button>
 
           <md-button
-            ng-click="vm.destroy<%=nameUC%>($event, <%=nameLC%>)"
+            ng-click="vm.destroy($event, <%=nameLC%>)"
             class="md-icon-button md-primary"
             aria-label="Delete">
             <md-icon md-font-icon="material-icons">delete</md-icon>
