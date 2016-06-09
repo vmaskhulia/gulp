@@ -18,7 +18,7 @@ module.exports = {
 
 function parseGetByQuery(req, res, next) {
   var query = req.query;
-  req.parsed = utils.parse(query);
+  req.parsed = utils.parseQuery(query);
   if (query.searchText) {
     req.parsed.orQuery = [
       {myField: {$regex: query.searchText, $options: 'gi'}}
