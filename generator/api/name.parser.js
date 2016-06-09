@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var queryParser = require('../../helpers/queryParser');
+var utils = require('../../helpers/parserUtils');
 
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
 
 function parseGetByQuery(req, res, next) {
   var query = req.query;
-  req.parsed = queryParser.parse(query);
+  req.parsed = utils.parse(query);
   if (query.searchText) {
     req.parsed.orQuery = [
       {myField: {$regex: query.searchText, $options: 'gi'}}
