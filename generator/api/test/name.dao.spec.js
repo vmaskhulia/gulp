@@ -71,24 +71,24 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
-      var query = [{
+      var orQuery = [{
         <%=defField%>: {$regex: 'value-a', $options: 'gi'}
       }, {
         <%=defField%>: {$regex: 'value-b', $options: 'gi'}
       }];
 
-      var data = yield <%=nameUC%>.getByQuery({}, query, {}, 0, TOTAL_COUNT);
+      var data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT);
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
-      var query = [{
+      var orQuery = [{
         <%=defField%>: {$regex: 'value-a', $options: 'gi'}
       }];
 
-      var data = yield <%=nameUC%>.getByQuery({}, query, {}, 0, TOTAL_COUNT);
+      var data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT / 2);
       expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
