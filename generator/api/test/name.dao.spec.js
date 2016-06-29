@@ -125,7 +125,7 @@ describe('<%=nameLC%>.dao', () => {
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
 
-    it('should get limited amount of <%=namePlural%>', co.wrap(function* () {
+    it('should get limited number of <%=namePlural%>', co.wrap(function* () {
       var limit = 9;
       var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
       expect(data.items).to.have.length(limit);
