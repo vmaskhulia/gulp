@@ -51,7 +51,7 @@ function update(req, res, next) {
 
 function destroy(req, res, next) {
   co(function* () {
-    var <%=nameLC%>Id = req.parsed.<%=nameLC%>Id;
+    var <%=nameLC%>Id = req.params.<%=nameLC%>Id;
     yield <%=nameUC%>.destroy(<%=nameLC%>Id);
     res.sendStatus(200);
   })
