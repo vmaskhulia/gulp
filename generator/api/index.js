@@ -15,7 +15,7 @@ router.get('/', parser.parseGetByQuery, getByQuery);
 router.post('/', auth.isAdmin, parser.parseCreate, create);
 router.post('/update', auth.isAdmin, parser.parseUpdate, update);
 
-router.delete('/:<%=nameLC%>Id', auth.isAdmin, parser.parseDestroy, destroy);
+router.delete('/:<%=nameLC%>Id', auth.isAdmin, destroy);
 
 
 // =============== GET ===============
