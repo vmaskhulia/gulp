@@ -8,9 +8,7 @@ module.exports = {
   parseGetByQuery,
 
   parseCreate,
-  parseUpdate,
-
-  parseDestroy
+  parseUpdate
 };
 
 
@@ -37,11 +35,6 @@ function parseCreate(req, res, next) {
 function parseUpdate(req, res, next) {
   req.parsed = parse<%=nameUC%>(req.body);
   req.parsed._id = req.body._id;
-  next();
-}
-
-function parseDestroy(req, res, next) {
-  req.parsed = _.pick(req.params, '<%=nameLC%>Id');
   next();
 }
 
