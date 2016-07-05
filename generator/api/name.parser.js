@@ -19,7 +19,7 @@ function parseGetByQuery(req, res, next) {
   req.parsed = utils.parseQuery(query);
   if (query.searchText) {
     req.parsed.orQuery = [
-      {myField: {$regex: query.searchText, $options: 'gi'}}
+      {<%=defField%>: {$regex: query.searchText, $options: 'gi'}}
     ];
   }
   next();
