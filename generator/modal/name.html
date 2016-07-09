@@ -1,4 +1,4 @@
-<md-dialog aria-label="label" style="min-width:400px">
+<md-dialog class="admin-modal" aria-label="label">
   <form
     name="<%=nameLC%>Form"
     ng-submit="vm.submit(<%=nameLC%>Form)"
@@ -13,18 +13,19 @@
 
     <md-dialog-content>
       <md-content class="md-padding">
+        <div layout="column">
 
-        <div>
-          <md-input-container>
-            <label><%=defField%></label>
-            <input
-              ng-model="vm.<%=nameLC%>.<%=defField%>"
-              type="text"
-              required
-              aria-label="label">
-          </md-input-container>
+          <div layout="row" class="md-padding">
+            <md-input-container flex>
+              <label><%=defField%></label>
+              <input
+                ng-model="vm.<%=nameLC%>.<%=defField%>"
+                type="text"
+                aria-label="label">
+            </md-input-container>
+          </div>
+
         </div>
-
       </md-content>
     </md-dialog-content>
 
