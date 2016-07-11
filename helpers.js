@@ -26,8 +26,6 @@ export function plural(str) {
   var secondLastChar = str[str.length - 2];
   if (str === 'info') {
     return 'info';
-  } else if (str === 'accidentAnalyses') {
-    return 'accidentsAnalyses';
   } else if (str.endsWith('y') && vowels.indexOf(secondLastChar) === -1) {
     return str.substr(0, str.length - 1) + 'ies';
   } else if (str.endsWith('ch')) {
@@ -40,8 +38,6 @@ export function plural(str) {
 export function singular(str) {
   if (str === 'info') {
     return 'info';
-  } else if (str === 'accidentsAnalyses') {
-    return 'accidentAnalyses';
   } else if (str.endsWith('ies')) {
     return str.substr(0, str.length - 3) + 'y';
   } else if (str.endsWith('ches')) {
