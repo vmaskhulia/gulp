@@ -42,7 +42,7 @@ var paths = {
     styles: `${root}/client/app/**/*.styl`,
     scripts: `${root}/client/app/**/*.js`,
     templates: `${root}/client/app/**/*.html`,
-    assets: `${root}/client/{assets/**/*,.htaccess,robots.txt,favicon.ico}`,
+    assets: `${root}/client/{assets/**/*,.htaccess,robots.txt,favicon.ico,zohoverify/*}`,
     common: `${root}/client/app/common`,
     components: `${root}/client/app/components`
   },
