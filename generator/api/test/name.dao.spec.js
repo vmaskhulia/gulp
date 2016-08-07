@@ -12,7 +12,7 @@ const <%=nameUC%> = require('../<%=nameLC%>.dao');
 const <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 describe('<%=nameLC%>.dao', () => {
-  const <%=nameLC%>Stub;
+  let <%=nameLC%>Stub;
 
   before(co.wrap(function* () {
     testHelpers.connectDB();
@@ -99,7 +99,7 @@ describe('<%=nameLC%>.dao', () => {
 
       expect(data.items).to.have.length(TOTAL_COUNT);
 
-      for (const i = 1; i < data.items.length; i++) {
+      for (let i = 1; i < data.items.length; i++) {
         expect(data.items[i].<%=defField%>).to.be.at.least(data.items[i - 1].<%=defField%>);
       }
 
@@ -111,7 +111,7 @@ describe('<%=nameLC%>.dao', () => {
 
       expect(data.items).to.have.length(TOTAL_COUNT);
 
-      for (const i = 1; i < data.items.length; i++) {
+      for (let i = 1; i < data.items.length; i++) {
         expect(data.items[i - 1].<%=defField%>).to.be.at.least(data.items[i].<%=defField%>);
       }
 
@@ -134,7 +134,7 @@ describe('<%=nameLC%>.dao', () => {
   });
 
   describe('#getById()', () => {
-    const <%=nameLC%>;
+    let <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
       const created<%=nameUC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
@@ -157,8 +157,8 @@ describe('<%=nameLC%>.dao', () => {
   // =============== setters ===============
 
   describe('#create()', () => {
-    const <%=nameLC%>Data;
-    const <%=nameLC%>;
+    let <%=nameLC%>Data;
+    let <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
       <%=nameLC%>Data = <%=nameLC%>Stub;

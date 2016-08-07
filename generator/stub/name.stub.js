@@ -1,9 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
-var helpers = require('../helpers/stubHelpers');
+const _ = require('lodash');
+const helpers = require('../helpers/stubHelpers');
 
-var <%=nameUC%>Stub = {
+const <%=nameUC%>Stub = {
   <%=defField%>: '<%=defField%>'
 };
 
@@ -15,14 +15,14 @@ module.exports = {
 
 
 function getSingle() {
-  var stub = helpers.cloneStub(<%=nameUC%>Stub);
+  const stub = helpers.cloneStub(<%=nameUC%>Stub);
   return stub;
 }
 
 function getMany(count) {
   return _.range(count)
     .map((i) => {
-      var stub = getSingle();
+      const stub = getSingle();
       stub.<%=defField%> = `${stub.<%=defField%>}_${i}`;
       return stub;
     });
