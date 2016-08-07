@@ -1,10 +1,10 @@
 'use strict';
 
-var router = require('express').Router();
-var co = require('co');
-var <%=nameUC%> = require('./<%=nameLC%>.dao');
-var parser = require('./<%=nameLC%>.parser');
-var auth = require('../../auth');
+const router = require('express').Router();
+const co = require('co');
+const <%=nameUC%> = require('./<%=nameLC%>.dao');
+const parser = require('./<%=nameLC%>.parser');
+const auth = require('../../auth');
 
 
 module.exports = router;
@@ -22,8 +22,8 @@ router.delete('/:<%=nameLC%>Id', auth.isAdmin, destroy);
 
 function getByQuery(req, res, next) {
   co(function* () {
-    var q = req.parsed;
-    var <%=namePlural%>Data = yield <%=nameUC%>.getByQuery(q.findQuery, q.orQuery, q.sortBy, q.offset, q.limit);
+    const q = req.parsed;
+    const <%=namePlural%>Data = yield <%=nameUC%>.getByQuery(q.findQuery, q.orQuery, q.sortBy, q.offset, q.limit);
     res.json(<%=namePlural%>Data);
   })
   .catch(next);
@@ -33,7 +33,7 @@ function getByQuery(req, res, next) {
 
 function create(req, res, next) {
   co(function* () {
-    var parsed<%=nameUC%> = req.parsed;
+    const parsed<%=nameUC%> = req.parsed;
     yield <%=nameUC%>.create(parsed<%=nameUC%>);
     res.sendStatus(201);
   })
@@ -42,7 +42,7 @@ function create(req, res, next) {
 
 function update(req, res, next) {
   co(function* () {
-    var parsed<%=nameUC%> = req.parsed;
+    const parsed<%=nameUC%> = req.parsed;
     yield <%=nameUC%>.update(parsed<%=nameUC%>._id, parsed<%=nameUC%>);
     res.sendStatus(200);
   })
@@ -51,7 +51,7 @@ function update(req, res, next) {
 
 function destroy(req, res, next) {
   co(function* () {
-    var <%=nameLC%>Id = req.params.<%=nameLC%>Id;
+    const <%=nameLC%>Id = req.params.<%=nameLC%>Id;
     yield <%=nameUC%>.destroy(<%=nameLC%>Id);
     res.sendStatus(200);
   })

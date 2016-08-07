@@ -1,7 +1,7 @@
 'use strict';
 
-var _ = require('lodash');
-var utils = require('../../helpers/parserUtils');
+const _ = require('lodash');
+const utils = require('../../helpers/parserUtils');
 
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
 // =============== GET ===============
 
 function parseGetByQuery(req, res, next) {
-  var query = req.query;
+  const query = req.query;
   req.parsed = utils.parseQuery(query);
   if (query.searchText) {
     req.parsed.orQuery = [

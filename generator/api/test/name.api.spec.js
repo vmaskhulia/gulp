@@ -1,10 +1,10 @@
 'use strict';
 
 /*
-var co = require('co');
-var testHelpers = require('../../../helpers/testHelpers');
-var agents = require('../../users/test/agents');
-var <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
+const co = require('co');
+const testHelpers = require('../../../helpers/testHelpers');
+const agents = require('../../users/test/agents');
+const <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 
 describe('api/<%=namePlural%>', () => {

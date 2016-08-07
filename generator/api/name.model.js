@@ -1,10 +1,10 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 
-var <%=nameUC%>Schema = new Schema({
+const <%=nameUC%>Schema = new Schema({
   <%=defField%>: String
 });
 

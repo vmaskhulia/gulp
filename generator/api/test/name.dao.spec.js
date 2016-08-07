@@ -1,18 +1,18 @@
 'use strict';
 
-var _ = require('lodash');
-var co = require('co');
-var chai = require('chai');
-var expect = chai.expect;
+const _ = require('lodash');
+const co = require('co');
+const chai = require('chai');
+const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 chai.use(require('chai-datetime'));
-var testHelpers = require('../../../helpers/testHelpers');
-var ResourceNotFoundError = require('../../../errors').ResourceNotFoundError;
-var <%=nameUC%> = require('../<%=nameLC%>.dao');
-var <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
+const testHelpers = require('../../../helpers/testHelpers');
+const ResourceNotFoundError = require('../../../errors').ResourceNotFoundError;
+const <%=nameUC%> = require('../<%=nameLC%>.dao');
+const <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 describe('<%=nameLC%>.dao', () => {
-  var <%=nameLC%>Stub;
+  const <%=nameLC%>Stub;
 
   before(co.wrap(function* () {
     testHelpers.connectDB();
@@ -30,12 +30,12 @@ describe('<%=nameLC%>.dao', () => {
 
   describe('#getAll()', () => {
     it('should get all <%=namePlural%>', co.wrap(function* () {
-      var <%=namePlural%>Data = _.range(10)
+      const <%=namePlural%>Data = _.range(10)
         .map(() => <%=nameUC%>Stub.getSingle());
 
       yield <%=nameUC%>.create(<%=namePlural%>Data);
 
-      var <%=namePlural%> = yield <%=nameUC%>.getAll();
+      const <%=namePlural%> = yield <%=nameUC%>.getAll();
 
       expect(<%=namePlural%>).to.be.instanceof(Array);
       expect(<%=namePlural%>).to.have.length(<%=namePlural%>Data.length);
@@ -48,9 +48,9 @@ describe('<%=nameLC%>.dao', () => {
     before(co.wrap(function* () {
       yield <%=nameUC%>.destroyAll();
 
-      var <%=namePlural%> = _.range(TOTAL_COUNT)
+      const <%=namePlural%> = _.range(TOTAL_COUNT)
         .map(i => {
-          var stub = <%=nameUC%>Stub.getSingle();
+          const stub = <%=nameUC%>Stub.getSingle();
           stub.<%=defField%> = (i % 2 === 0) ? 'value-a' : 'value-b';
           return stub;
         });
@@ -59,47 +59,47 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should get all <%=namePlural%> by findQuery', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, TOTAL_COUNT);
+      const data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, TOTAL_COUNT);
       expect(data.items).to.have.length(TOTAL_COUNT);
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get part of <%=namePlural%> by findQuery', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({<%=defField%>: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
+      const data = yield <%=nameUC%>.getByQuery({<%=defField%>: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
       expect(data.items).to.have.length(TOTAL_COUNT / 2);
       expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
     it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
-      var orQuery = [{
+      const orQuery = [{
         <%=defField%>: {$regex: 'value-a', $options: 'gi'}
       }, {
         <%=defField%>: {$regex: 'value-b', $options: 'gi'}
       }];
 
-      var data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
+      const data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT);
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
-      var orQuery = [{
+      const orQuery = [{
         <%=defField%>: {$regex: 'value-a', $options: 'gi'}
       }];
 
-      var data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
+      const data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT / 2);
       expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
     it('should sort by ascending order', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: 1}, 0, TOTAL_COUNT);
+      const data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: 1}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT);
 
-      for (var i = 1; i < data.items.length; i++) {
+      for (const i = 1; i < data.items.length; i++) {
         expect(data.items[i].<%=defField%>).to.be.at.least(data.items[i - 1].<%=defField%>);
       }
 
@@ -107,11 +107,11 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should sort by descending order', co.wrap(function* () {
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: -1}, 0, TOTAL_COUNT);
+      const data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: -1}, 0, TOTAL_COUNT);
 
       expect(data.items).to.have.length(TOTAL_COUNT);
 
-      for (var i = 1; i < data.items.length; i++) {
+      for (const i = 1; i < data.items.length; i++) {
         expect(data.items[i - 1].<%=defField%>).to.be.at.least(data.items[i].<%=defField%>);
       }
 
@@ -119,25 +119,25 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should get all <%=namePlural%> after offset', co.wrap(function* () {
-      var offset = 5;
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, offset, TOTAL_COUNT);
+      const offset = 5;
+      const data = yield <%=nameUC%>.getByQuery({}, [{}], {}, offset, TOTAL_COUNT);
       expect(data.items).to.have.length(TOTAL_COUNT - offset);
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get limited number of <%=namePlural%>', co.wrap(function* () {
-      var limit = 9;
-      var data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
+      const limit = 9;
+      const data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
       expect(data.items).to.have.length(limit);
       expect(data.numTotal).to.equal(TOTAL_COUNT);
     }));
   });
 
   describe('#getById()', () => {
-    var <%=nameLC%>;
+    const <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
-      var created<%=nameUC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
+      const created<%=nameUC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
       <%=nameLC%> = yield <%=nameUC%>.getById(created<%=nameUC%>._id);
     }));
 
@@ -146,7 +146,7 @@ describe('<%=nameLC%>.dao', () => {
     });
 
     it('should throw error if <%=nameLC%> was not found', () => {
-      var dummyId = testHelpers.DUMMY_ID;
+      const dummyId = testHelpers.DUMMY_ID;
 
       return expect(<%=nameUC%>.getById(dummyId))
         .to.be.rejectedWith(ResourceNotFoundError, `<%=nameLC%> (id "${dummyId}") was not found`);
@@ -157,8 +157,8 @@ describe('<%=nameLC%>.dao', () => {
   // =============== setters ===============
 
   describe('#create()', () => {
-    var <%=nameLC%>Data;
-    var <%=nameLC%>;
+    const <%=nameLC%>Data;
+    const <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
       <%=nameLC%>Data = <%=nameLC%>Stub;
@@ -176,22 +176,22 @@ describe('<%=nameLC%>.dao', () => {
 
   describe('#update()', () => {
     it('should update <%=nameLC%>', co.wrap(function* () {
-      var <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
+      const <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
-      var newData = {
+      const newData = {
         <%=defField%>: 'new-my-field',
       };
 
       yield <%=nameUC%>.update(<%=nameLC%>._id, newData);
 
-      var updated<%=nameUC%> = yield <%=nameUC%>.getById(<%=nameLC%>._id);
+      const updated<%=nameUC%> = yield <%=nameUC%>.getById(<%=nameLC%>._id);
 
       expectBaseFieldsToMatch(updated<%=nameUC%>, newData);
     }));
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
-      var dummyId = testHelpers.DUMMY_ID;
-      var newData = <%=nameLC%>Stub;
+      const dummyId = testHelpers.DUMMY_ID;
+      const newData = <%=nameLC%>Stub;
 
       return expect(<%=nameUC%>.update(dummyId, newData))
         .to.be.rejectedWith(ResourceNotFoundError, `could not update <%=nameLC%> (id "${dummyId}")`);
@@ -200,7 +200,7 @@ describe('<%=nameLC%>.dao', () => {
 
   describe('#destroy()', () => {
     it('should destroy <%=nameLC%>', co.wrap(function* () {
-      var <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
+      const <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
       yield <%=nameUC%>.destroy(<%=nameLC%>._id);
 
@@ -209,7 +209,7 @@ describe('<%=nameLC%>.dao', () => {
     }));
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
-      var dummyId = testHelpers.DUMMY_ID;
+      const dummyId = testHelpers.DUMMY_ID;
 
       return expect(<%=nameUC%>.destroy(dummyId))
         .to.be.rejectedWith(ResourceNotFoundError, `could not destroy <%=nameLC%> (id "${dummyId}")`);

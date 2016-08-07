@@ -1,8 +1,8 @@
 'use strict';
 
-var Promise = require('bluebird');
-var DBResultHandler = require('../../helpers/DBResultHandler');
-var Model = require('./<%=nameLC%>.model');
+const Promise = require('bluebird');
+const DBResultHandler = require('../../helpers/DBResultHandler');
+const Model = require('./<%=nameLC%>.model');
 
 
 module.exports = {
