@@ -5,7 +5,7 @@ import path from 'path';
 import es from 'event-stream';
 import paths from '../paths';
 import {firstUC, singular} from '../helpers';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
 
 gulp.task('inject', () => {
@@ -24,9 +24,9 @@ gulp.task('inject', () => {
 });
 
 function injectDirectives() {
-  var base = `${paths.app.common}/directives`;
-  var src = `${base}/directives.js`;
-  var fileNames = excludeFilesWithExtensions(base);
+  const base = `${paths.app.common}/directives`;
+  const src = `${base}/directives.js`;
+  const fileNames = excludeFilesWithExtensions(base);
 
   return doubleInject(
     src,
@@ -40,9 +40,9 @@ function injectDirectives() {
 }
 
 function injectModals() {
-  var base = `${paths.app.common}/modals`;
-  var src = `${base}/modals.js`;
-  var fileNames = excludeFilesWithExtensions(base);
+  const base = `${paths.app.common}/modals`;
+  const src = `${base}/modals.js`;
+  const fileNames = excludeFilesWithExtensions(base);
 
   return doubleInject(
     src,
@@ -56,9 +56,9 @@ function injectModals() {
 }
 
 function injectServices() {
-  var base = `${paths.app.common}/services`;
-  var src = `${base}/services.js`;
-  var fileNames = [`!${base}/services.js`, `${base}/*`];
+  const base = `${paths.app.common}/services`;
+  const src = `${base}/services.js`;
+  const fileNames = [`!${base}/services.js`, `${base}/*`];
 
   return doubleInject(
     src,
@@ -72,9 +72,9 @@ function injectServices() {
 }
 
 function injectResources() {
-  var base = `${paths.app.common}/resources`;
-  var src = `${base}/resources.js`;
-  var fileNames = [`!${base}/resources.js`, `${base}/*`];
+  const base = `${paths.app.common}/resources`;
+  const src = `${base}/resources.js`;
+  const fileNames = [`!${base}/resources.js`, `${base}/*`];
 
   return doubleInject(
     src,
@@ -89,9 +89,9 @@ function injectResources() {
 
 
 function injectValidators() {
-  var base = `${paths.app.common}/validators`;
-  var src = `${base}/validators.js`;
-  var fileNames = [`!${base}/validators.js`, `${base}/*`];
+  const base = `${paths.app.common}/validators`;
+  const src = `${base}/validators.js`;
+  const fileNames = [`!${base}/validators.js`, `${base}/*`];
 
   return doubleInject(
     src,
@@ -105,9 +105,9 @@ function injectValidators() {
 }
 
 function injectCommon() {
-  var base = paths.app.common;
-  var src = `${base}/common.js`;
-  var fileNames = excludeFilesWithExtensions(base);
+  const base = paths.app.common;
+  const src = `${base}/common.js`;
+  const fileNames = excludeFilesWithExtensions(base);
 
   return doubleInject(
     src,
@@ -121,10 +121,10 @@ function injectCommon() {
 }
 
 function injectComponents() {
-  var base = paths.app.components;
-  var src = `${base}/components.js`;
-  var mainFileNames = excludeFilesWithExtensions(`${base}/main`);
-  var adminFileNames = excludeFilesWithExtensions(`${base}/admin`);
+  const base = paths.app.components;
+  const src = `${base}/components.js`;
+  const mainFileNames = excludeFilesWithExtensions(`${base}/main`);
+  const adminFileNames = excludeFilesWithExtensions(`${base}/admin`);
 
   return gulp.src(src)
     .pipe(inject(
@@ -151,9 +151,9 @@ function injectComponents() {
 }
 
 function injectRoutes() {
-  var base = paths.server.base;
-  var src = `${base}/routes.js`;
-  var fileNames = [`${base}/api/*`];
+  const base = paths.server.base;
+  const src = `${base}/routes.js`;
+  const fileNames = [`${base}/api/*`];
 
   return gulp.src(src)
     .pipe(inject(
@@ -165,20 +165,20 @@ function injectRoutes() {
 }
 
 function injectSeed() {
-  var base = paths.server.base;
-  var src = `${base}/config/seed.js`;
-  var fileNames = [`${base}/api/*`];
+  const base = paths.server.base;
+  const src = `${base}/config/seed.js`;
+  const fileNames = [`${base}/api/*`];
 
   return gulp.src(src)
     .pipe(inject(
       fileNames,
       '//inject:require.daos',
-      n => `var ${firstUC(singular(n))} = require('../api/${n}/${singular(n)}.dao');`
+      n => `const ${firstUC(singular(n))} = require('../api/${n}/${singular(n)}.dao');`
     ))
     .pipe(inject(
       fileNames,
       '//inject:require.stubs',
-      n => `var ${firstUC(singular(n))}Stub = require('../stubs/${singular(n)}.stub');`
+      n => `const ${firstUC(singular(n))}Stub = require('../stubs/${singular(n)}.stub');`
     ))
     .pipe(inject(
       fileNames,
@@ -201,8 +201,8 @@ function inject(fileNames, starttag, transformFileName) {
       starttag,
       endtag: '//endinject',
       transform: filePath => {
-        var ext = path.extname(filePath);
-        var name = path.basename(filePath).replace(ext, '');
+        const ext = path.extname(filePath);
+        const name = path.basename(filePath).replace(ext, '');
         return transformFileName(name);
       }
     }
