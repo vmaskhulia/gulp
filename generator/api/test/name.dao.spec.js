@@ -72,9 +72,9 @@ describe('<%=nameLC%>.dao', () => {
 
     it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
       const orQuery = [{
-        <%=defField%>: {$regex: 'value-a', $options: 'gi'}
+        <%=defField%>: {$regex: 'value-a', $options: 'i'}
       }, {
-        <%=defField%>: {$regex: 'value-b', $options: 'gi'}
+        <%=defField%>: {$regex: 'value-b', $options: 'i'}
       }];
 
       const data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
@@ -85,7 +85,7 @@ describe('<%=nameLC%>.dao', () => {
 
     it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
       const orQuery = [{
-        <%=defField%>: {$regex: 'value-a', $options: 'gi'}
+        <%=defField%>: {$regex: 'value-a', $options: 'i'}
       }];
 
       const data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
