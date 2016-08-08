@@ -1,9 +1,11 @@
 'use strict';
 
 import path from 'path';
+const $ = require('gulp-load-plugins')();
+const argv = $.util.env;
 
-
-const root = `${path.dirname(__dirname)}`;
+const root = path.dirname(__dirname);
+const watchSpecs = argv.t;
 
 const paths = {
   root,
@@ -34,7 +36,7 @@ const paths = {
     base: `${root}/server`,
     starter: 'server/server.js',
     scripts: `${root}/server/**/*.js`,
-    specs: `${root}/server/**/*.spec.js`
+    specs: `${root}/server/**/*${watchSpecs ? '' : '.spec'}.js`
   },
 
   app: {

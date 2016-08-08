@@ -5,10 +5,10 @@ import {NAME, SSH_ADDRESS, LUCY_SSH_ADDRESS} from '../consts';
 import paths from '../paths';
 const exec = require('child_process').exec;
 const $ = require('gulp-load-plugins')();
+const argv = $.util.env;
 
 
 gulp.task('release', ['dist'], () => {
-  const argv = $.util.env;
   const useLucyServer = argv.lucy || argv.l;
   const startApp = argv.start || argv.s;
   const address = useLucyServer ? LUCY_SSH_ADDRESS : SSH_ADDRESS;
