@@ -6,7 +6,7 @@ import browserSync from 'browser-sync';
 import ripe from 'ripe';
 import {DEVELOPMENT_PORT, LIVE_RELOAD_PORT} from '../consts';
 import paths from '../paths';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
 
 gulp.task('serve', done => {
@@ -17,7 +17,7 @@ gulp.task('serve', done => {
 });
 
 gulp.task('nodemon', done => {
-  var hasStarted = false;
+  const hasStarted = false;
 
   $.nodemon({
       script: paths.server.starter,

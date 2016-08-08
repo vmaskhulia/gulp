@@ -2,7 +2,7 @@
 
 import gulp from 'gulp';
 import paths from '../paths';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
 
 gulp.task('lint', [

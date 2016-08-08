@@ -6,7 +6,7 @@ import paths from '../paths';
 import Builder from 'systemjs-builder';
 import {FONTS_PATHS} from '../consts';
 import {getMinifyFromArgv, copy} from '../helpers';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
 
 gulp.task('dist', done => {
@@ -37,7 +37,7 @@ gulp.task('replaceIndexHtml', ['injectBundlesToIndexHtml'], () => {
 });
 
 gulp.task('injectBundlesToIndexHtml', ['bundle'], () => {
-  var src = ['build.js', 'build.css'];
+  const src = ['build.js', 'build.css'];
 
   return gulp.src(paths.app.indexHtml)
     .pipe($.inject(gulp.src(src, {read: false, cwd: paths.dist.base})))
@@ -45,10 +45,10 @@ gulp.task('injectBundlesToIndexHtml', ['bundle'], () => {
 });
 
 gulp.task('bundle', () => {
-  var builder = new Builder('', `${paths.config.jspm}`);
-  var inputPath = paths.tmp.starter;
-  var outputPath = `${paths.dist.base}/build.js`;
-  var minify = getMinifyFromArgv();
+  const builder = new Builder('', `${paths.config.jspm}`);
+  const inputPath = paths.tmp.starter;
+  const outputPath = `${paths.dist.base}/build.js`;
+  const minify = getMinifyFromArgv();
 
   builder.config({
     buildCSS: true,

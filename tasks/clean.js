@@ -18,7 +18,7 @@ gulp.task('cleanDist', () => {
 });
 
 gulp.task('cleanApi', (done) => {
-  var name = getNameFromArgv();
+  const name = getNameFromArgv();
 
   Promise.all([
     del(path.join(paths.app.common, 'modals', name)),
@@ -27,7 +27,5 @@ gulp.task('cleanApi', (done) => {
     del(path.join(paths.server.base, 'api', plural(name))),
     del(path.join(paths.server.base, 'stubs', `${name}.stub.js`))
   ])
-  .then(() => {
-    return runSequence('inject', done);
-  });
+  .then(() => runSequence('inject', done));
 });

@@ -1,10 +1,10 @@
 'use strict';
 
 import gulp from 'gulp';
-var $ = require('gulp-load-plugins')();
-var argv = $.util.env;
-var log = $.util.log;
-var colors = $.util.colors;
+const $ = require('gulp-load-plugins')();
+const argv = $.util.env;
+const log = $.util.log;
+const colors = $.util.colors;
 
 const vowels = ['a', 'e', 'i', 'o', 'u'];
 
@@ -23,7 +23,7 @@ export function firstLC(str) {
 }
 
 export function plural(str) {
-  var secondLastChar = str[str.length - 2];
+  const secondLastChar = str[str.length - 2];
   if (str === 'info') {
     return 'info';
   } else if (str.endsWith('y') && vowels.indexOf(secondLastChar) === -1) {
@@ -48,7 +48,7 @@ export function singular(str) {
 }
 
 export function getNameFromArgv() {
-  var name = argv.name || argv.n;
+  const name = argv.name || argv.n;
   if (!name) {
     log(colors.red('Error: name parameter is required (e.g. --name <myName>)'));
     process.exit(1);
@@ -57,7 +57,7 @@ export function getNameFromArgv() {
 }
 
 export function getDefFieldFromArgv() {
-  var field = argv.f;
+  const field = argv.f;
   if (!field) {
     log(colors.red('Error: default field is required (e.g. -f <myField>)'));
     process.exit(1);

@@ -5,7 +5,7 @@ import path from 'path';
 import runSequence from 'run-sequence';
 import paths from '../paths';
 import {getNameFromArgv, getDefFieldFromArgv, firstUC, firstLC, plural} from '../helpers';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
 
 gulp.task('directive', (done) => {
@@ -42,65 +42,65 @@ gulp.task('api', (done) => {
 
 
 gulp.task('generateDirective', () => {
-  var name = 'lc' + firstUC(getNameFromArgv());
-  var src = paths.generatorTemplates.directive;
-  var dest = path.join(paths.app.common, 'directives', name);
+  const name = 'lc' + firstUC(getNameFromArgv());
+  const src = paths.generatorTemplates.directive;
+  const dest = path.join(paths.app.common, 'directives', name);
   return insertTemplates(name, src, dest);
 });
 
 gulp.task('generateModal', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.modal;
-  var dest = path.join(paths.app.common, 'modals', name);
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.modal;
+  const dest = path.join(paths.app.common, 'modals', name);
   return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateService', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.service;
-  var dest = path.join(paths.app.common, 'services');
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.service;
+  const dest = path.join(paths.app.common, 'services');
   return insertTemplates(name, src, dest);
 });
 
 gulp.task('generateResource', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.resource;
-  var dest = path.join(paths.app.common, 'resources');
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.resource;
+  const dest = path.join(paths.app.common, 'resources');
   return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateValidator', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.validator;
-  var dest = path.join(paths.app.common, 'validators');
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.validator;
+  const dest = path.join(paths.app.common, 'validators');
   return insertTemplates(name, src, dest);
 });
 
 gulp.task('generateMainComponent', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.mainComponent;
-  var dest = path.join(paths.app.components, 'main', name);
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.mainComponent;
+  const dest = path.join(paths.app.components, 'main', name);
   return insertTemplates(name, src, dest);
 });
 
 gulp.task('generateAdminComponent', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.adminComponent;
-  var dest = path.join(paths.app.components, 'admin', plural(name));
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.adminComponent;
+  const dest = path.join(paths.app.components, 'admin', plural(name));
   return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateApi', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.api;
-  var dest = path.join(paths.server.base, 'api', plural(name));
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.api;
+  const dest = path.join(paths.server.base, 'api', plural(name));
   return insertTemplates(name, src, dest, true);
 });
 
 gulp.task('generateStub', () => {
-  var name = getNameFromArgv();
-  var src = paths.generatorTemplates.stub;
-  var dest = path.join(paths.server.base, 'stubs');
+  const name = getNameFromArgv();
+  const src = paths.generatorTemplates.stub;
+  const dest = path.join(paths.server.base, 'stubs');
   return insertTemplates(name, src, dest, true);
 });
 

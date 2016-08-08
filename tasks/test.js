@@ -1,18 +1,18 @@
 'use strict';
 
 import gulp from 'gulp';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 import {HOST, PRODUCTION_PORT, DEVELOPMENT_PORT} from '../consts';
 import paths from '../paths';
-var Server = require('karma').Server;
-var protractor = $.protractor.protractor;
-var argv = $.util.env;
+const Server = require('karma').Server;
+const protractor = $.protractor.protractor;
+const argv = $.util.env;
 
-var isProduction = argv.p;
-var scheme = isProduction ? 'http' : 'http';
-var host = isProduction ? 'localhost' : 'localhost';
-var port = isProduction ? PRODUCTION_PORT : DEVELOPMENT_PORT;
-var url = `${scheme}://${host}:${port}`;
+const isProduction = argv.p;
+const scheme = isProduction ? 'http' : 'http';
+const host = isProduction ? 'localhost' : 'localhost';
+const port = isProduction ? PRODUCTION_PORT : DEVELOPMENT_PORT;
+const url = `${scheme}://${host}:${port}`;
 
 
 gulp.task('test', ['test:e2e', 'test:server', 'test:client']);

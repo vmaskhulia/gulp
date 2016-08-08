@@ -3,9 +3,9 @@
 import path from 'path';
 
 
-var root = `${path.dirname(__dirname)}`;
+const root = `${path.dirname(__dirname)}`;
 
-var paths = {
+const paths = {
   root,
 
   config: {

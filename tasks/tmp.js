@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import paths from '../paths';
 import runSequence from 'run-sequence';
 import {copy} from '../helpers';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
 
 gulp.task('tmp', done => {

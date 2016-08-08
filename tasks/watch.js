@@ -3,9 +3,9 @@
 import gulp from 'gulp';
 import runSequence from 'run-sequence';
 import paths from '../paths';
-var $ = require('gulp-load-plugins')();
+const $ = require('gulp-load-plugins')();
 
-var isTestRunning = {
+const isTestRunning = {
   server: false,
   client: false,
   e2e: false
