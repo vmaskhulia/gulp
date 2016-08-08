@@ -17,7 +17,7 @@ gulp.task('serve', done => {
 });
 
 gulp.task('nodemon', done => {
-  const hasStarted = false;
+  let hasStarted = false;
 
   $.nodemon({
       script: paths.server.starter,
