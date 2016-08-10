@@ -43,7 +43,7 @@ function create(req, res, next) {
 function update(req, res, next) {
   co(function* () {
     const payload = req.parsed;
-    yield <%=nameUC%>.update(payload._id, parsed<%=nameUC%>);
+    yield <%=nameUC%>.update(payload._id, payload);
     res.sendStatus(200);
   })
   .catch(next);
