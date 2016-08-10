@@ -33,8 +33,8 @@ function getByQuery(req, res, next) {
 
 function create(req, res, next) {
   co(function* () {
-    const parsed<%=nameUC%> = req.parsed;
-    yield <%=nameUC%>.create(parsed<%=nameUC%>);
+    const payload = req.parsed;
+    yield <%=nameUC%>.create(payload);
     res.sendStatus(201);
   })
   .catch(next);
@@ -42,8 +42,8 @@ function create(req, res, next) {
 
 function update(req, res, next) {
   co(function* () {
-    const parsed<%=nameUC%> = req.parsed;
-    yield <%=nameUC%>.update(parsed<%=nameUC%>._id, parsed<%=nameUC%>);
+    const payload = req.parsed;
+    yield <%=nameUC%>.update(payload._id, parsed<%=nameUC%>);
     res.sendStatus(200);
   })
   .catch(next);
