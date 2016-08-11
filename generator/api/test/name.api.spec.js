@@ -8,9 +8,9 @@ const <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 
 describe('api/<%=namePlural%>', () => {
-  let guestAgent = agents.getGuestAgent();
-  let clientAgent = agents.getClientAgent();
-  let adminAgent = agents.getAdminAgent();
+  const guestAgent = agents.getGuestAgent();
+  const clientAgent = agents.getClientAgent();
+  const adminAgent = agents.getAdminAgent();
 
   before(co.wrap(function* () {
     testHelpers.connectDB();
@@ -25,7 +25,7 @@ describe('api/<%=namePlural%>', () => {
   // =============== GET ===============
 
   describe('GET /', () => {
-    let route = '/api/<%=namePlural%>';
+    const route = '/api/<%=namePlural%>';
 
     it('should return 200 for guest', (done) => {
       guestAgent.get(route).expect(200, done);
@@ -43,7 +43,7 @@ describe('api/<%=namePlural%>', () => {
  // =============== POST ===============
 
   describe('POST /', () => {
-    let route = '/api/<%=namePlural%>';
+    const route = '/api/<%=namePlural%>';
     let <%=nameLC%>Stub;
 
     beforeEach(() => {
