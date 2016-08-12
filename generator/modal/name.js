@@ -14,6 +14,8 @@ export default class {
   open(targetEvent, <%=nameLC%>, isUpdate) {
     return this.$mdDialog.show({
       controller($mdDialog) {
+        'ngInject';
+
         this.<%=nameLC%> = _.cloneDeep(<%=nameLC%>);
         this.isUpdate = isUpdate;
 
