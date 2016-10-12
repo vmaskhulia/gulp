@@ -15,7 +15,6 @@ gulp.task('inject', () => {
     injectServices(),
     injectResources(),
     injectValidators(),
-    injectCommon(),
     injectComponents(),
 
     injectRoutes(),
@@ -101,22 +100,6 @@ function injectValidators() {
     n => `import ${n} from './${n}.js';`,
     '//inject:ngdirective',
     n => `.directive('${n}', ${n})`
-  );
-}
-
-function injectCommon() {
-  const base = paths.app.common;
-  const src = `${base}/common.js`;
-  const fileNames = excludeFilesWithExtensions(base);
-
-  return doubleInject(
-    src,
-    base,
-    fileNames,
-    '//inject:import',
-    n => `import ${n} from './${n}/${n}.js';`,
-    '//inject:ngmodule',
-    n => `${n}.name,`
   );
 }
 
