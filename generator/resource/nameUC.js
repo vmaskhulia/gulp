@@ -3,36 +3,24 @@
 export default (Restangular) => {
   'ngInject';
 
+  const rest = Restangular.withConfig((configurer) => {
+    configurer.setBaseUrl('api/<%=namePlural%>');
+  });
+
   return {
-    getByQuery: (query) =>
-      resource('').get(query)
-        .then((result) => {
-          result.items = result.items.map(format);
-          return result;
-        }),
+    getByQuery: (query) => rest.one('').get(query)
+      .then((result) => {
+        result.items = result.items.map(format);
+        return result;
+      }),
 
-    create: (data) =>
-      resource('').post('', data),
-    update: (data) =>
-      resource('update').post('', data),
+    create: (data) => rest.one('').post('', data),
+    update: (data) => rest.one('update').post('', data),
 
-    destroy: (id) =>
-      resource(id).remove(),
-
-    getSchema
+    destroy: (id) => rest.one(id).remove()
   };
 
-  function resource(type) {
-    return Restangular.one('<%=namePlural%>', type);
-  }
-
-  function getSchema() {
-    return {
-      <%=defField%>: ''
-    };
-  }
-
   function format(item) {
-    return item;
+    return Object.assign(item, {});
   }
 };

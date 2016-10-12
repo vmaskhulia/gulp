@@ -11,13 +11,12 @@ export default class {
     this.$mdDialog = $mdDialog;
   }
 
-  open(targetEvent, <%=nameLC%>, isUpdate) {
+  open(targetEvent, <%=nameLC%>) {
     return this.$mdDialog.show({
       controller($mdDialog) {
         'ngInject';
 
         this.<%=nameLC%> = _.cloneDeep(<%=nameLC%>);
-        this.isUpdate = isUpdate;
 
         this.submit = (form) => {
           if (form.$valid) {
