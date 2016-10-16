@@ -18,8 +18,8 @@ export default class {
 
         this.<%=nameLC%> = _.cloneDeep(<%=nameLC%>);
 
-        this.submit = (form) => {
-          if (form.$valid) {
+        this.submit = (isValid) => {
+          if (isValid) {
             $mdDialog.hide(this.<%=nameLC%>);
           }
         };
