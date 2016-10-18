@@ -51,7 +51,7 @@ function update(req, res, next) {
 
 function destroy(req, res, next) {
   co(function* () {
-    const <%=nameLC%>Id = req.params.<%=nameLC%>Id;
+    const {<%=nameLC%>Id} = req.params;
     yield <%=nameUC%>.destroy(<%=nameLC%>Id);
     res.sendStatus(200);
   })
