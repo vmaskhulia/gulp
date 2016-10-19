@@ -49,25 +49,23 @@ describe('<%=nameLC%>.dao', () => {
       yield <%=nameUC%>.destroyAll();
 
       const <%=namePlural%> = _.range(TOTAL_COUNT)
-        .map(i => {
-          const stub = <%=nameUC%>Stub.getSingle();
-          stub.<%=defField%> = (i % 2 === 0) ? 'value-a' : 'value-b';
-          return stub;
-        });
+        .map(i => <%=nameUC%>Stub.getSingle({
+          <%=defField%>: (i % 2 === 0) ? 'value-a' : 'value-b'
+        }));
 
       yield <%=nameUC%>.insertMany(<%=namePlural%>);
     }));
 
     it('should get all <%=namePlural%> by findQuery', co.wrap(function* () {
-      const data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, TOTAL_COUNT);
-      expect(data.items).to.have.length(TOTAL_COUNT);
-      expect(data.numTotal).to.equal(TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, TOTAL_COUNT);
+      expect(items).to.have.length(TOTAL_COUNT);
+      expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get part of <%=namePlural%> by findQuery', co.wrap(function* () {
-      const data = yield <%=nameUC%>.getByQuery({<%=defField%>: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
-      expect(data.items).to.have.length(TOTAL_COUNT / 2);
-      expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({<%=defField%>: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
+      expect(items).to.have.length(TOTAL_COUNT / 2);
+      expect(numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
     it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
@@ -77,10 +75,10 @@ describe('<%=nameLC%>.dao', () => {
         <%=defField%>: {$regex: 'value-b', $options: 'i'}
       }];
 
-      const data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
 
-      expect(data.items).to.have.length(TOTAL_COUNT);
-      expect(data.numTotal).to.equal(TOTAL_COUNT);
+      expect(items).to.have.length(TOTAL_COUNT);
+      expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
@@ -88,48 +86,48 @@ describe('<%=nameLC%>.dao', () => {
         <%=defField%>: {$regex: 'value-a', $options: 'i'}
       }];
 
-      const data = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
 
-      expect(data.items).to.have.length(TOTAL_COUNT / 2);
-      expect(data.numTotal).to.equal(TOTAL_COUNT / 2);
+      expect(items).to.have.length(TOTAL_COUNT / 2);
+      expect(numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
     it('should sort by ascending order', co.wrap(function* () {
-      const data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: 1}, 0, TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: 1}, 0, TOTAL_COUNT);
 
-      expect(data.items).to.have.length(TOTAL_COUNT);
+      expect(items).to.have.length(TOTAL_COUNT);
 
-      for (let i = 1; i < data.items.length; i++) {
-        expect(data.items[i].<%=defField%>).to.be.at.least(data.items[i - 1].<%=defField%>);
+      for (let i = 1; i < items.length; i++) {
+        expect(items[i].<%=defField%>).to.be.at.least(items[i - 1].<%=defField%>);
       }
 
-      expect(data.numTotal).to.equal(TOTAL_COUNT);
+      expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should sort by descending order', co.wrap(function* () {
-      const data = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: -1}, 0, TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: -1}, 0, TOTAL_COUNT);
 
-      expect(data.items).to.have.length(TOTAL_COUNT);
+      expect(items).to.have.length(TOTAL_COUNT);
 
-      for (let i = 1; i < data.items.length; i++) {
-        expect(data.items[i - 1].<%=defField%>).to.be.at.least(data.items[i].<%=defField%>);
+      for (let i = 1; i < items.length; i++) {
+        expect(items[i - 1].<%=defField%>).to.be.at.least(items[i].<%=defField%>);
       }
 
-      expect(data.numTotal).to.equal(TOTAL_COUNT);
+      expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get all <%=namePlural%> after offset', co.wrap(function* () {
       const offset = 5;
-      const data = yield <%=nameUC%>.getByQuery({}, [{}], {}, offset, TOTAL_COUNT);
-      expect(data.items).to.have.length(TOTAL_COUNT - offset);
-      expect(data.numTotal).to.equal(TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {}, offset, TOTAL_COUNT);
+      expect(items).to.have.length(TOTAL_COUNT - offset);
+      expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get limited number of <%=namePlural%>', co.wrap(function* () {
       const limit = 9;
-      const data = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
-      expect(data.items).to.have.length(limit);
-      expect(data.numTotal).to.equal(TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
+      expect(items).to.have.length(limit);
+      expect(numTotal).to.equal(TOTAL_COUNT);
     }));
   });
 
@@ -149,7 +147,7 @@ describe('<%=nameLC%>.dao', () => {
       const dummyId = testHelpers.DUMMY_ID;
 
       return expect(<%=nameUC%>.getById(dummyId))
-        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameLC%> (id "${dummyId}") was not found`);
+        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id "${dummyId}") was not found`);
     });
   });
 
@@ -157,12 +155,12 @@ describe('<%=nameLC%>.dao', () => {
   // =============== setters ===============
 
   describe('#create()', () => {
-    let <%=nameLC%>Data;
+    let baseProps;
     let <%=nameLC%>;
 
     beforeEach(co.wrap(function* () {
-      <%=nameLC%>Data = <%=nameLC%>Stub;
-      <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Data);
+      baseProps = <%=nameLC%>Stub;
+      <%=nameLC%> = yield <%=nameUC%>.create(baseProps);
     }));
 
     it('should create <%=nameLC%>', () => {
@@ -170,7 +168,7 @@ describe('<%=nameLC%>.dao', () => {
     });
 
     it('should contain proper fields', () => {
-      expectBaseFieldsToMatch(<%=nameLC%>, <%=nameLC%>Data);
+      expectBasePropsToMatch(<%=nameLC%>, baseProps);
     });
   });
 
@@ -178,45 +176,45 @@ describe('<%=nameLC%>.dao', () => {
     it('should update <%=nameLC%>', co.wrap(function* () {
       const <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
-      const newData = {
-        <%=defField%>: 'new-my-field',
+      const updatedProps = {
+        <%=defField%>: 'new-my-prop',
       };
 
-      yield <%=nameUC%>.update(<%=nameLC%>._id, newData);
+      yield <%=nameUC%>.update(<%=nameLC%>._id, updatedProps);
 
       const updated<%=nameUC%> = yield <%=nameUC%>.getById(<%=nameLC%>._id);
 
-      expectBaseFieldsToMatch(updated<%=nameUC%>, newData);
+      expectBasePropsToMatch(updated<%=nameUC%>, updatedProps);
     }));
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
       const dummyId = testHelpers.DUMMY_ID;
-      const newData = <%=nameLC%>Stub;
+      const updatedProps = <%=nameLC%>Stub;
 
-      return expect(<%=nameUC%>.update(dummyId, newData))
-        .to.be.rejectedWith(ResourceNotFoundError, `could not update <%=nameLC%> (id "${dummyId}")`);
+      return expect(<%=nameUC%>.update(dummyId, updatedProps))
+        .to.be.rejectedWith(ResourceNotFoundError, `Could not update <%=nameLC%> (id "${dummyId}")`);
     });
   });
 
   describe('#destroy()', () => {
     it('should destroy <%=nameLC%>', co.wrap(function* () {
-      const <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
+      const {_id} = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
-      yield <%=nameUC%>.destroy(<%=nameLC%>._id);
+      yield <%=nameUC%>.destroy(_id);
 
-      return expect(<%=nameUC%>.getById(<%=nameLC%>._id))
-        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameLC%> (id "${<%=nameLC%>._id}") was not found`);
+      return expect(<%=nameUC%>.getById(_id))
+        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id "${_id}") was not found`);
     }));
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
       const dummyId = testHelpers.DUMMY_ID;
 
       return expect(<%=nameUC%>.destroy(dummyId))
-        .to.be.rejectedWith(ResourceNotFoundError, `could not destroy <%=nameLC%> (id "${dummyId}")`);
+        .to.be.rejectedWith(ResourceNotFoundError, `Could not destroy <%=nameLC%> (id "${dummyId}")`);
     });
   });
 });
 
-function expectBaseFieldsToMatch(actual, expected) {
+function expectBasePropsToMatch(actual, expected) {
   expect(actual).to.have.property('<%=defField%>', expected.<%=defField%>);
 }

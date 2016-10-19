@@ -9,14 +9,14 @@ const <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
 describe('api/<%=namePlural%>', () => {
   const guestAgent = agents.getGuestAgent();
-  const clientAgent = agents.getClientAgent();
+  const userAgent = agents.getUserAgent();
   const adminAgent = agents.getAdminAgent();
 
   before(co.wrap(function* () {
     testHelpers.connectDB();
     yield testHelpers.clearDB();
 
-    yield clientAgent.authorize();
+    yield userAgent.authorize();
     yield adminAgent.authorize();
   }));
 
