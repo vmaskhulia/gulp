@@ -66,7 +66,7 @@ gulp.task('generateResource', () => {
   const name = getNameFromArgv();
   const src = paths.generatorTemplates.resource;
   const dest = path.join(paths.app.common, 'resources');
-  return insertTemplates(name, src, dest, true);
+  return insertTemplates(name, src, dest);
 });
 
 gulp.task('generateValidator', () => {
