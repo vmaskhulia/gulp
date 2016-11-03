@@ -190,7 +190,6 @@ describe('<%=nameLC%>.dao', () => {
     it('should throw error if passed <%=nameLC%> does not exist', () => {
       const dummyId = testHelpers.DUMMY_ID;
       const updatedProps = <%=nameLC%>Stub;
-
       return expect(<%=nameUC%>.update(dummyId, updatedProps))
         .to.be.rejectedWith(ResourceNotFoundError, `Could not update <%=nameLC%> (id "${dummyId}")`);
     });
@@ -208,7 +207,6 @@ describe('<%=nameLC%>.dao', () => {
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
       const dummyId = testHelpers.DUMMY_ID;
-
       return expect(<%=nameUC%>.destroy(dummyId))
         .to.be.rejectedWith(ResourceNotFoundError, `Could not destroy <%=nameLC%> (id "${dummyId}")`);
     });
