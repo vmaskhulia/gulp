@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 
 const <%=nameUC%>Schema = new Schema({
+  // Base Props
   <%=defField%>: String
 });
 
