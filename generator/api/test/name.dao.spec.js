@@ -25,7 +25,6 @@ describe('<%=nameLC%>.dao', () => {
 
   after(testHelpers.clearDB);
 
-
   // =============== getters ===============
 
   describe('#getAll()', () => {
@@ -151,7 +150,6 @@ describe('<%=nameLC%>.dao', () => {
     });
   });
 
-
   // =============== setters ===============
 
   describe('#create()', () => {
@@ -198,9 +196,7 @@ describe('<%=nameLC%>.dao', () => {
   describe('#destroy()', () => {
     it('should destroy <%=nameLC%>', co.wrap(function* () {
       const {_id} = yield <%=nameUC%>.create(<%=nameLC%>Stub);
-
       yield <%=nameUC%>.destroy(_id);
-
       return expect(<%=nameUC%>.getById(_id))
         .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id "${_id}") was not found`);
     }));
