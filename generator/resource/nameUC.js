@@ -3,7 +3,7 @@
 export default (Restangular) => {
   'ngInject';
 
-  const rest = Restangular.withConfig((configurer) => {
+  const rest = Restangular.withConfig(configurer => {
     configurer.setBaseUrl('api/<%=namePlural%>');
   });
 
