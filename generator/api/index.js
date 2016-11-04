@@ -22,8 +22,7 @@ router.delete('/:<%=nameLC%>Id', auth.isAdmin, destroy);
 
 function getByQuery(req, res, next) {
   co(function* () {
-    const q = req.parsed;
-    const <%=namePlural%>Data = yield <%=nameUC%>.getByQuery(q.findQuery, q.orQuery, q.sortBy, q.offset, q.limit);
+    const <%=namePlural%>Data = yield <%=nameUC%>.getByQuery(req.parsed);
     res.json(<%=namePlural%>Data);
   })
   .catch(next);
