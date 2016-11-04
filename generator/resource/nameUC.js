@@ -9,10 +9,10 @@ export default (Restangular) => {
 
   return {
     getByQuery: (query) => rest.one('').get(query)
-      .then((result) => {
-        result.items = result.items.map(format);
-        return result;
-      }),
+      .then(({items, numTotal}) => ({
+        items: items.map(format),
+        numTotal
+      })),
 
     create: (data) => rest.one('').post('', data),
     update: (data) => rest.one('update').post('', data),
