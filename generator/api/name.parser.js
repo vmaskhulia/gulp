@@ -16,13 +16,19 @@ module.exports = {
 
 function parseGetByQuery(req, res, next) {
   const query = req.query;
-  req.parsed = utils.parseQuery(query);
-  if (query.searchText) {
-    req.parsed.or = [
-      {<%=defField%>: {$regex: query.searchText, $options: 'i'}}
-    ];
-  }
+  req.parsed = Object.assign(
+    utils.parseOffsetAndLimit(query),
+    {
+      or: parseSearch(query)
+    }
+  );
   next();
+}
+
+function parseSearch(query) {
+  return query.searchText ? [
+    {<%=defField%>: {$regex: query.searchText, $options: 'i'}}
+  ] : null;
 }
 
 // =============== POST ===============

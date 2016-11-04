@@ -25,7 +25,7 @@ function getAll() {
   return Model.find();
 }
 
-function getByQuery({find = {}, or = [{}], sort, offset, limit}) {
+function getByQuery({find = {}, or = [{}], sort = {_id: -1}, offset, limit}) {
   return Promise.all([
     Model.find(find).or(or).sort(sort).skip(offset).limit(limit),
     Model.find(find).or(or).count()
