@@ -55,76 +55,58 @@ describe('<%=nameLC%>.dao', () => {
       yield <%=nameUC%>.insertMany(<%=namePlural%>);
     }));
 
-    it('should get all <%=namePlural%> by findQuery', co.wrap(function* () {
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, TOTAL_COUNT);
+    it('should get all <%=namePlural%>', co.wrap(function* () {
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({});
       expect(items).to.have.length(TOTAL_COUNT);
       expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
-    it('should get part of <%=namePlural%> by findQuery', co.wrap(function* () {
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({<%=defField%>: 'value-a'}, [{}], {}, 0, TOTAL_COUNT);
+    it('should filter <%=namePlural%> by find prop', co.wrap(function* () {
+      const find = {<%=defField%>: 'value-a'};
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({find});
       expect(items).to.have.length(TOTAL_COUNT / 2);
       expect(numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
-    it('should get all <%=namePlural%> by orQuery', co.wrap(function* () {
-      const orQuery = [{
-        <%=defField%>: {$regex: 'value-a', $options: 'i'}
-      }, {
-        <%=defField%>: {$regex: 'value-b', $options: 'i'}
-      }];
-
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
-
-      expect(items).to.have.length(TOTAL_COUNT);
-      expect(numTotal).to.equal(TOTAL_COUNT);
-    }));
-
-    it('should get part of <%=namePlural%> by orQuery', co.wrap(function* () {
-      const orQuery = [{
+    it('should filter <%=namePlural%> by or prop', co.wrap(function* () {
+      const or = [{
         <%=defField%>: {$regex: 'value-a', $options: 'i'}
       }];
-
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, orQuery, {}, 0, TOTAL_COUNT);
-
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({or});
       expect(items).to.have.length(TOTAL_COUNT / 2);
       expect(numTotal).to.equal(TOTAL_COUNT / 2);
     }));
 
     it('should sort by ascending order', co.wrap(function* () {
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: 1}, 0, TOTAL_COUNT);
-
+      const sort = {<%=defField%>: 1};
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({sort});
       expect(items).to.have.length(TOTAL_COUNT);
-
       for (let i = 1; i < items.length; i++) {
         expect(items[i].<%=defField%>).to.be.at.least(items[i - 1].<%=defField%>);
       }
-
       expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should sort by descending order', co.wrap(function* () {
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {<%=defField%>: -1}, 0, TOTAL_COUNT);
-
+      const sort = {<%=defField%>: -1};
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({sort});
       expect(items).to.have.length(TOTAL_COUNT);
-
       for (let i = 1; i < items.length; i++) {
         expect(items[i - 1].<%=defField%>).to.be.at.least(items[i].<%=defField%>);
       }
-
       expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get all <%=namePlural%> after offset', co.wrap(function* () {
       const offset = 5;
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {}, offset, TOTAL_COUNT);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({offset});
       expect(items).to.have.length(TOTAL_COUNT - offset);
       expect(numTotal).to.equal(TOTAL_COUNT);
     }));
 
     it('should get limited number of <%=namePlural%>', co.wrap(function* () {
       const limit = 9;
-      const {items, numTotal} = yield <%=nameUC%>.getByQuery({}, [{}], {}, 0, limit);
+      const {items, numTotal} = yield <%=nameUC%>.getByQuery({limit});
       expect(items).to.have.length(limit);
       expect(numTotal).to.equal(TOTAL_COUNT);
     }));

@@ -25,16 +25,12 @@ function getAll() {
   return Model.find();
 }
 
-function getByQuery(findQuery, orQuery, sortBy, offset, limit) {
+function getByQuery({find = {}, or = [{}], sort, offset, limit}) {
   return Promise.all([
-    Model.find(findQuery).or(orQuery).sort(sortBy).skip(offset).limit(limit),
-    Model.find(findQuery).or(orQuery).count()
-  ]).spread((items, numTotal) => {
-    return {
-      items,
-      numTotal
-    };
-  });
+    Model.find(find).or(or).sort(sort).skip(offset).limit(limit),
+    Model.find(find).or(or).count()
+  ])
+  .spread((items, numTotal) => ({items, numTotal}));
 }
 
 function getById(id) {
