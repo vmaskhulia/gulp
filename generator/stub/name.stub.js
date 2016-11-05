@@ -20,6 +20,8 @@ function getSingle(fields) {
 
 function getMany(count, fields) {
   return _.range(count).map(i => Object.assign(
-    getSingle(), {<%=defField%>: `<%=defField%>_${i}`}, fields)
+    getSingle(), {
+      <%=defField%>: `<%=defField%>_${i}`
+    }, fields)
   );
 }
