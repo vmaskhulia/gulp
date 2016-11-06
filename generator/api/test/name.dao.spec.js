@@ -126,7 +126,6 @@ describe('<%=nameLC%>.dao', () => {
 
     it('should throw error if <%=nameLC%> was not found', () => {
       const dummyId = testHelpers.DUMMY_ID;
-
       return expect(<%=nameUC%>.getById(dummyId))
         .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id "${dummyId}") was not found`);
     });
