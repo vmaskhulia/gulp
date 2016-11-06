@@ -39,8 +39,12 @@ function parseCreate(req, res, next) {
 }
 
 function parseUpdate(req, res, next) {
-  req.parsed = parseBaseProps(req.body);
-  req.parsed._id = req.body._id;
+  req.parsed = Object.assign(
+    parseBaseProps(req.body),
+    {
+      _id: req.body._id;
+    }
+  );
   next();
 }
 
