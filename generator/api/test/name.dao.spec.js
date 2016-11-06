@@ -3,11 +3,11 @@
 const _ = require('lodash');
 const co = require('co');
 const chai = require('chai');
-const expect = chai.expect;
 chai.use(require('chai-as-promised'));
 chai.use(require('chai-datetime'));
+const {expect} = chai;
 const testHelpers = require('../../../helpers/testHelpers');
-const ResourceNotFoundError = require('../../../errors').ResourceNotFoundError;
+const {ResourceNotFoundError} = require('../../../errors');
 const <%=nameUC%> = require('../<%=nameLC%>.dao');
 const <%=nameUC%>Stub = require('../../../stubs/<%=nameLC%>.stub');
 
