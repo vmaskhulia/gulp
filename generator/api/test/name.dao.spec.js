@@ -25,7 +25,7 @@ describe('<%=nameLC%>.dao', () => {
 
   after(testHelpers.clearDB);
 
-  // =============== getters ===============
+  // =============== Getters ===============
 
   describe('#getAll()', () => {
     it('should get all <%=namePlural%>', co.wrap(function* () {
@@ -131,7 +131,7 @@ describe('<%=nameLC%>.dao', () => {
     });
   });
 
-  // =============== setters ===============
+  // =============== Setters ===============
 
   describe('#create()', () => {
     let baseProps;

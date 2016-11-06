@@ -19,7 +19,7 @@ module.exports = {
 };
 
 
-// =============== getters ===============
+// =============== Getters ===============
 
 function getAll() {
   return Model.find();
@@ -38,7 +38,7 @@ function getById(id) {
     .then(DBResultHandler.assertFound(`<%=nameUC%> (id "${id}") was not found`));
 }
 
-// =============== setters ===============
+// =============== Setters ===============
 
 function create(data) {
   return Model.create(data);
