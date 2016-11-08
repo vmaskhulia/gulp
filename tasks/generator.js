@@ -24,10 +24,6 @@ gulp.task('resource', (done) => {
   runSequence('generateResource', 'inject', done);
 });
 
-gulp.task('validator', (done) => {
-  runSequence('generateValidator', 'inject', done);
-});
-
 gulp.task('main-component', (done) => {
   runSequence('generateMainComponent', 'inject', done);
 });
@@ -66,13 +62,6 @@ gulp.task('generateResource', () => {
   const name = getNameFromArgv();
   const src = paths.generatorTemplates.resource;
   const dest = path.join(paths.app.common, 'resources');
-  return insertTemplates(name, src, dest);
-});
-
-gulp.task('generateValidator', () => {
-  const name = getNameFromArgv();
-  const src = paths.generatorTemplates.validator;
-  const dest = path.join(paths.app.common, 'validators');
   return insertTemplates(name, src, dest);
 });
 

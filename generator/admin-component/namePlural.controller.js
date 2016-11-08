@@ -3,7 +3,7 @@
 import AdminBaseController from '../AdminBaseController';
 
 class <%=namePlural%>Controller extends AdminBaseController {
-  constructor($state, Request, <%=nameUC%>, <%=nameLC%>Modal, confirmDestroyModal, query, <%=namePlural%>Data) {
+  constructor($state, Request, <%=nameUC%>, <%=nameLC%>Modal, confirmDestroyModal, query, data) {
     'ngInject';
     super();
 
@@ -13,8 +13,7 @@ class <%=namePlural%>Controller extends AdminBaseController {
     this.modal = <%=nameLC%>Modal;
     this.confirmDestroyModal = confirmDestroyModal;
 
-    this.query = query;
-    this.<%=namePlural%>Data = <%=namePlural%>Data;
+    Object.assign(this, {query}, data);
   }
 
 }

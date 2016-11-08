@@ -5,68 +5,53 @@
     <span flex></span>
     <div class="search md-whiteframe-4dp" flex="70">
       <md-icon md-font-icon="material-icons icon">search</md-icon>
-      <input
-        ng-model="vm.query.searchText"
-        ng-change="vm.searchByText()"
-        ng-model-options="{debounce: 500}"
-        lc-autofocus
-        type="text"
-        class="search-input"
-        placeholder="ძიება"
-        aria-label="Search">
+      <input type="text" class="search-input" aria-label="label" placeholder="ძიება"
+             ng-model="vm.query.searchText"
+             ng-change="vm.reloadPage(1)"
+             ng-model-options="{debounce: 500}"
+             lc-autofocus>
     </div>
     <span flex="5"></span>
   </div>
   <div class="md-toolbar-tools page-tools" layout="row" layout-align="end">
     <div class="tools md-whiteframe-4dp" layout="row" flex="70">
       <div class="tool" layout="row" layout-align="left center" flex="50">
-        <md-checkbox
-          ng-model="vm.query.all"
-          ng-change="vm.toggleShowAllPages()"
-          class="show-all md-primary"
-          aria-label="Show All">
+        <md-checkbox class="show-all md-primary" aria-label="label"
+                     ng-model="vm.query.all"
+                     ng-change="vm.reloadPage(1)">
           ყველა
         </md-checkbox>
       </div>
 
-      <lc-pagination
-        query="::vm.query"
-        num-total="::vm.<%=namePlural%>Data.numTotal"
-        reload-page="vm.reloadPage()"
-        class="pagination-wrapp"
-        layout-align="right center"
-        flex="50">
-      </lc-pagination>
+      <lc-pagination class="pagination-wrapp" flex="50" layout-align="right center"
+                     query="::vm.query"
+                     num-total="::vm.numTotal"
+                     reload-page="vm.reloadPage()"></lc-pagination>
     </div>
     <span flex="5"></span>
   </div>
 </div>
 
 <md-content class="page-content" layout-padding>
-  <md-button
-    ng-click="vm.create($event)"
-    class="md-fab md-primary md-fab-bottom-right add-new-btn">
+  <md-button class="md-fab md-primary md-fab-bottom-right add-new-btn"
+             ng-click="vm.create($event)">
     <i class="material-icons">add</i>
     <md-tooltip md-direction="top">დამატება</md-tooltip>
   </md-button>
 
   <md-card>
     <md-list>
-      <md-list-item ng-repeat="<%=nameLC%> in ::vm.<%=namePlural%>Data.items">
+      <md-list-item ng-repeat="<%=nameLC%> in ::vm.items">
         <p>{{::<%=nameLC%>.<%=defField%>}}</p>
 
-        <md-button
-          ng-click="vm.update($event, <%=nameLC%>)"
-          class="md-icon-button md-primary"
-          aria-label="Edit">
+        <md-button class="md-icon-button md-primary" aria-label="label"
+                   ng-click="vm.update($event, <%=nameLC%>)">
           <md-icon md-font-icon="material-icons">edit</md-icon>
           <md-tooltip md-direction="top">ცვლილება</md-tooltip>
         </md-button>
 
-        <md-button
-          ng-click="vm.destroy($event, <%=nameLC%>)"
-          class="md-icon-button md-primary"
-          aria-label="Delete">
+        <md-button class="md-icon-button md-primary" aria-label="label"
+                   ng-click="vm.destroy($event, <%=nameLC%>)">
           <md-icon md-font-icon="material-icons">delete</md-icon>
           <md-tooltip md-direction="top">წაშლა</md-tooltip>
         </md-button>

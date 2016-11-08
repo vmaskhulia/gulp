@@ -16,7 +16,7 @@ export default angular.module('admin.<%=namePlural%>', [])
           query: ($stateParams, QueryParser) =>
             QueryParser.parse($stateParams),
 
-          <%=namePlural%>Data: (<%=nameUC%>, query) =>
+          data: (<%=nameUC%>, query) =>
             <%=nameUC%>.getByQuery(query)
         }
       });
