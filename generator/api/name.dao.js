@@ -35,7 +35,7 @@ function getByQuery({find = {}, or = [{}], sort = {_id: -1}, offset, limit}) {
 
 function getById(id) {
   return Model.findOne({_id: id})
-    .then(DBResultHandler.assertFound(`<%=nameUC%> (id "${id}") was not found`));
+    .then(DBResultHandler.assertFound(`<%=nameUC%> (id ${id}) was not found`));
 }
 
 // =============== Setters ===============
@@ -50,12 +50,12 @@ function insertMany(data) {
 
 function update(id, data) {
   return Model.findOneAndUpdate({_id: id}, {$set: data})
-    .then(DBResultHandler.assertFound(`Could not update <%=nameLC%> (id "${id}")`));
+    .then(DBResultHandler.assertFound(`Could not update <%=nameLC%> (id ${id})`));
 }
 
 function destroy(id) {
   return Model.findOneAndRemove({_id: id})
-    .then(DBResultHandler.assertFound(`Could not destroy <%=nameLC%> (id "${id}")`));
+    .then(DBResultHandler.assertFound(`Could not destroy <%=nameLC%> (id ${id})`));
 }
 
 function destroyAll() {
