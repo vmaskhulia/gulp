@@ -127,7 +127,7 @@ describe('<%=nameLC%>.dao', () => {
     it('should throw error if <%=nameLC%> was not found', () => {
       const dummyId = testHelpers.DUMMY_ID;
       return expect(<%=nameUC%>.getById(dummyId))
-        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id "${dummyId}") was not found`);
+        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id ${dummyId}) was not found`);
     });
   });
 
@@ -170,7 +170,7 @@ describe('<%=nameLC%>.dao', () => {
       const dummyId = testHelpers.DUMMY_ID;
       const updatedProps = <%=nameLC%>Stub;
       return expect(<%=nameUC%>.update(dummyId, updatedProps))
-        .to.be.rejectedWith(ResourceNotFoundError, `Could not update <%=nameLC%> (id "${dummyId}")`);
+        .to.be.rejectedWith(ResourceNotFoundError, `Could not update <%=nameLC%> (id ${dummyId})`);
     });
   });
 
@@ -179,13 +179,13 @@ describe('<%=nameLC%>.dao', () => {
       const {_id} = yield <%=nameUC%>.create(<%=nameLC%>Stub);
       yield <%=nameUC%>.destroy(_id);
       return expect(<%=nameUC%>.getById(_id))
-        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id "${_id}") was not found`);
+        .to.be.rejectedWith(ResourceNotFoundError, `<%=nameUC%> (id ${_id}) was not found`);
     }));
 
     it('should throw error if passed <%=nameLC%> does not exist', () => {
       const dummyId = testHelpers.DUMMY_ID;
       return expect(<%=nameUC%>.destroy(dummyId))
-        .to.be.rejectedWith(ResourceNotFoundError, `Could not destroy <%=nameLC%> (id "${dummyId}")`);
+        .to.be.rejectedWith(ResourceNotFoundError, `Could not destroy <%=nameLC%> (id ${dummyId})`);
     });
   });
 });
