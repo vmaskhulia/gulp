@@ -3,6 +3,7 @@
 import template from './<%=namePlural%>.html!text';
 import controller from './<%=namePlural%>.controller';
 import './<%=namePlural%>.css!';
+import {parseSearchPageAndLimit} from '../../../common/utils/query-parser';
 
 export default angular.module('admin.<%=namePlural%>', [])
   .config($stateProvider => {
@@ -13,8 +14,8 @@ export default angular.module('admin.<%=namePlural%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          query: ($stateParams, QueryParser) => Object.assign(
-            QueryParser.parseSearchPageAndLimit($stateParams)
+          query: ($stateParams) => Object.assign(
+            parseSearchPageAndLimit($stateParams)
           ),
 
           data: (<%=nameUC%>, query) => <%=nameUC%>.getByQuery(query)
