@@ -13,11 +13,11 @@ export default angular.module('admin.<%=namePlural%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          query: ($stateParams, QueryParser) =>
-            QueryParser.parse($stateParams),
+          query: ($stateParams, QueryParser) => Object.assign(
+            QueryParser.parseSearchPageAndLimit($stateParams)
+          ),
 
-          data: (<%=nameUC%>, query) =>
-            <%=nameUC%>.getByQuery(query)
+          data: (<%=nameUC%>, query) => <%=nameUC%>.getByQuery(query)
         }
       });
   });
