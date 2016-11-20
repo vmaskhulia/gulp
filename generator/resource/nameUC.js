@@ -21,6 +21,8 @@ export default (Restangular) => {
   };
 
   function format(item) {
-    return {...item};
+    return {
+      ...item,
+    };
   }
 };
