@@ -21,6 +21,6 @@ export default (Restangular) => {
   };
 
   function format(item) {
-    return Object.assign(item, {});
+    return {...item};
   }
 };

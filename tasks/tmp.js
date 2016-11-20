@@ -32,7 +32,10 @@ gulp.task('compileScripts', () => {
     .pipe($.changed(paths.tmp.base, {extension: '.js'}))
     .pipe($.babel({
       presets: ['es2015'],
-      plugins: ['babel-plugin-transform-runtime']
+      plugins: [
+        'babel-plugin-transform-runtime',
+        'transform-object-rest-spread'
+      ]
     }))
     .pipe($.ngAnnotate())
     .pipe(gulp.dest(`${paths.tmp.base}/app`));

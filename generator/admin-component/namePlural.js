@@ -14,9 +14,9 @@ export default angular.module('admin.<%=namePlural%>', [])
         controller,
         controllerAs: 'vm',
         resolve: {
-          query: ($stateParams) => Object.assign(
-            parseSearchPageAndLimit($stateParams)
-          ),
+          query: ($stateParams) => ({
+            ...parseSearchPageAndLimit($stateParams)
+          }),
 
           data: (<%=nameUC%>, query) => <%=nameUC%>.getByQuery(query)
         }
