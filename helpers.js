@@ -28,7 +28,7 @@ export function plural(str) {
     return 'info';
   } else if (str.endsWith('y') && vowels.indexOf(secondLastChar) === -1) {
     return str.substr(0, str.length - 1) + 'ies';
-  } else if (str.endsWith('ch')) {
+  } else if (str.endsWith('ch') || str.endsWith('s')) {
     return str + 'es';
   } else {
     return str + 's';
