@@ -23,9 +23,9 @@ export function firstLC(str) {
 }
 
 export function plural(str) {
-  const pluralStr = _.find(singularPlural, ({singular}) => singular === str);
-  if (pluralStr) {
-    return pluralStr;
+  const sp = _.find(singularPlural, ({singular}) => singular === str);
+  if (sp) {
+    return sp.plural;
   } else if (str.endsWith('y')) {
     return str.substr(0, str.length - 1) + 'ies';
   } else {
@@ -34,9 +34,9 @@ export function plural(str) {
 }
 
 export function singular(str) {
-  const singularStr = _.find(singularPlural, ({plural}) => plural === str);
-  if (singularStr) {
-    return singularStr;
+  const sp = _.find(singularPlural, ({plural}) => plural === str);
+  if (sp) {
+    return sp.singular;
   } else if (str.endsWith('ies')) {
     return str.substr(0, str.length - 3) + 'y';
   } else {
