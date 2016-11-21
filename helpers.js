@@ -1,12 +1,12 @@
 'use strict';
 
 import gulp from 'gulp';
+import _ from 'lodash';
+import singularPlural from '../singular-plural.json';
 const $ = require('gulp-load-plugins')();
 const argv = $.util.env;
 const log = $.util.log;
 const colors = $.util.colors;
-
-const vowels = ['a', 'e', 'i', 'o', 'u'];
 
 
 export function copy(src, dest) {
@@ -23,25 +23,22 @@ export function firstLC(str) {
 }
 
 export function plural(str) {
-  const secondLastChar = str[str.length - 2];
-  if (str === 'info') {
-    return 'info';
-  } else if (str.endsWith('y') && vowels.indexOf(secondLastChar) === -1) {
+  const pluralStr = _.find(singularPlural, ({singular}) => singular === str);
+  if (pluralStr) {
+    return pluralStr;
+  } else if (str.endsWith('y')) {
     return str.substr(0, str.length - 1) + 'ies';
-  } else if (str.endsWith('address')) {
-    return str + 'es';
   } else {
     return str + 's';
   }
 }
 
 export function singular(str) {
-  if (str === 'info') {
-    return 'info';
+  const singularStr = _.find(singularPlural, ({plural}) => plural === str);
+  if (singularStr) {
+    return singularStr;
   } else if (str.endsWith('ies')) {
     return str.substr(0, str.length - 3) + 'y';
-  } else if (str.endsWith('addresses')) {
-    return str.substr(0, str.length - 2);
   } else {
     return str.substr(0, str.length - 1);
   }
