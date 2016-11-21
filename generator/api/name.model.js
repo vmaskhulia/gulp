@@ -6,7 +6,8 @@ const {Schema} = mongoose;
 
 const <%=nameUC%>Schema = new Schema({
   // Base Props
-  <%=defField%>: String
+  <%=defField%>: String,
 });
+
 
 module.exports = mongoose.model('<%=nameUC%>', <%=nameUC%>Schema);

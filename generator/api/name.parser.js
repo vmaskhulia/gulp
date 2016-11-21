@@ -8,7 +8,7 @@ module.exports = {
   parseGetByQuery,
 
   parseCreate,
-  parseUpdate
+  parseUpdate,
 };
 
 
