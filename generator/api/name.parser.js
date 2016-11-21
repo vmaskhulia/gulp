@@ -44,7 +44,7 @@ function parseUpdate(req, res, next) {
   req.parsed = Object.assign(
     parseBaseProps(req.body),
     {
-      _id: req.body._id
+      _id: req.body._id,
     }
   );
   next();
