@@ -28,7 +28,7 @@ function parseGetByQuery(req, res, next) {
 function parseSearch(query) {
   return query.searchText ? {
     or: [
-      {<%=defField%>: {$regex: query.searchText, $options: 'i'}}
+      {<%=defField%>: {$regex: query.searchText, $options: 'i'}},
     ]
   } : {};
 }
