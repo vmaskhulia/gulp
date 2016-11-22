@@ -18,7 +18,7 @@ export default angular.module('admin.<%=namePlural%>', [])
             ...parseSearchPageAndLimit($stateParams),
           }),
 
-          data: (<%=nameUC%>, query) => <%=nameUC%>.getByQuery(query)
+          data: (<%=nameUC%>, query) => <%=nameUC%>.getByQuery(query),
         }
       });
   });

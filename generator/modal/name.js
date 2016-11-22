@@ -24,9 +24,7 @@ export default class {
           }
         };
 
-        this.close = () => {
-          $mdDialog.cancel();
-        };
+        this.close = $mdDialog.cancel;
       },
       controllerAs: 'vm',
       template,

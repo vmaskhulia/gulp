@@ -17,7 +17,7 @@ export default (Restangular) => {
     create: (data) => rest.one('').post('', data),
     update: (data) => rest.one('update').post('', data),
 
-    destroy: (id) => rest.one(id).remove()
+    destroy: (id) => rest.one(id).remove(),
   };
 
   function format(item) {

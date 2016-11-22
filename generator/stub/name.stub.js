@@ -10,7 +10,7 @@ const <%=nameUC%>Stub = {
 
 module.exports = {
   getSingle,
-  getMany
+  getMany,
 };
 
 
