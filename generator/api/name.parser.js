@@ -51,5 +51,7 @@ function parseUpdate(req, res, next) {
 }
 
 function parseBaseProps(body) {
-  return _.pick(body, ['<%=defField%>']);
+  return _.pick(body, [
+    '<%=defField%>',
+  ]);
 }
