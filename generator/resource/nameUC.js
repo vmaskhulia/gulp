@@ -22,7 +22,7 @@ export default (Restangular) => {
 
   function format(item) {
     return {
-      ...item,
+      ...item.plain ? item.plain() : item,
     };
   }
 };
