@@ -153,15 +153,15 @@ describe('<%=nameLC%>.dao', () => {
 
   describe('#update()', () => {
     it('should update <%=nameLC%>', co.wrap(function* () {
-      const <%=nameLC%> = yield <%=nameUC%>.create(<%=nameLC%>Stub);
+      const {_id} = yield <%=nameUC%>.create(<%=nameLC%>Stub);
 
       const updatedProps = {
         <%=defField%>: 'new-my-prop',
       };
 
-      yield <%=nameUC%>.update(<%=nameLC%>._id, updatedProps);
+      yield <%=nameUC%>.update(_id, updatedProps);
 
-      const updated<%=nameUC%> = yield <%=nameUC%>.getById(<%=nameLC%>._id);
+      const updated<%=nameUC%> = yield <%=nameUC%>.getById(_id);
 
       expectBasePropsToMatch(updated<%=nameUC%>, updatedProps);
     }));
