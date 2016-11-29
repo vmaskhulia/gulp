@@ -111,9 +111,9 @@ function insertTemplates(name, src, dest, defFieldIncluded) {
 }
 
 function getFileName(name, basename) {
-  if (basename.indexOf('namePlural') !== -1) {
+  if (basename.includes('namePlural')) {
     return basename.replace('namePlural', plural(name));
-  } else if (basename.indexOf('nameUC') !== -1) {
+  } else if (basename.includes('nameUC')) {
     return basename.replace('nameUC', firstUC(name));
   } else {
     return basename.replace('name', name);
