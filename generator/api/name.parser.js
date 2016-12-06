@@ -35,10 +35,10 @@ function parseId({_id}) {
   return _id ? {_id} : {};
 }
 
-function parseSearch(query) {
-  return query.searchText ? {
+function parseSearch({searchText}) {
+  return searchText ? {
     or: [
-      {<%=defField%>: {$regex: query.searchText, $options: 'i'}},
+      {<%=defField%>: {$regex: searchText, $options: 'i'}},
     ]
   } : {};
 }
