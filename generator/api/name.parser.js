@@ -19,10 +19,20 @@ function parseGetByQuery(req, res, next) {
   req.parsed = Object.assign(
     utils.parseOffsetAndLimit(query),
     {
+      find: Object.assign(
+        parseId(query),
+        {
+
+        }
+      )
     },
     parseSearch(query)
   );
   next();
+}
+
+function parseId({_id}) {
+  return _id ? {_id} : {};
 }
 
 function parseSearch(query) {
